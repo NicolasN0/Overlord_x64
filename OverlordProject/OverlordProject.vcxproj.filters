@@ -10,6 +10,10 @@
     <ClCompile Include="Prefabs\TorusPrefab.cpp" />
     <ClCompile Include="Prefabs\CubePrefab.cpp" />
     <ClCompile Include="Scenes\Week 3\W3_PongScene.cpp" />
+    <ClCompile Include="Scenes\Week 4\ModelTestScene.cpp" />
+    <ClCompile Include="Materials\DiffuseMaterial.cpp" />
+    <ClCompile Include="Materials\SpikyMaterial.cpp" />
+    <ClCompile Include="Scenes\Week 4\SpikyScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -20,5 +24,9 @@
     <ClInclude Include="Prefabs\TorusPrefab.h" />
     <ClInclude Include="Prefabs\CubePrefab.h" />
     <ClInclude Include="Scenes\Week 3\W3_PongScene.h" />
+    <ClInclude Include="Scenes\Week 4\ModelTestScene.h" />
+    <ClInclude Include="Materials\DiffuseMaterial.h" />
+    <ClInclude Include="Materials\SpikyMaterial.h" />
+    <ClInclude Include="Scenes\Week 4\SpikyScene.h" />
   </ItemGroup>
 </Project>
