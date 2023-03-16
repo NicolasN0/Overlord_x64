@@ -86,7 +86,7 @@ void CreateVertex(inout TriangleStream<GS_DATA> triStream, float3 pos, float3 no
     triStream.Append(temp);
 }
 
-[maxvertexcount(6)]
+[maxvertexcount(9)]
 void SpikeGenerator(triangle VS_DATA vertices[3], inout TriangleStream<GS_DATA> triStream)
 {
 	//Use these variable names
@@ -117,7 +117,7 @@ void SpikeGenerator(triangle VS_DATA vertices[3], inout TriangleStream<GS_DATA> 
 
  
 
-        e0 = (vertices[0].Position - centerPoint);
+    /*    e0 = (vertices[0].Position - centerPoint);
         e1 = (vertices[1].Position - centerPoint);
         n = normalize(cross(e0, e1));
         float3 faceNormal1 = mul(float4(n, 0.0f), m_MatrixWorld);
@@ -125,39 +125,46 @@ void SpikeGenerator(triangle VS_DATA vertices[3], inout TriangleStream<GS_DATA> 
 
         CreateVertex(triStream, vertices[0].Position, vertices[0].Normal, float2(0, 0));
         CreateVertex(triStream, centerPoint, faceNormal1, float2(0, 0));
-        CreateVertex(triStream, vertices[1].Position, vertices[1].Normal, float2(0, 0));
+        CreateVertex(triStream, vertices[1].Position, vertices[1].Normal, float2(0, 0));*/
+        e0 = (vertices[1].Position - centerPoint);
+        e1 = (vertices[0].Position - centerPoint);
+        n = normalize(cross(e0, e1));
+        float3 faceNormal1 = mul(float4(n, 0.0f), m_MatrixWorld);
 
-         triStream.RestartStrip();
+
+        CreateVertex(triStream, vertices[1].Position, faceNormal1, float2(0, 0));
+        CreateVertex(triStream, centerPoint, faceNormal1, float2(0, 0));
+        CreateVertex(triStream, vertices[0].Position, faceNormal1, float2(0, 0));
+
+        triStream.RestartStrip();
         //FACE 2
         //...
 
         //...
 
-         e0 = (vertices[1].Position - centerPoint);
-         e1 = (vertices[2].Position - centerPoint);
+         e0 = (vertices[2].Position - centerPoint);
+         e1 = (vertices[1].Position - centerPoint);
          n = normalize(cross(e0, e1));
          float3 faceNormal2 = mul(float4(n, 0.0f), m_MatrixWorld);
 
-     
-         CreateVertex(triStream, vertices[1].Position, vertices[1].Normal, float2(0, 0));
+         CreateVertex(triStream, vertices[2].Position, faceNormal2, float2(0, 0));
          CreateVertex(triStream, centerPoint, faceNormal2, float2(0, 0));
-         CreateVertex(triStream, vertices[2].Position, vertices[2].Normal, float2(0, 0));
-
+         CreateVertex(triStream, vertices[1].Position, faceNormal2, float2(0, 0));
 
          triStream.RestartStrip();
 
         //Face 3
         //...
 
-         e0 = (vertices[2].Position - centerPoint);
-         e1 = (vertices[0].Position - centerPoint);
+         e0 = (vertices[0].Position - centerPoint);
+         e1 = (vertices[2].Position - centerPoint);
          n = normalize(cross(e0, e1));
          float3 faceNormal3 = mul(float4(n, 0.0f), m_MatrixWorld);
 
-       
-         CreateVertex(triStream, vertices[2].Position, vertices[2].Normal, float2(0, 0));
+      
+         CreateVertex(triStream, vertices[0].Position, faceNormal3, float2(0, 0));
          CreateVertex(triStream, centerPoint, faceNormal3, float2(0, 0));
-         CreateVertex(triStream, vertices[0].Position, vertices[0].Normal, float2(0, 0));
+         CreateVertex(triStream, vertices[2].Position, faceNormal3, float2(0, 0));
 
          triStream.RestartStrip();
 
