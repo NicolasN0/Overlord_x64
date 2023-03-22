@@ -3,8 +3,8 @@
 
 /*LAB Content*/
 //#define W3
- #define W4
-// #define W5
+ //#define W4
+#define W5
 // #define W6
 // #define W7
 // #define W8
@@ -25,13 +25,13 @@
 #ifdef W4
 //#include "Scenes/Week 4/ModelTestScene.h"
 //#include "Scenes/Week 4/UberMaterialScene.h"
-#include "Scenes/Week 4/SpikyScene.h"
+//#include "Scenes/Week 4/SpikyScene.h"
 //#include "Scenes/Week 4/SpriteTestScene.h"
 #endif
 
 #ifdef W5
-#include "Scenes/Week 5/SoftwareSkinningScene_1.h"
-#include "Scenes/Week 5/SoftwareSkinningScene_2.h"
+//#include "Scenes/Week 5/SoftwareSkinningScene_1.h"
+//#include "Scenes/Week 5/SoftwareSkinningScene_2.h"
 #include "Scenes/Week 5/SoftwareSkinningScene_3.h"
 #endif
 
@@ -39,7 +39,7 @@
 #include "Scenes/Week 6/HardwareSkinningScene.h"
 #endif
 
-#ifdef W5
+#ifdef W7
 #include "Scenes/Week 7/FontTestScene.h"
 #include "Scenes/Week 7/CharacterScene.h"
 #include "Scenes/Week 7/PickingScene.h"
@@ -102,13 +102,13 @@ void MainGame::Initialize()
 #ifdef W4
 	//SceneManager::Get()->AddGameScene(new ModelTestScene());
 	//SceneManager::Get()->AddGameScene(new UberMaterialScene());
-	SceneManager::Get()->AddGameScene(new SpikyScene());
-	//SceneManager::Get()->AddGameScene(new SpriteTestScene());
+	//SceneManager::Get()->AddGameScene(new SpikyScene());
+	SceneManager::Get()->AddGameScene(new SpriteTestScene());
 #endif
 
 #ifdef W5
-	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
-	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
+	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_1());
+	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_2());
 	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_3());
 #endif
 
