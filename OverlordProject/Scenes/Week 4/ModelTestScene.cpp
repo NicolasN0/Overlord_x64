@@ -14,7 +14,7 @@ void ModelTestScene::Initialize()
 
 
 
-	
+	auto pMaterial = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 	//chair
 	m_pObject = new GameObject();
 	AddChild(m_pObject);
@@ -31,7 +31,11 @@ void ModelTestScene::Initialize()
 
 
 	m_pObject->AddComponent(new RigidBodyComponent(false));
-	//m_pObject->GetComponent<RigidBodyComponent>()->AddCollider(PxGeometry(L"Meshes/Chair.ovm"));
+	auto convexMesh = ContentManager::Load<PxConvexMesh>(L"Meshes/Chair.ovpc");
+	m_pObject->GetComponent<RigidBodyComponent>()->AddCollider(PxConvexMeshGeometry{ convexMesh },*pMaterial);
+	
+	m_pObject->GetTransform()->Translate(0.f, 10.f, 0.f);
+	
 	
 	//ground
 	GameSceneExt::CreatePhysXGroundPlane(*this);

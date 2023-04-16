@@ -16,6 +16,7 @@ protected:
 	void Update() override;
 	void Draw() override;
 	void OnGUI() override;
+	void ResetLevel();
 
 private:
 	enum InputIds
@@ -26,7 +27,8 @@ private:
 		MoveDownR,
 		Reset
 	};
-	float m_Speed{ 20 };
+	float m_Speed{10 };
+	float m_SpeedBall{ 2 };
 
 	GameObject* m_pCubeLeft{};
 	RigidBodyComponent* m_pRigidBodyLeft{};
@@ -40,5 +42,15 @@ private:
 	FixedCamera* m_pFixedCamera{};
 	
 	bool m_isGoingLeft{};
+
+	bool m_isLeftGoingUp{};
+	bool m_isLeftGoingDown{};
+
+	bool m_isRightGoingUp{};
+	bool m_isRightGoingDown{};
+
+	
+
+	XMFLOAT3 m_ballVelocity{};
 };
 

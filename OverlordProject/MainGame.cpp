@@ -4,22 +4,22 @@
 /*LAB Content*/
 //#define W3
  //#define W4
-#define W5
-// #define W6
+//#define W5
+//#define W6
 // #define W7
 // #define W8
 // #define W9
 // #define W10
 
 /*MILESTONE Content*/
-// #define MILESTONE_1
+ #define MILESTONE_1
 // #define MILESTONE_2
 
 #pragma region Lab/Milestone Includes
 #ifdef W3
 //#include "Scenes/Week 3/MinionScene.h"
 //#include "Scenes/Week 3/ComponentTestScene.h"
-//#include "Scenes/Week 3/W3_PongScene.h"
+#include "Scenes/Week 3/W3_PongScene.h"
 #endif
 
 #ifdef W4
@@ -32,7 +32,7 @@
 #ifdef W5
 //#include "Scenes/Week 5/SoftwareSkinningScene_1.h"
 //#include "Scenes/Week 5/SoftwareSkinningScene_2.h"
-#include "Scenes/Week 5/SoftwareSkinningScene_3.h"
+//#include "Scenes/Week 5/SoftwareSkinningScene_3.h"
 #endif
 
 #ifdef W6
@@ -58,7 +58,7 @@
 #endif
 
 #ifdef MILESTONE_1
-#include "Scenes/Week 3/PongScene.h"
+#include "Scenes/Week 3/W3_PongScene.h"
 #include "Scenes/Week 4/ModelTestScene.h"
 #include "Scenes/Week 4/UberMaterialScene.h"
 #include "Scenes/Week 4/SpikyScene.h"
@@ -79,13 +79,13 @@
 #pragma endregion
 
 //Game is preparing
-void MainGame::OnGamePreparing(GameContext& /*gameContext*/)
+void MainGame::OnGamePreparing(GameContext& gameContext)
 {
 	//Here you can change some game settings before engine initialize
 	//gameContext.windowWidth=... (default is 1280)
 	//gameContext.windowHeight=... (default is 720)
 
-	//gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE13) Doe John";
+	gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE07) Neve Nicolas";
 	//gameContext.windowTitle = L"GP2 - Milestone 2 (2023) | (2DAE13) Doe John";
 	//gameContext.windowTitle = L"GP2 - Exam Project (2023) | (2DAE13) Doe John";
 }
@@ -135,7 +135,7 @@ void MainGame::Initialize()
 #endif
 
 #ifdef MILESTONE_1
-	SceneManager::Get()->AddGameScene(new PongScene());
+	SceneManager::Get()->AddGameScene(new W3_PongScene());
 	SceneManager::Get()->AddGameScene(new ModelTestScene());
 	SceneManager::Get()->AddGameScene(new UberMaterialScene());
 	SceneManager::Get()->AddGameScene(new SpikyScene());

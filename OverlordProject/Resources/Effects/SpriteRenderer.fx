@@ -58,15 +58,26 @@ void CreateVertex(inout TriangleStream<GS_DATA> triStream, float3 pos, float4 co
     {
 		//Step 3.
 		//Do rotation calculations
-		//Transform to origin
-		//Rotate
-		//Retransform to initial position
+		//Transform to origin      
+		//Rotate       
+		//Retransform to initial position    
+        
+        pos.x = pos.x - pivotOffset.x - offset.x;
+        pos.y = pos.y - pivotOffset.y - offset.y;
+        float x = pos.x;
+        float y = pos.y;
+        pos.x = x * rotCosSin.x - y * rotCosSin.y;
+        pos.y = y * rotCosSin.x + x * rotCosSin.y;
+        pos.x = pos.x + offset.x;
+        pos.y = pos.y + offset.y;
     }
     else
     {
 		//Step 2.
 		//No rotation calculations (no need to do the rotation calculations if there is no rotation applied > redundant operations)
 		//Just apply the pivot offset
+        pos.x = pos.x - pivotOffset.x;
+        pos.y = pos.y - pivotOffset.y;
     }
 
 	//Geometry Vertex Output
@@ -81,15 +92,35 @@ void CreateVertex(inout TriangleStream<GS_DATA> triStream, float3 pos, float4 co
 void MainGS(point VS_DATA vertex[1], inout TriangleStream<GS_DATA> triStream)
 {
 	//Given Data (Vertex Data)
-    float3 position = float3(0, 0, 0); //Extract the position data from the VS_DATA vertex struct
-    float2 offset = float2(0, 0); //Extract the offset data from the VS_DATA vertex struct (initial X and Y position)
-    float rotation = 0; //Extract the rotation data from the VS_DATA vertex struct
-    float2 pivot = float2(0, 0); //Extract the pivot data from the VS_DATA vertex struct
-    float2 scale = float2(0, 0); //Extract the scale data from the VS_DATA vertex struct
+    //float3 position = float3(0, 0, 0); //Extract the position data from the VS_DATA vertex struct
+    //float2 offset = float2(0, 0); //Extract the offset data from the VS_DATA vertex struct (initial X and Y position)
+    //float rotation = 0; //Extract the rotation data from the VS_DATA vertex struct
+    //float2 pivot = float2(0, 0); //Extract the pivot data from the VS_DATA vertex struct
+    //float2 scale = float2(0, 0); //Extract the scale data from the VS_DATA vertex struct
+    //float2 texCoord = float2(0, 0); //Initial Texture Coordinate
+
+    float3 position = float3(vertex[0].TransformData.x, vertex[0].TransformData.y, vertex[0].TransformData.z); //Extract the position data from the VS_DATA vertex struct
+    float2 offset = float2(vertex[0].TransformData.x, vertex[0].TransformData.y); //Extract the offset data from the VS_DATA vertex struct (initial X and Y position)
+    float rotation = vertex[0].TransformData.w; //Extract the rotation data from the VS_DATA vertex struct
+    float2 pivot = float2(vertex[0].TransformData2.x, vertex[0].TransformData2.y); //Extract the pivot data from the VS_DATA vertex struct
+    float2 scale = float2(vertex[0].TransformData2.z, vertex[0].TransformData2.w); //Extract the scale data from the VS_DATA vertex struct
     float2 texCoord = float2(0, 0); //Initial Texture Coordinate
 	
 	//...
+    pivot.xy *= gTextureSize.xy * scale.xy;
+    
+    float2 rotCosSin;
+    if (rotation == 0)
+    {
+        rotCosSin = float2(0, 0);
 
+    }
+    else
+    {
+        rotCosSin = float2(cos(rotation), sin(rotation));
+    }
+    
+   
 	// LT----------RT //TringleStrip (LT > RT > LB, LB > RB > RT)
 	// |          / |
 	// |       /    |
@@ -98,16 +129,26 @@ void MainGS(point VS_DATA vertex[1], inout TriangleStream<GS_DATA> triStream)
 	// LB----------RB
 
 	//VERTEX 1 [LT]
-    CreateVertex(triStream, position, float4(1, 1, 1, 1), texCoord, rotation, float2(0, 0), offset, float2(0, 0)); //Change the color data too!
+    float3 posLT = float3(float2(position.x, position.y) + float2(0, 0) * scale, position.z);
+   
+    float2 texCoordLT = float2(0, 0);
+    CreateVertex(triStream, posLT, float4(1, 1, 1, 1), texCoordLT, rotation, rotCosSin, offset, pivot); //Change the color data too!
 
 	//VERTEX 2 [RT]
-    CreateVertex(triStream, position, float4(1, 1, 1, 1), texCoord, rotation, float2(0, 0), offset, float2(0, 0)); //Change the color data too!
+    float3 posRT = float3(float2(position.x, position.y) + float2(gTextureSize.x, 0) * scale, position.z);
+    
+    float2 texCoordRT = float2(clamp(gTextureSize.x, 0, 1), 0);
+    CreateVertex(triStream, posRT, float4(1, 1, 1, 1), texCoordRT, rotation, rotCosSin, offset, pivot); //Change the color data too!
 
 	//VERTEX 3 [LB]
-    CreateVertex(triStream, position, float4(1, 1, 1, 1), texCoord, rotation, float2(0, 0), offset, float2(0, 0)); //Change the color data too!
+    float3 posLB = float3(float2(position.x, position.y) + float2(0, gTextureSize.y) * scale, position.z);
+    float2 texCoordLB = float2(0, clamp(gTextureSize.y, 0, 1));
+    CreateVertex(triStream, posLB, float4(1, 1, 1, 1), texCoordLB, rotation, rotCosSin, offset, pivot); //Change the color data too!
 
 	//VERTEX 4 [RB]
-    CreateVertex(triStream, position, float4(1, 1, 1, 1), texCoord, rotation, float2(0, 0), offset, float2(0, 0)); //Change the color data too!
+    float3 posRB = float3(float2(position.x, position.y) + float2(gTextureSize.x, gTextureSize.y) * scale, position.z);
+    float2 texCoordRB = float2(clamp(gTextureSize.x, 0, 1), clamp(gTextureSize.y, 0, 1));
+    CreateVertex(triStream, posRB, float4(1, 1, 1, 1), texCoordRB, rotation, rotCosSin, offset, pivot); //Change the color data too!
 }
 
 //PIXEL SHADER
