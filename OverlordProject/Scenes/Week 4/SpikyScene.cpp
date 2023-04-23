@@ -23,12 +23,12 @@ void SpikyScene::Initialize()
 
 	m_pObject->AddComponent(new ModelComponent(L"Meshes/OctaSphere.ovm"));
 	m_pObject->GetTransform()->Scale(15.f);
-	m_pObject->GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
+	
 
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<SpikyMaterial>();
 
 
-	//m_pObject->GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
+	m_pObject->GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
 	//ground
 	GameSceneExt::CreatePhysXGroundPlane(*this);
