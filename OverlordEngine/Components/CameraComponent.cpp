@@ -63,8 +63,39 @@ void CameraComponent::SetActive(bool active)
 	pScene->SetActiveCamera(active?this:nullptr); //Switch to default camera if active==false
 }
 
-GameObject* CameraComponent::Pick(CollisionGroup /*ignoreGroups*/) const
+GameObject* CameraComponent::Pick(CollisionGroup ignoreGroups) const
 {
-	TODO_W7(L"Implement Picking Logic")
+	//TODO_W7(L"Implement Picking Logic")
+	auto mouseCor = InputManager::GetMousePosition();
+
+	float halfWidth = GetScene()->GetSceneContext().windowWidth / 2.f;
+	float halfHeight = GetScene()->GetSceneContext().windowHeight / 2.f;
+
+	XMFLOAT2 ndcCords = XMFLOAT2((mouseCor.x - halfWidth) / halfWidth, -(mouseCor.y - halfHeight) / halfHeight);
+	
+	XMVECTOR nearPoint = XMVector3TransformCoord(XMVectorSet(ndcCords.x, ndcCords.y, 0, 0), XMLoadFloat4x4(&m_ViewProjectionInverse));
+	XMVECTOR farPoint = XMVector3TransformCoord(XMVectorSet(ndcCords.x, ndcCords.y, 1, 0), XMLoadFloat4x4(&m_ViewProjectionInverse));
+	XMVECTOR dir = XMVector3Normalize(farPoint - nearPoint);
+
+	XMFLOAT3 nearPoint2;
+	XMFLOAT3 dir2;
+
+	XMStoreFloat3(&nearPoint2, nearPoint);
+	XMStoreFloat3(&dir2, dir);
+
+	PxVec3 rayStart{ nearPoint2.x, nearPoint2.y, nearPoint2.z };
+
+	PxVec3 rayDirection{ dir2.x, dir2.y, dir2.z };
+
+	PxQueryFilterData filterData{};
+	filterData.data.word0 = ~UINT(ignoreGroups);
+
+	PxRaycastBuffer hit{};
+	if (GetScene()->GetPhysxProxy()->Raycast(rayStart, rayDirection, PX_MAX_F32, hit, PxHitFlag::eDEFAULT, filterData))
+	{
+		auto actor = static_cast<RigidBodyComponent*>(hit.block.actor->userData);
+		return actor->GetGameObject();
+	}
+
 	return nullptr;
 }

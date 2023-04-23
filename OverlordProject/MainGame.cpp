@@ -41,8 +41,8 @@
 
 #ifdef W7
 #include "Scenes/Week 7/FontTestScene.h"
+#include "Scenes/Week 7/PickingScene.h"
 //#include "Scenes/Week 7/CharacterScene.h"
-//#include "Scenes/Week 7/PickingScene.h"
 #endif
 
 #ifdef W8
@@ -118,7 +118,7 @@ void MainGame::Initialize()
 
 #ifdef W7
 	SceneManager::Get()->AddGameScene(new FontTestScene());
-	//SceneManager::Get()->AddGameScene(new PickingScene());
+	SceneManager::Get()->AddGameScene(new PickingScene());
 	//SceneManager::Get()->AddGameScene(new CharacterScene());
 #endif
 
