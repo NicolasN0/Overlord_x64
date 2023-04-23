@@ -10,7 +10,22 @@ void ControllerComponent::Initialize(const SceneContext& /*sceneContext*/)
 {
 	if(!m_IsInitialized)
 	{
-		TODO_W7(L"Complete the ControllerComponent Intialization")
+		//TODO_W7(L"Complete the ControllerComponent Intialization")
+		auto pos = GetGameObject()->GetTransform()->GetPosition();
+		m_ControllerDesc.position = PxExtendedVec3(pos.x, pos.y, pos.z);
+
+		m_ControllerDesc.userData = this;
+
+		auto manager = GetScene()->GetPhysxProxy()->GetControllerManager();
+
+		m_pController = manager->createController(m_ControllerDesc);
+
+		ASSERT_NULL(m_pController, L"Controller is NULL");
+
+		m_pController->getActor()->userData = this;
+
+		SetCollisionGroup(static_cast<CollisionGroup>(m_CollisionGroups.word0));
+		SetCollisionIgnoreGroup(static_cast<CollisionGroup>(m_CollisionGroups.word1));
 	}
 }
 
