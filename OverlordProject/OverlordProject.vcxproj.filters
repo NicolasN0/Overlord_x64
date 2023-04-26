@@ -29,6 +29,8 @@
     <ClCompile Include="Prefabs\Character.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyRoadScene.cpp" />
     <ClCompile Include="Prefabs\Exam\CrossyCharacter.cpp" />
+    <ClCompile Include="Prefabs\Exam\GrassLane.cpp" />
+    <ClCompile Include="Prefabs\Exam\LaneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -58,5 +60,7 @@
     <ClInclude Include="Prefabs\Character.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyRoadScene.h" />
     <ClInclude Include="Prefabs\Exam\CrossyCharacter.h" />
+    <ClInclude Include="Prefabs\Exam\GrassLane.h" />
+    <ClInclude Include="Prefabs\Exam\LaneManager.h" />
   </ItemGroup>
 </Project>

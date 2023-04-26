@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "CrossyRoadScene.h"
 #include "Prefabs/Exam/CrossyCharacter.h"
+#include "Prefabs/Exam/GrassLane.h"
+#include "Prefabs/Exam/LaneManager.h"
+
 
 #define VK_W 0x57
 #define VK_S 0x53
@@ -16,8 +19,10 @@ void CrossyRoadScene::Initialize()
 	GameSceneExt::CreatePhysXGroundPlane(*this, pDefaultMaterial);
 
 	m_pPlayer = AddChild(new CrossyCharacter());
+	m_pLaneManager = AddChild(new LaneManager());
 
-	
+	//AddChild(new GrassLane());
+	//AddChild(new LaneManager());
 
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveDown, InputState::down, VK_S, -1,  XINPUT_GAMEPAD_DPAD_DOWN));

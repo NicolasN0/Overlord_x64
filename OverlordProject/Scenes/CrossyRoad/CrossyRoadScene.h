@@ -25,5 +25,6 @@ protected:
 
 private:
 	GameObject* m_pPlayer;
+	GameObject* m_pLaneManager;
 };
 

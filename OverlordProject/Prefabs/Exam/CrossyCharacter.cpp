@@ -12,11 +12,11 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{1,0,0,1});
 
-	AddComponent(new ModelComponent(L"Meshes/Sphere.ovm"));
+	AddComponent(new ModelComponent(L"Meshes/Chicken.ovm"));
 	
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	PxMaterial* mat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
+	PxMaterial* mat = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 
 	auto body = AddComponent(new RigidBodyComponent(false));
 	body->SetKinematic(true);
@@ -67,5 +67,5 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 	}
 
-	std::cout << GetTransform()->GetPosition().x << " " << GetTransform()->GetPosition().y << " " << GetTransform()->GetPosition().z << std::endl;
+	//std::cout << GetTransform()->GetPosition().x << " " << GetTransform()->GetPosition().y << " " << GetTransform()->GetPosition().z << std::endl;
 }

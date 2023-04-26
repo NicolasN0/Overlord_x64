@@ -93,6 +93,8 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\Exam\LaneManager.cpp" />
+    <ClCompile Include="Prefabs\Exam\GrassLane.cpp" />
     <ClCompile Include="Prefabs\Exam\CrossyCharacter.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyRoadScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
@@ -140,6 +142,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\Exam\LaneManager.h" />
+    <ClInclude Include="Prefabs\Exam\GrassLane.h" />
     <ClInclude Include="Prefabs\Exam\CrossyCharacter.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyRoadScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />
