@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "GrassLane.h"
 
-GrassLane::GrassLane()
+GrassLane::GrassLane(int count)
 {
+	m_Count = count;
 }
 
 void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
@@ -14,7 +15,7 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	GetTransform()->Translate(0, -2, 0);
+	GetTransform()->Translate(0, -2, float(1 * m_Count));
 }
 
 void GrassLane::Update(const SceneContext&)

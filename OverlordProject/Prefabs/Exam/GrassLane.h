@@ -5,7 +5,7 @@ class GrassLane :
     public GameObject
 {
 public:
-	GrassLane();
+	GrassLane(int count);
 	~GrassLane() override = default;
 
 	GrassLane(const GrassLane& other) = delete;
@@ -20,5 +20,6 @@ protected:
 private:
 	XMFLOAT4 m_Color{};
 	ColorMaterial* m_pMaterial{};
+	int m_Count{};
 };
 

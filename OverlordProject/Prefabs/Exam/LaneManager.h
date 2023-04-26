@@ -19,5 +19,6 @@ protected:
 
 private:
 	std::vector<GameObject*> m_pLanes;
+	int laneCounter{};
 };
 
