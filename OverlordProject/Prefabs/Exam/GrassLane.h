@@ -18,8 +18,7 @@ protected:
 	void Update(const SceneContext&) override;
 
 private:
-	float m_Width{}, m_Height{}, m_Depth{};
 	XMFLOAT4 m_Color{};
-	ColorMaterial* m_pMaterial;
+	ColorMaterial* m_pMaterial{};
 };
 

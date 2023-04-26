@@ -18,7 +18,6 @@ protected:
 	void MakeGrassLane();
 
 private:
-	float m_Width{}, m_Height{}, m_Depth{};
-
+	std::vector<GameObject*> m_pLanes;
 };
 

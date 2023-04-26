@@ -9,6 +9,8 @@ LaneManager::LaneManager()
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
 	MakeGrassLane();
+	/*MakeGrassLane();
+	MakeGrassLane();*/
 }
 
 void LaneManager::Update(const SceneContext&)
@@ -17,5 +19,14 @@ void LaneManager::Update(const SceneContext&)
 
 void LaneManager::MakeGrassLane()
 {
-	AddChild(new GrassLane());
+	/*GameObject* lane = new GrassLane();
+	GetScene()->AddChild(lane);*/
+
+	GameObject* lane = GetScene()->AddChild(new GrassLane());
+	
+
+
+	//AddChild(lane);
+	m_pLanes.push_back(lane);
+	
 }
