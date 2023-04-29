@@ -23,9 +23,9 @@ void LaneManager::Update(const SceneContext&)
 void LaneManager::MakeGrassLane()
 {
 	
-	GameObject* lane = GetScene()->AddChild(new GrassLane(laneCounter));
+	GameObject* lane = GetScene()->AddChild(new GrassLane(m_LaneCounter, m_Width));
 	
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
-	laneCounter++;
+	m_LaneCounter++;
 }

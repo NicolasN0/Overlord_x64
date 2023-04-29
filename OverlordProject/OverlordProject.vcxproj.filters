@@ -35,6 +35,7 @@
     <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow_Skinned.cpp" />
     <ClCompile Include="Scenes\Week 8\ShadowMappingScene.cpp" />
     <ClCompile Include="Prefabs\Exam\PlayerCamera.cpp" />
+    <ClCompile Include="Prefabs\Exam\Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -70,5 +71,6 @@
     <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow_Skinned.h" />
     <ClInclude Include="Scenes\Week 8\ShadowMappingScene.h" />
     <ClInclude Include="Prefabs\Exam\PlayerCamera.h" />
+    <ClInclude Include="Prefabs\Exam\Tree.h" />
   </ItemGroup>
 </Project>

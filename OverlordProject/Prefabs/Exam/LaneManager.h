@@ -19,6 +19,7 @@ protected:
 
 private:
 	std::vector<GameObject*> m_pLanes;
-	int laneCounter{};
+	int m_LaneCounter{};
+	int m_Width{25};
 };
 
