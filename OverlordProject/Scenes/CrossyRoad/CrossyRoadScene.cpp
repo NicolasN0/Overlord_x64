@@ -3,6 +3,7 @@
 #include "Prefabs/Exam/CrossyCharacter.h"
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/LaneManager.h"
+#include "Prefabs/Exam/PlayerCamera.h"
 
 
 #define VK_W 0x57
@@ -18,7 +19,13 @@ void CrossyRoadScene::Initialize()
 	const auto pDefaultMaterial = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 	GameSceneExt::CreatePhysXGroundPlane(*this, pDefaultMaterial);
 
+	//player
 	m_pPlayer = AddChild(new CrossyCharacter());
+	//Camera
+	const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
+	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
+	m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
+	//manager
 	m_pLaneManager = AddChild(new LaneManager());
 
 	//AddChild(new GrassLane());

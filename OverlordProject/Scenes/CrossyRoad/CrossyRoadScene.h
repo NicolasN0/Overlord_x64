@@ -26,5 +26,6 @@ protected:
 private:
 	GameObject* m_pPlayer;
 	GameObject* m_pLaneManager;
+	CameraComponent* m_pCameraComponent;
 };
 

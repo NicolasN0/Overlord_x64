@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow.cpp" />
     <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow_Skinned.cpp" />
+    <ClCompile Include="Prefabs\Exam\PlayerCamera.cpp" />
     <ClCompile Include="Prefabs\Exam\LaneManager.cpp" />
     <ClCompile Include="Prefabs\Exam\GrassLane.cpp" />
     <ClCompile Include="Prefabs\Exam\CrossyCharacter.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow.h" />
     <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow_Skinned.h" />
+    <ClInclude Include="Prefabs\Exam\PlayerCamera.h" />
     <ClInclude Include="Prefabs\Exam\LaneManager.h" />
     <ClInclude Include="Prefabs\Exam\GrassLane.h" />
     <ClInclude Include="Prefabs\Exam\CrossyCharacter.h" />
