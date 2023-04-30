@@ -18,7 +18,7 @@ void Tree::Initialize(const SceneContext& /*sceneContext*/)
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
 	//GetTransform()->Translate(-12.5f, 0, 0);
-	GetTransform()->Translate(float(m_PosX) -12.f, 0, float(m_PosZ));
+	GetTransform()->Translate(float(m_PosX)/* -12.f*/, 0, float(m_PosZ));
 }
 
 void Tree::Update(const SceneContext&)

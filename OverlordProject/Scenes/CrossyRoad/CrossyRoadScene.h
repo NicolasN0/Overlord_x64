@@ -1,5 +1,8 @@
 #pragma once
 #include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
+
+class LaneManager;
+
 class CrossyRoadScene :
     public GameScene
 {
@@ -25,7 +28,7 @@ protected:
 
 private:
 	GameObject* m_pPlayer;
-	GameObject* m_pLaneManager;
+	LaneManager* m_pLaneManager;
 	CameraComponent* m_pCameraComponent;
 };
 

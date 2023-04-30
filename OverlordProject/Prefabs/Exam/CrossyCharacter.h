@@ -1,11 +1,14 @@
 #pragma once
 #include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
 #include <Materials/ColorMaterial.h>
+
+class LaneManager;
+
 class CrossyCharacter :
     public GameObject
 {
 public:
-	CrossyCharacter();
+	CrossyCharacter(LaneManager* manager);
 	~CrossyCharacter() override = default;
 
 	CrossyCharacter(const CrossyCharacter& other) = delete;
@@ -28,10 +31,13 @@ private:
 		MoveLeft,
 		MoveRight,
 	};
+	LaneManager* m_pLaneManager;
+
 
 	float m_MoveTime{};
 	XMFLOAT3 m_prevPos{};
 	XMFLOAT3 m_futurePos{};
+	XMFLOAT3 m_StartPos{};
 	ColorMaterial* m_pMaterial;
 
 	bool m_isMoving{};

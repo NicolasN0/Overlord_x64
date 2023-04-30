@@ -13,6 +13,8 @@ public:
 	GrassLane& operator=(const GrassLane& other) = delete;
 	GrassLane& operator=(GrassLane&& other) noexcept = delete;
 
+	std::vector<bool> GetObstacles();
+
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext&) override;

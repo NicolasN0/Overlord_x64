@@ -12,6 +12,9 @@ public:
 	LaneManager& operator=(const LaneManager& other) = delete;
 	LaneManager& operator=(LaneManager&& other) noexcept = delete;
 
+	bool GetIsPassable(int posX, int posZ);
+	int GetWidth();
+
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext&) override;

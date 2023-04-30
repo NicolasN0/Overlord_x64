@@ -19,14 +19,14 @@ void CrossyRoadScene::Initialize()
 	const auto pDefaultMaterial = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 	GameSceneExt::CreatePhysXGroundPlane(*this, pDefaultMaterial);
 
+	//manager
+	m_pLaneManager = AddChild(new LaneManager());
 	//player
-	m_pPlayer = AddChild(new CrossyCharacter());
+	m_pPlayer = AddChild(new CrossyCharacter(m_pLaneManager));
 	//Camera
 	const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
 	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
 	m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
-	//manager
-	m_pLaneManager = AddChild(new LaneManager());
 
 	//AddChild(new GrassLane());
 	//AddChild(new LaneManager());

@@ -8,6 +8,11 @@ GrassLane::GrassLane(int count,int width)
 	m_Width = width;
 }
 
+std::vector<bool> GrassLane::GetObstacles()
+{
+	return m_hasObstacle;
+}
+
 void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 {
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
@@ -17,7 +22,8 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	GetTransform()->Translate(0, -2, float(1 * m_Count));
+	//GetTransform()->Translate(0, -2, float(1 * m_Count));
+	GetTransform()->Translate(float(m_Width/2), -2, float(1 * m_Count));
 
 	//initalizeObstacles
 	for(int i{};i < m_Width;i++)

@@ -7,6 +7,17 @@ LaneManager::LaneManager()
 	
 }
 
+bool LaneManager::GetIsPassable(int posX, int posZ)
+{
+	GrassLane* lane = dynamic_cast<GrassLane*>(m_pLanes.at(posZ));
+	return !lane->GetObstacles().at(posX);
+}
+
+int LaneManager::GetWidth()
+{
+	return m_Width;
+}
+
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
 	for(int i{}; i < 7; i++)
