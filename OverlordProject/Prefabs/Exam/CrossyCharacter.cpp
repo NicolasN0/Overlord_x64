@@ -37,30 +37,57 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(MoveUp))
 		{
-		/*	XMFLOAT3 testPos = m_futurePos;
+			XMFLOAT3 testPos = m_futurePos;
 			testPos.z += 1;
 			if(m_pLaneManager->GetIsPassable(int(testPos.x),int(testPos.z)))
-			{*/
-				//m_futurePos = testPos;
-			m_futurePos.z += 1;
-			m_isMoving = true;
+			{
+				m_futurePos = testPos;
+				//m_futurePos.z += 1;
+				m_isMoving = true;
 
-			//}
+			}
 		}
 		else if (sceneContext.pInput->IsActionTriggered(MoveDown))
 		{
-			m_futurePos.z -= 1;
-			m_isMoving = true;
+			/*m_futurePos.z -= 1;
+			m_isMoving = true;*/
+
+			XMFLOAT3 testPos = m_futurePos;
+			testPos.z -= 1;
+			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			{
+				m_futurePos = testPos;
+				m_isMoving = true;
+
+			}
 		}
 		else if (sceneContext.pInput->IsActionTriggered(MoveLeft))
 		{
-			m_futurePos.x -= 1;
-			m_isMoving = true;
+			/*m_futurePos.x -= 1;
+			m_isMoving = true;*/
+
+			XMFLOAT3 testPos = m_futurePos;
+			testPos.x -= 1;
+			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			{
+				m_futurePos = testPos;
+				m_isMoving = true;
+
+			}
 		}
 		else if (sceneContext.pInput->IsActionTriggered(MoveRight))
 		{
-			m_futurePos.x += 1;
-			m_isMoving = true;
+			/*m_futurePos.x += 1;
+			m_isMoving = true;*/
+
+			XMFLOAT3 testPos = m_futurePos;
+			testPos.x += 1;
+			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			{
+				m_futurePos = testPos;
+				m_isMoving = true;
+
+			}
 		}
 	}
 
