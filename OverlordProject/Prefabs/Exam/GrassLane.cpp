@@ -6,6 +6,8 @@ GrassLane::GrassLane(int count,int width)
 {
 	m_Count = count;
 	m_Width = width;
+
+	
 }
 
 std::vector<bool> GrassLane::GetObstacles()
@@ -15,6 +17,8 @@ std::vector<bool> GrassLane::GetObstacles()
 
 void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 {
+	
+
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0,1,0,1 });
 
@@ -34,9 +38,9 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 	PlaceObstacles();
 }
 
-void GrassLane::Update(const SceneContext&)
+void GrassLane::Update(const SceneContext& /*sceneContext*/)
 {
-	
+
 }
 
 void GrassLane::PlaceObstacles()

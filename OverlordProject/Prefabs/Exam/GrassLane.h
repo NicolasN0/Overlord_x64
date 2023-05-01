@@ -17,7 +17,7 @@ public:
 
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
-	void Update(const SceneContext&) override;
+	void Update(const SceneContext& sceneContext) override;
 	void PlaceObstacles();
 
 private:
@@ -27,5 +27,7 @@ private:
 	std::vector<GameObject*> m_pObstacles{};
 	std::vector<bool> m_hasObstacle{};
 	int m_Width{};
+
+	
 };
 

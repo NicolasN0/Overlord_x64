@@ -46,6 +46,9 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 				m_isMoving = true;
 
 			}
+
+			m_pLaneManager->IncreasePlayerCount();
+
 		}
 		else if (sceneContext.pInput->IsActionTriggered(MoveDown))
 		{
@@ -88,6 +91,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 				m_isMoving = true;
 
 			}
+			
 		}
 	}
 

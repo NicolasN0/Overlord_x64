@@ -14,15 +14,20 @@ public:
 
 	bool GetIsPassable(int posX, int posZ);
 	int GetWidth();
+	void IncreasePlayerCount();
 
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
-	void Update(const SceneContext&) override;
+	void Update(const SceneContext& sceneContext) override;
 	void MakeGrassLane();
+	void UpdateLanes();
 
 private:
 	std::vector<GameObject*> m_pLanes;
 	int m_LaneCounter{};
 	int m_Width{25};
+	int m_PlayerCount{};
+
+	float m_TestTimer{};
 };
 

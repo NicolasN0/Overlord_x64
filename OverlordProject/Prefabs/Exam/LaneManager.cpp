@@ -18,6 +18,11 @@ int LaneManager::GetWidth()
 	return m_Width;
 }
 
+void LaneManager::IncreasePlayerCount()
+{
+	m_PlayerCount += 1;
+}
+
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
 	for(int i{}; i < 7; i++)
@@ -27,16 +32,39 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	
 }
 
-void LaneManager::Update(const SceneContext&)
+void LaneManager::Update(const SceneContext& /*sceneContext*/)
 {
+	/*if(m_PlayerCount > m_pLanes.size() - 2)
+	{
+		UpdateLanes();
+	}*/
+
+	/*m_TestTimer += sceneContext.pGameTime->GetElapsed();
+	if(m_TestTimer > 2)
+	{
+		MakeGrassLane();
+		m_TestTimer = 0;
+	}*/
+	
 }
 
 void LaneManager::MakeGrassLane()
 {
 	
 	GameObject* lane = GetScene()->AddChild(new GrassLane(m_LaneCounter, m_Width));
-	
+	//AddChild(lane);
+	//GameObject* lane = AddChild(new GrassLane(m_LaneCounter, m_Width));
+	AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
+}
+
+void LaneManager::UpdateLanes()
+{
+	/*for (int i{};i < 2;i++)
+	{
+
+		MakeGrassLane();
+	}*/
 }
