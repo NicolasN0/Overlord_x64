@@ -20,6 +20,7 @@ protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext& sceneContext) override;
 	void MakeGrassLane();
+	void MakeRoadLane();
 	void UpdateLanes();
 
 private:

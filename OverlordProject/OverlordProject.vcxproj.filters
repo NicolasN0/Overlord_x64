@@ -36,6 +36,8 @@
     <ClCompile Include="Scenes\Week 8\ShadowMappingScene.cpp" />
     <ClCompile Include="Prefabs\Exam\PlayerCamera.cpp" />
     <ClCompile Include="Prefabs\Exam\Tree.cpp" />
+    <ClCompile Include="Prefabs\Exam\RoadLane.cpp" />
+    <ClCompile Include="Prefabs\Exam\Car.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -72,5 +74,7 @@
     <ClInclude Include="Scenes\Week 8\ShadowMappingScene.h" />
     <ClInclude Include="Prefabs\Exam\PlayerCamera.h" />
     <ClInclude Include="Prefabs\Exam\Tree.h" />
+    <ClInclude Include="Prefabs\Exam\RoadLane.h" />
+    <ClInclude Include="Prefabs\Exam\Car.h" />
   </ItemGroup>
 </Project>
