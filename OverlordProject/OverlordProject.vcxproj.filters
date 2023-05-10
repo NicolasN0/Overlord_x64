@@ -38,6 +38,11 @@
     <ClCompile Include="Prefabs\Exam\Tree.cpp" />
     <ClCompile Include="Prefabs\Exam\RoadLane.cpp" />
     <ClCompile Include="Prefabs\Exam\Car.cpp" />
+    <ClCompile Include="Scenes\Week 9\ParticleScene.cpp" />
+    <ClCompile Include="Prefabs\Exam\WaterLane.cpp" />
+    <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
+    <ClCompile Include="Scenes\Week 10\PostProcessingScene.cpp" />
+    <ClCompile Include="Materials\Post\PostBlur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -76,5 +81,10 @@
     <ClInclude Include="Prefabs\Exam\Tree.h" />
     <ClInclude Include="Prefabs\Exam\RoadLane.h" />
     <ClInclude Include="Prefabs\Exam\Car.h" />
+    <ClInclude Include="Scenes\Week 9\ParticleScene.h" />
+    <ClInclude Include="Prefabs\Exam\WaterLane.h" />
+    <ClInclude Include="Materials\Post\PostGrayscale.h" />
+    <ClInclude Include="Scenes\Week 10\PostProcessingScene.h" />
+    <ClInclude Include="Materials\Post\PostBlur.h" />
   </ItemGroup>
 </Project>

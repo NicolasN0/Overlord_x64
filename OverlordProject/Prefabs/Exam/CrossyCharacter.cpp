@@ -114,3 +114,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 	//std::cout << GetTransform()->GetPosition().x << " " << GetTransform()->GetPosition().y << " " << GetTransform()->GetPosition().z << std::endl;
 }
+
+void CrossyCharacter::Dies()
+{
+	std::cout << "dead";
+}

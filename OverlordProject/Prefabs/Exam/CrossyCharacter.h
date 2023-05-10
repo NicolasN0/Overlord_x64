@@ -32,7 +32,7 @@ private:
 		MoveRight,
 	};
 	LaneManager* m_pLaneManager;
-
+	void Dies();
 
 	float m_MoveTime{};
 	XMFLOAT3 m_prevPos{};

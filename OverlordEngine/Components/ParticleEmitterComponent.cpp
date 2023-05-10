@@ -16,22 +16,54 @@ ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile
 
 ParticleEmitterComponent::~ParticleEmitterComponent()
 {
-	TODO_W9(L"Implement Destructor")
+	//TODO_W9(L"Implement Destructor")
+	delete m_ParticlesArray;
+	m_pVertexBuffer->Release();
 }
 
-void ParticleEmitterComponent::Initialize(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::Initialize(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement Initialize")
+	//TODO_W9(L"Implement Initialize")
+	if (m_pParticleMaterial == nullptr)
+	{
+		m_pParticleMaterial = MaterialManager::Get()->CreateMaterial<ParticleMaterial>();
+	}
+	CreateVertexBuffer(sceneContext);
+	m_pParticleTexture = ContentManager::Load<TextureData>(m_AssetFile);
 }
 
-void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement CreateVertexBuffer")
+	//TODO_W9(L"Implement CreateVertexBuffer")
+
+	if (m_pVertexBuffer)
+	{
+		m_pVertexBuffer->Release();
+	}
+
+	D3D11_BUFFER_DESC vertBufferDesc{};
+	vertBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	vertBufferDesc.ByteWidth = sizeof(VertexParticle) * m_ParticleCount;
+	vertBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	vertBufferDesc.MiscFlags = 0;
+	HANDLE_ERROR(sceneContext.d3dContext.pDevice->CreateBuffer(&vertBufferDesc, nullptr, &m_pVertexBuffer))
 }
 
 void ParticleEmitterComponent::Update(const SceneContext& /*sceneContext*/)
 {
-	TODO_W9(L"Implement Update")
+	//TODO_W9(L"Implement Update")
+
+	/*float particleInterval = ((m_EmitterSettings.maxEnergy + m_EmitterSettings.minEnergy) / 2) / m_ParticleCount;
+
+	m_LastParticleSpawn = sceneContext.pGameTime->GetElapsed();
+
+	m_ActiveParticles = 0;
+
+	D3D11_MAPPED_SUBRESOURCE pData;
+	sceneContext.d3dContext.pDeviceContext->Map(m_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &pData);*/
+
+	//VertexParticle* pBuffer = pData;
 }
 
 void ParticleEmitterComponent::UpdateParticle(Particle& /*p*/, float /*elapsedTime*/) const
