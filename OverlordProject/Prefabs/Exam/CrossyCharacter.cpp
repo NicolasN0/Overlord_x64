@@ -32,67 +32,83 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
+	if(m_isSinking)
+	{
+		auto pos = GetTransform()->GetPosition();
+		GetTransform()->Translate(pos.x, pos.y - sceneContext.pGameTime->GetElapsed(), pos.z);
+		std::cout << GetTransform()->GetPosition().y;
+		if(GetTransform()->GetPosition().y < - 2)
+		{
+			Dies();
+		}
+	}
+
 	if(!m_isMoving)
 	{
+		//Check if is on water
 		CheckWater();
-
-		if (sceneContext.pInput->IsActionTriggered(MoveUp))
+		//Only able to do something if not sinking
+		if(!m_isSinking)
 		{
-			XMFLOAT3 testPos = m_futurePos;
-			testPos.z += 1;
-			if(m_pLaneManager->GetIsPassable(int(testPos.x),int(testPos.z)))
+
+			if (sceneContext.pInput->IsActionTriggered(MoveUp))
 			{
-				m_futurePos = testPos;
-				//m_futurePos.z += 1;
-				m_isMoving = true;
+				XMFLOAT3 testPos = m_futurePos;
+				testPos.z += 1;
+				if(m_pLaneManager->GetIsPassable(int(testPos.x),int(testPos.z)))
+				{
+					m_futurePos = testPos;
+					//m_futurePos.z += 1;
+					m_isMoving = true;
+
+				}
+
+				m_pLaneManager->IncreasePlayerCount();
 
 			}
-
-			m_pLaneManager->IncreasePlayerCount();
-
-		}
-		else if (sceneContext.pInput->IsActionTriggered(MoveDown))
-		{
-			/*m_futurePos.z -= 1;
-			m_isMoving = true;*/
-
-			XMFLOAT3 testPos = m_futurePos;
-			testPos.z -= 1;
-			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			else if (sceneContext.pInput->IsActionTriggered(MoveDown))
 			{
-				m_futurePos = testPos;
-				m_isMoving = true;
+				/*m_futurePos.z -= 1;
+				m_isMoving = true;*/
 
+				XMFLOAT3 testPos = m_futurePos;
+				testPos.z -= 1;
+				if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+				{
+					m_futurePos = testPos;
+					m_isMoving = true;
+
+				}
 			}
-		}
-		else if (sceneContext.pInput->IsActionTriggered(MoveLeft))
-		{
-			/*m_futurePos.x -= 1;
-			m_isMoving = true;*/
-
-			XMFLOAT3 testPos = m_futurePos;
-			testPos.x -= 1;
-			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			else if (sceneContext.pInput->IsActionTriggered(MoveLeft))
 			{
-				m_futurePos = testPos;
-				m_isMoving = true;
+				/*m_futurePos.x -= 1;
+				m_isMoving = true;*/
 
+				XMFLOAT3 testPos = m_futurePos;
+				testPos.x -= 1;
+				if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+				{
+					m_futurePos = testPos;
+					m_isMoving = true;
+
+				}
 			}
-		}
-		else if (sceneContext.pInput->IsActionTriggered(MoveRight))
-		{
-			/*m_futurePos.x += 1;
-			m_isMoving = true;*/
-
-			XMFLOAT3 testPos = m_futurePos;
-			testPos.x += 1;
-			if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+			else if (sceneContext.pInput->IsActionTriggered(MoveRight))
 			{
-				m_futurePos = testPos;
-				m_isMoving = true;
+				/*m_futurePos.x += 1;
+				m_isMoving = true;*/
 
-			}
+				XMFLOAT3 testPos = m_futurePos;
+				testPos.x += 1;
+				if (m_pLaneManager->GetIsPassable(int(testPos.x), int(testPos.z)))
+				{
+					m_futurePos = testPos;
+					m_isMoving = true;
+
+				}
 			
+			}
 		}
 	}
 
@@ -109,18 +125,26 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 
 	}
+
+	if(!m_isSinking)
+	{
+
 		float posZ = std::lerp(static_cast<float>(m_prevPos.z), static_cast<float>(m_futurePos.z), m_MoveTime);
 		float posX = std::lerp(static_cast<float>(m_prevPos.x), static_cast<float>(m_futurePos.x), m_MoveTime);
 		GetTransform()->Translate(posX, 0, posZ);
+	}
 
-	//std::cout << GetTransform()->GetPosition().x << " " << GetTransform()->GetPosition().y << " " << GetTransform()->GetPosition().z << std::endl;
 }
 
 void CrossyCharacter::CheckWater()
 {
 	if(m_pLaneManager->IsOnWater(int(m_prevPos.x), int(m_prevPos.z)))
 	{
-		std::cout << "Sink";
+		if(m_isSinking != true)
+		{
+			std::cout << "Sink";
+			m_isSinking = true;
+		}
 	}
 }
 

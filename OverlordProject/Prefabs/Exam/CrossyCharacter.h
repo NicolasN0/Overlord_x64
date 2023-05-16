@@ -43,6 +43,7 @@ private:
 	ColorMaterial* m_pMaterial;
 
 	bool m_isMoving{};
+	bool m_isSinking{};
 	float m_MaxMoveTime{1.f};
 };
 
