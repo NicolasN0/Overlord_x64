@@ -34,6 +34,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
 	if(!m_isMoving)
 	{
+		CheckWater();
 
 		if (sceneContext.pInput->IsActionTriggered(MoveUp))
 		{
@@ -113,6 +114,14 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		GetTransform()->Translate(posX, 0, posZ);
 
 	//std::cout << GetTransform()->GetPosition().x << " " << GetTransform()->GetPosition().y << " " << GetTransform()->GetPosition().z << std::endl;
+}
+
+void CrossyCharacter::CheckWater()
+{
+	if(m_pLaneManager->IsOnWater(int(m_prevPos.x), int(m_prevPos.z)))
+	{
+		std::cout << "Sink";
+	}
 }
 
 void CrossyCharacter::Dies()

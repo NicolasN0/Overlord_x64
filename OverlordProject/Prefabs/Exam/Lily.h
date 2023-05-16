@@ -2,17 +2,17 @@
 //#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
-class Tree :
+class Lily :
     public GameObject
 {
 public:
-	Tree(int posX,int posZ);
-	~Tree() override = default;
+	Lily(int posX, int posZ);
+	~Lily() override = default;
 
-	Tree(const Tree& other) = delete;
-	Tree(Tree&& other) noexcept = delete;
-	Tree& operator=(const Tree& other) = delete;
-	Tree& operator=(Tree&& other) noexcept = delete;
+	Lily(const Lily& other) = delete;
+	Lily(Lily&& other) noexcept = delete;
+	Lily& operator=(const Lily& other) = delete;
+	Lily& operator=(Lily&& other) noexcept = delete;
 
 protected:
 	void Initialize(const SceneContext & sceneContext) override;

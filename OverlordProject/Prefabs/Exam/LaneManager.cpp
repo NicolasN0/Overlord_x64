@@ -2,6 +2,7 @@
 #include "LaneManager.h"
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/RoadLane.h"
+#include "Prefabs/Exam/WaterLane.h"
 
 LaneManager::LaneManager()
 {
@@ -11,7 +12,9 @@ LaneManager::LaneManager()
 bool LaneManager::GetIsPassable(int posX, int posZ)
 {
 	//GrassLane* lane = dynamic_cast<GrassLane*>(m_pLanes.at(posZ));
-	RoadLane* lane = dynamic_cast<RoadLane*>(m_pLanes.at(posZ));
+	//RoadLane* lane = dynamic_cast<RoadLane*>(m_pLanes.at(posZ));
+	WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
+
 	return !lane->GetObstacles().at(posX);
 }
 
@@ -25,12 +28,20 @@ void LaneManager::IncreasePlayerCount()
 	m_PlayerCount += 1;
 }
 
+bool LaneManager::IsOnWater(int posX, int posZ)
+{
+	WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
+
+	return !lane->GetLilys().at(posX);
+}
+
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
 	for(int i{}; i < 7; i++)
 	{
 		//MakeGrassLane();
-		MakeRoadLane();
+		//MakeRoadLane();
+		MakeWaterLane();
 	}
 	
 }
@@ -66,6 +77,15 @@ void LaneManager::MakeGrassLane()
 void LaneManager::MakeRoadLane()
 {
 	GameObject* lane = GetScene()->AddChild(new RoadLane(m_LaneCounter,m_Width));
+	AddChild(lane);
+	m_pLanes.push_back(lane);
+	//dont use size when making new one so i can still clean up m_pLanes
+	m_LaneCounter++;
+}
+
+void LaneManager::MakeWaterLane()
+{
+	GameObject* lane = GetScene()->AddChild(new WaterLane(m_LaneCounter, m_Width));
 	AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes

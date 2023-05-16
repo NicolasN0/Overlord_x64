@@ -24,6 +24,8 @@ protected:
 private:
 	//CameraComponent* m_pCameraComponent{};
 	//ControllerComponent* m_pControllerComponent{};
+	void CheckWater();
+
 	enum InputIds
 	{
 		MoveUp,

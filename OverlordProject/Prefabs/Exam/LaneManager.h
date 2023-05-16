@@ -15,12 +15,13 @@ public:
 	bool GetIsPassable(int posX, int posZ);
 	int GetWidth();
 	void IncreasePlayerCount();
-
+	bool IsOnWater(int posX, int posZ);
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext& sceneContext) override;
 	void MakeGrassLane();
 	void MakeRoadLane();
+	void MakeWaterLane();
 	void UpdateLanes();
 
 private:
