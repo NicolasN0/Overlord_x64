@@ -46,7 +46,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 	if(!m_isMoving)
 	{
 		//Check if is on water
-		CheckWater();
+		// comment while testing other lanes for the moment
+		//CheckWater();
 		//Only able to do something if not sinking
 		if(!m_isSinking)
 		{

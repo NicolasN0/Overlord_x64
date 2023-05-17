@@ -3,6 +3,7 @@
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/RoadLane.h"
 #include "Prefabs/Exam/WaterLane.h"
+#include "Prefabs/Exam/TrainLane.h"
 
 LaneManager::LaneManager()
 {
@@ -41,7 +42,8 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	{
 		//MakeGrassLane();
 		//MakeRoadLane();
-		MakeWaterLane();
+		//MakeWaterLane();
+		MakeTrainLane();
 	}
 	
 }
@@ -86,6 +88,15 @@ void LaneManager::MakeRoadLane()
 void LaneManager::MakeWaterLane()
 {
 	GameObject* lane = GetScene()->AddChild(new WaterLane(m_LaneCounter, m_Width));
+	AddChild(lane);
+	m_pLanes.push_back(lane);
+	//dont use size when making new one so i can still clean up m_pLanes
+	m_LaneCounter++;
+}
+
+void LaneManager::MakeTrainLane()
+{
+	GameObject* lane = GetScene()->AddChild(new TrainLane(m_LaneCounter, m_Width));
 	AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes

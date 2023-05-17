@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
+#include "Scenegraph/GameObject.h"
 class LaneManager :
     public GameObject
 {
@@ -22,6 +22,7 @@ protected:
 	void MakeGrassLane();
 	void MakeRoadLane();
 	void MakeWaterLane();
+	void MakeTrainLane();
 	void UpdateLanes();
 
 private:

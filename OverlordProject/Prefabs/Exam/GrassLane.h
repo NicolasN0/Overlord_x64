@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
+#include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
 class GrassLane :
     public GameObject

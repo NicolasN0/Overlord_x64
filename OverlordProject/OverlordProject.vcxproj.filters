@@ -44,6 +44,8 @@
     <ClCompile Include="Scenes\Week 10\PostProcessingScene.cpp" />
     <ClCompile Include="Materials\Post\PostBlur.cpp" />
     <ClCompile Include="Prefabs\Exam\Lily.cpp" />
+    <ClCompile Include="Prefabs\Exam\TrainLane.cpp" />
+    <ClCompile Include="Prefabs\Exam\Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -88,5 +90,7 @@
     <ClInclude Include="Scenes\Week 10\PostProcessingScene.h" />
     <ClInclude Include="Materials\Post\PostBlur.h" />
     <ClInclude Include="Prefabs\Exam\Lily.h" />
+    <ClInclude Include="Prefabs\Exam\TrainLane.h" />
+    <ClInclude Include="Prefabs\Exam\Train.h" />
   </ItemGroup>
 </Project>

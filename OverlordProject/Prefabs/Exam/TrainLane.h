@@ -1,17 +1,17 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
-class RoadLane :
+class TrainLane :
     public GameObject
 {
 public:
-	RoadLane(int count, int width);
-	~RoadLane() override = default;
+	TrainLane(int count, int width);
+	~TrainLane() override = default;
 
-	RoadLane(const RoadLane& other) = delete;
-	RoadLane(RoadLane&& other) noexcept = delete;
-	RoadLane& operator=(const RoadLane& other) = delete;
-	RoadLane& operator=(RoadLane&& other) noexcept = delete;
+	TrainLane(const TrainLane& other) = delete;
+	TrainLane(TrainLane&& other) noexcept = delete;
+	TrainLane& operator=(const TrainLane& other) = delete;
+	TrainLane& operator=(TrainLane&& other) noexcept = delete;
 
 	std::vector<bool> GetObstacles();
 
