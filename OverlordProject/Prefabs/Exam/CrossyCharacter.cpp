@@ -28,10 +28,25 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	GetTransform()->Translate(m_StartPos);
 	m_prevPos = m_StartPos;
 	m_futurePos = m_StartPos;
+
+
+	SetOnTriggerCallBack([=](GameObject*, GameObject* other, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER)
+			{
+				if (other->GetTag() == L"Enemy") 
+				{
+					Dies();
+				}
+			}
+			
+		});
+	
 }
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
+	
 	if(m_isSinking)
 	{
 		auto pos = GetTransform()->GetPosition();
