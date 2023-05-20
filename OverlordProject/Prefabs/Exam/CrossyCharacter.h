@@ -25,6 +25,7 @@ private:
 	//CameraComponent* m_pCameraComponent{};
 	//ControllerComponent* m_pControllerComponent{};
 	void CheckWater();
+	void Dies();
 
 	enum InputIds
 	{
@@ -34,7 +35,6 @@ private:
 		MoveRight,
 	};
 	LaneManager* m_pLaneManager;
-	void Dies();
 
 	float m_MoveTime{};
 	XMFLOAT3 m_prevPos{};
@@ -45,5 +45,8 @@ private:
 	bool m_isMoving{};
 	bool m_isSinking{};
 	float m_MaxMoveTime{1.f};
+	float m_CharSpeed{ 2.5f };
+	float m_JumpHeight{ 1.5f };
+
 };
 

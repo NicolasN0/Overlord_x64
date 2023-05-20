@@ -133,7 +133,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 	if(m_isMoving)
 	{
-		m_MoveTime += sceneContext.pGameTime->GetElapsed();
+		m_MoveTime += sceneContext.pGameTime->GetElapsed() * m_CharSpeed;
 		if(m_MoveTime > m_MaxMoveTime)
 		{
 			m_isMoving = false;
@@ -147,10 +147,20 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 	if(!m_isSinking)
 	{
-
 		float posZ = std::lerp(static_cast<float>(m_prevPos.z), static_cast<float>(m_futurePos.z), m_MoveTime);
 		float posX = std::lerp(static_cast<float>(m_prevPos.x), static_cast<float>(m_futurePos.x), m_MoveTime);
-		GetTransform()->Translate(posX, 0, posZ);
+
+		float posY{};
+		if(m_MoveTime > 0.5)
+		{
+			 posY = std::lerp(static_cast<float>(m_JumpHeight), 0.f, m_MoveTime);
+		} else
+		{
+			 posY = std::lerp(0, static_cast<float>(m_JumpHeight), m_MoveTime);
+		}
+
+		//GetTransform()->Translate(posX, 0, posZ);
+		GetTransform()->Translate(posX, posY, posZ);
 	}
 
 }
