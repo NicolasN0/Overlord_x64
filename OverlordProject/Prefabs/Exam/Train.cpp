@@ -14,23 +14,30 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 	SetTag(L"Enemy");
 
 	//Material and Model
-	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
-	m_pMaterial->SetColor(XMFLOAT4{ 1,0,1,1 });
+	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
+	m_pMaterial->SetColor(XMFLOAT4{ 1,0,1,1 });*/
+	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/train.png");
 
-	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
+	AddComponent(new ModelComponent(L"Meshes/Train.ovm", false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
 	//Collider
 	auto material = PxGetPhysics().createMaterial(.5f, .5f, .1f);
 	AddComponent(new RigidBodyComponent(false));
-	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 20.f,1.f,1.f }, *material);
+	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 20.f,1.0f,0.5f }, *material);
 	GetComponent<RigidBodyComponent>()->SetKinematic(true);
+
+
 	/*auto colliderInfo = GetComponent<RigidBodyComponent>()->GetCollider(0);
+	GetTransform()->Rotate(0, 90, 0);
 	colliderInfo.SetTrigger(true);*/
 
 
 	GetTransform()->Translate(0, 0, float(m_PosZ));
+
+	
 }
 
 void Train::Update(const SceneContext& sceneContext)

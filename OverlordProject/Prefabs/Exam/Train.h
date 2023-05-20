@@ -1,6 +1,6 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
-#include <Materials/ColorMaterial.h>
+#include <Materials/DiffuseMaterial.h>
 class Train : public GameObject
 {
 public:
@@ -17,7 +17,7 @@ protected:
 	void Update(const SceneContext & sceneContext) override;
 
 private:
-	ColorMaterial* m_pMaterial{};
+	DiffuseMaterial* m_pMaterial{};
 	int m_Width{};
 	float m_CurX{};
 	int m_PosZ{};

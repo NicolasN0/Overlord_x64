@@ -13,15 +13,18 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{1,0,0,1});
 
+	//model
 	AddComponent(new ModelComponent(L"Meshes/Chicken.ovm"));
 	
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
 	PxMaterial* mat = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 
+	GetTransform()->Rotate(0, 90, 0);
+	//collider
 	auto body = AddComponent(new RigidBodyComponent(false));
 	body->SetKinematic(true);
-	body->AddCollider(PxSphereGeometry(1.0f), *mat, true);
+	body->AddCollider(PxSphereGeometry(0.3f), *mat, true);
 
 	//set start
 	m_StartPos = XMFLOAT3(float(m_pLaneManager->GetWidth()/2),0,0);

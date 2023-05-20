@@ -1,7 +1,7 @@
 #pragma once
 //#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
 #include "Scenegraph/GameObject.h"
-#include <Materials/ColorMaterial.h>
+#include <Materials/DiffuseMaterial.h>
 class Tree :
     public GameObject
 {
@@ -19,7 +19,7 @@ protected:
 	void Update(const SceneContext&) override;
 
 private:
-	ColorMaterial* m_pMaterial{};
+	DiffuseMaterial* m_pMaterial{};
 	int m_PosX{};
 	int m_PosZ{};
 };
