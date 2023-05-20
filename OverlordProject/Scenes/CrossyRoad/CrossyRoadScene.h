@@ -2,6 +2,7 @@
 #include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
 
 class LaneManager;
+class CrossyCharacter;
 
 class CrossyRoadScene :
     public GameScene
@@ -27,8 +28,12 @@ protected:
 	};
 
 private:
-	GameObject* m_pPlayer;
+	CrossyCharacter* m_pPlayer;
 	LaneManager* m_pLaneManager;
 	CameraComponent* m_pCameraComponent;
+
+	SpriteFont* m_pFont{};
+	XMFLOAT2 m_TextPosition{};
+	XMFLOAT4 m_TextColor{ 1.f,1.f,1.f,1.f };
 };
 

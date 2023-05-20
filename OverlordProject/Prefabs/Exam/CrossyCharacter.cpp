@@ -7,6 +7,21 @@ CrossyCharacter::CrossyCharacter(LaneManager* manager)
 	m_pLaneManager = manager;
 }
 
+int CrossyCharacter::GetCoins()
+{
+	return m_Coins;
+}
+
+void CrossyCharacter::SetCoints(int coins)
+{
+	m_Coins = coins;
+}
+
+int CrossyCharacter::GetScore()
+{
+	return m_Score;
+}
+
 void CrossyCharacter::Initialize(const SceneContext&)
 {
 	
@@ -64,7 +79,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 	if(!m_isMoving)
 	{
 		//Check if is on water
-		// comment while testing other lanes for the moment
+	
 		CheckWater();
 		//Only able to do something if not sinking
 		if(!m_isSinking)
@@ -79,6 +94,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 					m_futurePos = testPos;
 					//m_futurePos.z += 1;
 					m_isMoving = true;
+					m_Score++;
 
 				}
 

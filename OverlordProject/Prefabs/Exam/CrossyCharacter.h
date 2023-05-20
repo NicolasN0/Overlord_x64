@@ -17,7 +17,9 @@ public:
 	CrossyCharacter& operator=(CrossyCharacter&& other) noexcept = delete;
 
 	void DrawImGui();
-
+	int GetCoins();
+	void SetCoints(int coins);
+	int GetScore();
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
@@ -47,6 +49,8 @@ private:
 	float m_MaxMoveTime{1.f};
 	float m_CharSpeed{ 2.5f };
 	float m_JumpHeight{ 1.5f };
+	int m_Coins{};
+	int m_Score{};
 
 };
 
