@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "RoadLane.h"
 #include "Prefabs/Exam/Car.h"
+#include "Prefabs/Exam/Coin.h"
 
 RoadLane::RoadLane(int count, int width)
 {
@@ -36,12 +37,38 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 	for (int i{}; i < m_Width; i++)
 	{
 		m_hasObstacle.push_back(false);
+		m_hasCoin.push_back(false);
 	}
 
+	PlaceCoins();
 }
 
 void RoadLane::Update(const SceneContext& /*sceneContext*/)
 {
 
+}
+
+void RoadLane::PlaceCoins()
+{
+	for (int i{}; i < m_Width; i++)
+	{
+		
+		int randNumb = rand() % 10;
+
+		if (randNumb == 0)
+		{
+			m_hasCoin.at(i) = true;
+		}
+
+		
+
+		if (m_hasCoin.at(i) == true)
+		{
+			GameObject* coin = GetScene()->AddChild(new Coin(i, m_Count));
+
+			m_pCoins.push_back(coin);
+		}
+
+	}
 }
 

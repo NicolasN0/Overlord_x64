@@ -18,14 +18,16 @@ public:
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;
-
+	void PlaceCoins();
 
 private:
 	XMFLOAT4 m_Color{};
 	ColorMaterial* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
+	std::vector<GameObject*> m_pCoins{};
 	std::vector<bool> m_hasObstacle{};
+	std::vector<bool> m_hasCoin{};
 	int m_Width{};
 };
 

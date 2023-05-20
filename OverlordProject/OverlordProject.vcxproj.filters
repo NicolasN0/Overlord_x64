@@ -46,6 +46,7 @@
     <ClCompile Include="Prefabs\Exam\Lily.cpp" />
     <ClCompile Include="Prefabs\Exam\TrainLane.cpp" />
     <ClCompile Include="Prefabs\Exam\Train.cpp" />
+    <ClCompile Include="Prefabs\Exam\Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -92,5 +93,6 @@
     <ClInclude Include="Prefabs\Exam\Lily.h" />
     <ClInclude Include="Prefabs\Exam\TrainLane.h" />
     <ClInclude Include="Prefabs\Exam\Train.h" />
+    <ClInclude Include="Prefabs\Exam\Coin.h" />
   </ItemGroup>
 </Project>

@@ -56,6 +56,13 @@ void CrossyCharacter::Initialize(const SceneContext&)
 				{
 					Dies();
 				}
+
+				if (other->GetTag() == L"Coin")
+				{
+					m_Coins++;
+					//other->~GameObject();
+					//GetScene()->RemoveChild(other, true);
+				}
 			}
 			
 		});
