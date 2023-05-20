@@ -15,6 +15,10 @@ std::vector<bool> TrainLane::GetObstacles()
 
 void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 {
+	//tag
+	SetTag(L"TrainLane");
+
+	//mesh
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });
 

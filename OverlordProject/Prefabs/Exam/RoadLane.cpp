@@ -17,8 +17,10 @@ std::vector<bool> RoadLane::GetObstacles()
 
 void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 {
+	//tag
+	SetTag(L"RoadLane");
 
-
+	//mesh
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });
 

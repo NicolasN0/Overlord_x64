@@ -17,8 +17,10 @@ std::vector<bool> GrassLane::GetObstacles()
 
 void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 {
-	
+	//tag
+	SetTag(L"GrassLane");
 
+	//mesh
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0,1,0,1 });
 

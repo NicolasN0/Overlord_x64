@@ -22,7 +22,10 @@ std::vector<bool> WaterLane::GetLilys()
 
 void WaterLane::Initialize(const SceneContext& /*sceneContext*/)
 {
+	//tag
+	SetTag(L"WaterLane");
 
+	//mesh
 	//standard lane setup
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0,0,1,1 });

@@ -12,11 +12,30 @@ LaneManager::LaneManager()
 
 bool LaneManager::GetIsPassable(int posX, int posZ)
 {
-	//GrassLane* lane = dynamic_cast<GrassLane*>(m_pLanes.at(posZ));
-	//RoadLane* lane = dynamic_cast<RoadLane*>(m_pLanes.at(posZ));
-	WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
 
-	return !lane->GetObstacles().at(posX);
+	if(m_pLanes.at(posZ)->GetTag() == L"GrassLane")
+	{
+		GrassLane* lane = dynamic_cast<GrassLane*>(m_pLanes.at(posZ));
+		return !lane->GetObstacles().at(posX);
+
+	}else if(m_pLanes.at(posZ)->GetTag() == L"RoadLane")
+	{
+		RoadLane* lane = dynamic_cast<RoadLane*>(m_pLanes.at(posZ));
+		return !lane->GetObstacles().at(posX);
+
+	}else if (m_pLanes.at(posZ)->GetTag() == L"TrainLane")
+	{
+		TrainLane* lane = dynamic_cast<TrainLane*>(m_pLanes.at(posZ));
+		return !lane->GetObstacles().at(posX);
+
+	}else if (m_pLanes.at(posZ)->GetTag() == L"WaterLane")
+	{
+		WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
+		return !lane->GetObstacles().at(posX);
+
+	}
+
+	return false;
 }
 
 int LaneManager::GetWidth()
@@ -31,18 +50,32 @@ void LaneManager::IncreasePlayerCount()
 
 bool LaneManager::IsOnWater(int posX, int posZ)
 {
-	WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
+	if(m_pLanes.at(posZ)->GetTag() == L"WaterLane")
+	{
 
-	return !lane->GetLilys().at(posX);
+		WaterLane* lane = dynamic_cast<WaterLane*>(m_pLanes.at(posZ));
+
+		return !lane->GetLilys().at(posX);
+
+	}
+	return false;
 }
 
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
-	for(int i{}; i < 7; i++)
+	//for(int i{}; i < 7; i++)
+	//{
+	//	//MakeGrassLane();
+	//	//MakeRoadLane();
+	//	//MakeWaterLane();
+	//	MakeTrainLane();
+	//}
+
+	for (int i{}; i < 2; i++)
 	{
-		//MakeGrassLane();
-		//MakeRoadLane();
-		//MakeWaterLane();
+		MakeGrassLane();
+		MakeRoadLane();
+		MakeWaterLane();
 		MakeTrainLane();
 	}
 	
