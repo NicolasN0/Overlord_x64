@@ -35,5 +35,8 @@ private:
 	SpriteFont* m_pFont{};
 	XMFLOAT2 m_TextPosition{};
 	XMFLOAT4 m_TextColor{ 1.f,1.f,1.f,1.f };
+
+	XMFLOAT2 m_TextPositionCoins{};
+	XMFLOAT4 m_TextColorCoins{ 1.f,1.f,0.f,1.f };
 };
 

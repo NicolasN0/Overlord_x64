@@ -40,10 +40,14 @@ void CrossyRoadScene::Initialize()
 	m_pFont = ContentManager::Load<SpriteFont>(L"SpriteFonts/Consolas_32.fnt");
 	m_TextPosition.x = m_SceneContext.windowWidth - 50;
 	m_TextPosition.y = 10;
+	m_TextPositionCoins.x = 50;
+	m_TextPositionCoins.y = 10;
 	
 }
 
 void CrossyRoadScene::Update()
 {
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetScore())), m_TextPosition, m_TextColor);
+	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetCoins())), m_TextPositionCoins, m_TextColorCoins);
+
 }
