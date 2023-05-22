@@ -37,6 +37,8 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetTransform()->Translate(0, 0, float(m_PosZ));
 
+	//Set Train Spawn Delay
+	m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;
 	
 }
 
@@ -47,6 +49,11 @@ void Train::Update(const SceneContext& sceneContext)
 	if (m_CurX > m_Width * 2)
 	{
 		//m_CurX = 0;
-		m_CurX = float(-m_Width) ;
+		m_TrainDelayCounter += sceneContext.pGameTime->GetElapsed();
+		if(m_TrainDelayCounter > m_TrainDelay)
+		{
+			m_CurX = float(-m_Width) ;
+			m_TrainDelayCounter = 0.f;
+		}
 	}
 }
