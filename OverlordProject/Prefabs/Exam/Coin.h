@@ -13,6 +13,7 @@ public:
 	Coin& operator=(const Coin& other) = delete;
 	Coin& operator=(Coin&& other) noexcept = delete;
 
+	void PickedUp(bool picked);
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;
@@ -23,5 +24,7 @@ private:
 	int m_PosX{};
 	int m_PosZ{};
 	int m_CarSpeed{};
+
+	bool m_PickedUp{};
 };
 

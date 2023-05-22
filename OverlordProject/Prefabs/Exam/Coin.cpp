@@ -7,6 +7,11 @@ Coin::Coin(int posX, int posZ)
 	m_PosZ = posZ;
 }
 
+void Coin::PickedUp(bool picked)
+{
+	m_PickedUp = picked;
+}
+
 void Coin::Initialize(const SceneContext& /*sceneContext*/)
 {
 	SetTag(L"Coin");
@@ -32,4 +37,8 @@ void Coin::Initialize(const SceneContext& /*sceneContext*/)
 
 void Coin::Update(const SceneContext& /*sceneContext*/)
 {
+	if(m_PickedUp)
+	{
+		GetScene()->RemoveChild(this, true);
+	}
 }

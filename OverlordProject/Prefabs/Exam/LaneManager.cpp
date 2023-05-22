@@ -81,19 +81,19 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	
 }
 
-void LaneManager::Update(const SceneContext& /*sceneContext*/)
+void LaneManager::Update(const SceneContext& sceneContext)
 {
 	/*if(m_PlayerCount > m_pLanes.size() - 2)
 	{
 		UpdateLanes();
 	}*/
 
-	/*m_TestTimer += sceneContext.pGameTime->GetElapsed();
+	m_TestTimer += sceneContext.pGameTime->GetElapsed();
 	if(m_TestTimer > 2)
 	{
 		MakeGrassLane();
 		m_TestTimer = 0;
-	}*/
+	}
 	
 }
 

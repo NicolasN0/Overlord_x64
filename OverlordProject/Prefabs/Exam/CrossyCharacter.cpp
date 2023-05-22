@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CrossyCharacter.h"
 #include "Prefabs/Exam/LaneManager.h"
+#include <Prefabs/Exam/Coin.h>
 
 CrossyCharacter::CrossyCharacter(LaneManager* manager)
 {
@@ -65,7 +66,10 @@ void CrossyCharacter::Initialize(const SceneContext&)
 				if (other->GetTag() == L"Coin")
 				{
 					m_Coins++;
-				
+					
+					//GetScene()->RemoveChild(other, true);
+					Coin* coin = static_cast<Coin*>(other);
+					coin->PickedUp(true);
 				}
 			}
 			

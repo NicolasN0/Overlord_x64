@@ -141,9 +141,14 @@ void GameScene::RootUpdate()
 	Update();
 
 	//Root-Scene Update
-	for (const auto pChild : m_pChildren)
+	/*for (const auto pChild : m_pChildren)
 	{
 		pChild->RootUpdate(m_SceneContext);
+	}*/
+
+	for (int i{}; i< m_pChildren.size();i++)
+	{
+		m_pChildren[i]->RootUpdate(m_SceneContext);
 	}
 
 	m_pPhysxProxy->Update(m_SceneContext);
@@ -162,6 +167,11 @@ void GameScene::RootDraw()
 	{
 		child->RootShadowMapDraw(m_SceneContext);
 	}
+
+	/*for (int i{}; i < m_pChildren.size(); i++)
+	{
+		m_pChildren[i]->RootShadowMapDraw(m_SceneContext);
+	}*/
 	//3. END > ShadowMapRenderer::End (Terminate the ShadowPass)
 	ShadowMapRenderer::Get()->End(m_SceneContext);
 	
@@ -174,9 +184,14 @@ void GameScene::RootDraw()
 	Draw();
 
 	//Object-Scene Draw
-	for (const auto pChild : m_pChildren)
+	/*for (const auto pChild : m_pChildren)
 	{
 		pChild->RootDraw(m_SceneContext);
+	}*/
+
+	for (int i{}; i < m_pChildren.size(); i++)
+	{
+		m_pChildren[i]->RootDraw(m_SceneContext);
 	}
 
 	//SpriteRenderer Draw
@@ -187,9 +202,14 @@ void GameScene::RootDraw()
 
 	//Object-Scene Post-Draw
 	PostDraw();
-	for (const auto pChild : m_pChildren)
+	/*for (const auto pChild : m_pChildren)
 	{
 		pChild->RootPostDraw(m_SceneContext);
+	}*/
+
+	for (int i{}; i < m_pChildren.size(); i++)
+	{
+		m_pChildren[i]->RootPostDraw(m_SceneContext);
 	}
 
 	//Draw PhysX
