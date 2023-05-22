@@ -61,6 +61,7 @@ void CrossyRoadScene::Update()
 		if(!m_isBlurActive)
 		{
 			AddPostProcessingEffect(m_pPostBlur);
+			AddPostProcessingEffect(m_pPostGrayscale);
 			m_isBlurActive = true;
 		}
 	} else 
@@ -68,6 +69,7 @@ void CrossyRoadScene::Update()
 		if(m_isBlurActive)
 		{
 			RemovePostProcessingEffect(m_pPostBlur);
+			RemovePostProcessingEffect(m_pPostGrayscale);
 			m_isBlurActive = false;
 		}
 	}
