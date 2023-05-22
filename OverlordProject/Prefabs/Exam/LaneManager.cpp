@@ -91,7 +91,8 @@ void LaneManager::Update(const SceneContext& sceneContext)
 	m_TestTimer += sceneContext.pGameTime->GetElapsed();
 	if(m_TestTimer > 2)
 	{
-		MakeGrassLane();
+		//MakeGrassLane();
+		MakeRandomLane();
 		m_TestTimer = 0;
 	}
 	
@@ -134,6 +135,28 @@ void LaneManager::MakeTrainLane()
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
+}
+
+void LaneManager::MakeRandomLane()
+{
+	int randLane = rand() % 4;
+	switch(randLane)
+	{
+
+		case 0:
+			MakeGrassLane();
+			break;
+		case 1:
+			MakeRoadLane();
+			break;
+		case 2:
+			MakeWaterLane();
+			break;
+		case 3:
+			MakeTrainLane();
+			break;
+	}
+
 }
 
 void LaneManager::UpdateLanes()

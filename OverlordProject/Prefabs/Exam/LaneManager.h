@@ -23,6 +23,7 @@ protected:
 	void MakeRoadLane();
 	void MakeWaterLane();
 	void MakeTrainLane();
+	void MakeRandomLane();
 	void UpdateLanes();
 
 private:
