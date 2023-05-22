@@ -20,6 +20,7 @@ public:
 	int GetCoins();
 	void SetCoints(int coins);
 	int GetScore();
+	bool GetIsDead();
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
@@ -28,6 +29,12 @@ private:
 	//ControllerComponent* m_pControllerComponent{};
 	void CheckWater();
 	void Dies();
+
+	//startUp check
+	bool m_isStartupDone{};
+	float m_maxStartupTime{ 2.f };
+	float m_curStartupTime{};
+	void CheckStartup(const SceneContext& sceneContext);
 
 	enum InputIds
 	{
@@ -46,6 +53,7 @@ private:
 
 	bool m_isMoving{};
 	bool m_isSinking{};
+	bool m_isDead{false};
 	float m_MaxMoveTime{1.f};
 	float m_CharSpeed{ 2.5f };
 	float m_JumpHeight{ 1.5f };

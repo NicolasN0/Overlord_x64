@@ -1,5 +1,6 @@
 #pragma once
-#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
+//#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
+#include "Scenegraph/GameScene.h"
 #include <Prefabs/BoneObject.h>
 class SoftwareSkinningScene_3 :
 	public GameScene

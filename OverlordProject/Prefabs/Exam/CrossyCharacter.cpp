@@ -22,6 +22,11 @@ int CrossyCharacter::GetScore()
 	return m_Score;
 }
 
+bool CrossyCharacter::GetIsDead()
+{
+	return m_isDead;
+}
+
 void CrossyCharacter::Initialize(const SceneContext&)
 {
 	
@@ -60,8 +65,7 @@ void CrossyCharacter::Initialize(const SceneContext&)
 				if (other->GetTag() == L"Coin")
 				{
 					m_Coins++;
-					//other->~GameObject();
-					//GetScene()->RemoveChild(other, true);
+				
 				}
 			}
 			
@@ -71,7 +75,11 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
-	
+	//control startup delay for dead
+	CheckStartup(sceneContext);
+
+
+	//sinking
 	if(m_isSinking)
 	{
 		auto pos = GetTransform()->GetPosition();
@@ -83,6 +91,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		}
 	}
 
+
+	//move check logic
 	if(!m_isMoving)
 	{
 		//Check if is on water
@@ -154,6 +164,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		}
 	}
 
+	//moving itself
 	if(m_isMoving)
 	{
 		m_MoveTime += sceneContext.pGameTime->GetElapsed() * m_CharSpeed;
@@ -168,6 +179,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 	}
 
+	//moving itself
 	if(!m_isSinking)
 	{
 		float posZ = std::lerp(static_cast<float>(m_prevPos.z), static_cast<float>(m_futurePos.z), m_MoveTime);
@@ -202,5 +214,23 @@ void CrossyCharacter::CheckWater()
 
 void CrossyCharacter::Dies()
 {
-	std::cout << "dead";
+	if(m_isStartupDone)
+	{
+
+		m_isDead = true;
+		std::cout << "dead";
+	}
+
+}
+
+void CrossyCharacter::CheckStartup(const SceneContext& sceneContext)
+{
+	if(!m_isStartupDone)
+	{
+		m_curStartupTime += sceneContext.pGameTime->GetElapsed();
+		if(m_curStartupTime > m_maxStartupTime)
+		{
+			m_isStartupDone = true;
+		}
+	}
 }

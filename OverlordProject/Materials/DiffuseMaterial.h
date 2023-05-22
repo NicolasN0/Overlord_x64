@@ -1,4 +1,5 @@
 #pragma once
+#include <Misc/TextureData.h>
 class DiffuseMaterial final : public Material<DiffuseMaterial>
 {
 public:

@@ -1,5 +1,8 @@
 #pragma once
-#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
+//#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameScene.h"
+#include "Scenegraph/GameScene.h"
+#include <Materials/Post/PostBlur.h>
+#include <Materials/Post/PostGrayscale.h>
 
 class LaneManager;
 class CrossyCharacter;
@@ -38,5 +41,10 @@ private:
 
 	XMFLOAT2 m_TextPositionCoins{};
 	XMFLOAT4 m_TextColorCoins{ 1.f,1.f,0.f,1.f };
+
+	PostBlur* m_pPostBlur{};
+	PostGrayscale* m_pPostGrayscale{};
+
+	bool m_isBlurActive{};
 };
 

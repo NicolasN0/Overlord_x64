@@ -43,11 +43,33 @@ void CrossyRoadScene::Initialize()
 	m_TextPositionCoins.x = 50;
 	m_TextPositionCoins.y = 10;
 	
+	//Post Processing Stack
+//=====================
+	m_pPostGrayscale = MaterialManager::Get()->CreateMaterial<PostGrayscale>();
+	//m_pPostBlur = ...
+	m_pPostBlur = MaterialManager::Get()->CreateMaterial<PostBlur>();
+	
 }
 
 void CrossyRoadScene::Update()
 {
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetScore())), m_TextPosition, m_TextColor);
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetCoins())), m_TextPositionCoins, m_TextColorCoins);
+
+	if(m_pPlayer->GetIsDead() == true)
+	{
+		if(!m_isBlurActive)
+		{
+			AddPostProcessingEffect(m_pPostBlur);
+			m_isBlurActive = true;
+		}
+	} else 
+	{
+		if(m_isBlurActive)
+		{
+			RemovePostProcessingEffect(m_pPostBlur);
+			m_isBlurActive = false;
+		}
+	}
 
 }
