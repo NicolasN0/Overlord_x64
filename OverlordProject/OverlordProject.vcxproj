@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\CrossyRoad\MainMenuScene.cpp" />
     <ClCompile Include="Prefabs\Exam\Coin.cpp" />
     <ClCompile Include="Prefabs\Exam\Lily.cpp" />
     <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
@@ -158,6 +159,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\CrossyRoad\MainMenuScene.h" />
     <ClInclude Include="Prefabs\Exam\Coin.h" />
     <ClInclude Include="Prefabs\Exam\Lily.h" />
     <ClInclude Include="Materials\Post\PostGrayscale.h" />

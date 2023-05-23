@@ -184,15 +184,15 @@ void GameScene::RootDraw()
 	Draw();
 
 	//Object-Scene Draw
-	/*for (const auto pChild : m_pChildren)
+	for (const auto pChild : m_pChildren)
 	{
 		pChild->RootDraw(m_SceneContext);
-	}*/
+	}
 
-	for (int i{}; i < m_pChildren.size(); i++)
+	/*for (int i{}; i < m_pChildren.size(); i++)
 	{
 		m_pChildren[i]->RootDraw(m_SceneContext);
-	}
+	}*/
 
 	//SpriteRenderer Draw
 	SpriteRenderer::Get()->Draw(m_SceneContext);
@@ -202,15 +202,15 @@ void GameScene::RootDraw()
 
 	//Object-Scene Post-Draw
 	PostDraw();
-	/*for (const auto pChild : m_pChildren)
+	for (const auto pChild : m_pChildren)
 	{
 		pChild->RootPostDraw(m_SceneContext);
-	}*/
+	}
 
-	for (int i{}; i < m_pChildren.size(); i++)
+	/*for (int i{}; i < m_pChildren.size(); i++)
 	{
 		m_pChildren[i]->RootPostDraw(m_SceneContext);
-	}
+	}*/
 
 	//Draw PhysX
 	m_pPhysxProxy->Draw(m_SceneContext);
