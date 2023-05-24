@@ -17,7 +17,7 @@ ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile
 ParticleEmitterComponent::~ParticleEmitterComponent()
 {
 	//TODO_W9(L"Implement Destructor")
-	delete m_ParticlesArray;
+	delete[] m_ParticlesArray;
 	m_pVertexBuffer->Release();
 }
 
@@ -30,6 +30,9 @@ void ParticleEmitterComponent::Initialize(const SceneContext& sceneContext)
 	}
 	CreateVertexBuffer(sceneContext);
 	m_pParticleTexture = ContentManager::Load<TextureData>(m_AssetFile);
+
+
+
 }
 
 void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& sceneContext)
@@ -48,6 +51,9 @@ void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& sceneConte
 	vertBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	vertBufferDesc.MiscFlags = 0;
 	HANDLE_ERROR(sceneContext.d3dContext.pDevice->CreateBuffer(&vertBufferDesc, nullptr, &m_pVertexBuffer))
+
+
+
 }
 
 void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
@@ -87,6 +93,8 @@ void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 	}
 
 	sceneContext.d3dContext.pDeviceContext->Unmap(m_pVertexBuffer, 0);
+
+
 }
 
 void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) const
@@ -98,6 +106,7 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 	}
 
 	p.currentEnergy -= elapsedTime;
+
 	if(p.currentEnergy < 0)
 	{
 		p.isActive = false;
@@ -108,22 +117,29 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 	p.vertexInfo.Position.y += m_EmitterSettings.velocity.y * elapsedTime;
 	p.vertexInfo.Position.z += m_EmitterSettings.velocity.z * elapsedTime;
 
-	float lifePercent{p.currentEnergy / p.totalEnergy};
+	float lifePercent{ p.currentEnergy / p.totalEnergy };
+	float delayFade{ 2.f };
 
-	float delayFade{ 2.f};
+	p.vertexInfo.Color = m_EmitterSettings.color;
 	p.vertexInfo.Color.w *= lifePercent * delayFade;
+
+	//if (p.sizeChange < 1.f)
+	//{
+	//	p.vertexInfo.Size = p.initialSize + p.sizeChange * (1.f - lifePercent);
+
+	//}
+
+	//if (p.sizeChange > 1.f)
+	//{
+	//	p.vertexInfo.Size = p.initialSize * p.sizeChange;
+	//}
 	
 
-	if(p.sizeChange < 1.f)
-	{
-		p.vertexInfo.Size = p.initialSize + p.sizeChange * (1.f-lifePercent);
+	p.vertexInfo.Size = p.initialSize + p.initialSize * (p.sizeChange - 1.f) * (1.f - lifePercent);
 
-	}
 
-	if(p.sizeChange > 1.f)
-	{
-		p.vertexInfo.Size = p.initialSize * p.sizeChange;
-	}
+
+	
 
 }
 
@@ -135,33 +151,30 @@ void ParticleEmitterComponent::SpawnParticle(Particle& p)
 	p.currentEnergy = MathHelper::randF(m_EmitterSettings.minEnergy, m_EmitterSettings.maxEnergy);
 	p.totalEnergy = MathHelper::randF(m_EmitterSettings.minEnergy, m_EmitterSettings.maxEnergy);
 
-	auto randomDirection = XMFLOAT3{ 1,0,0 };
-	auto rotationMatrix = XMMatrixRotationRollPitchYaw(MathHelper::randF(-XM_PI, XM_PI), MathHelper::randF(-XM_PI, XM_PI), MathHelper::randF(-XM_PI, XM_PI));
-
-	auto rot{ XMVector3TransformNormal(XMLoadFloat3(&randomDirection), rotationMatrix) };
-
+	
+	XMVECTOR randomDirection{MathHelper::randF(-XM_PI, XM_PI),MathHelper::randF(-XM_PI, XM_PI),MathHelper::randF(-XM_PI, XM_PI)};
 	float randomDistance = MathHelper::randF(m_EmitterSettings.minEmitterRadius, m_EmitterSettings.maxEmitterRadius);
+	const XMVECTOR& offset{ XMVector3Normalize(randomDirection) * randomDistance };
+	XMStoreFloat3(&p.vertexInfo.Position, XMLoadFloat3(&GetTransform()->GetWorldPosition()) + offset);
+
+
+	p.vertexInfo.Size = MathHelper::randF(m_EmitterSettings.minSize, m_EmitterSettings.maxSize);
+	p.initialSize = p.vertexInfo.Size;
+	p.sizeChange = MathHelper::randF(m_EmitterSettings.minScale, m_EmitterSettings.maxScale);
+	p.vertexInfo.Rotation = MathHelper::randF(-XM_PI, XM_PI);
+	p.vertexInfo.Color = m_EmitterSettings.color;
+
+
 
 	
-	XMStoreFloat3(&p.vertexInfo.Position, rot * randomDistance);
-
-	auto randomSize = MathHelper::randF(m_EmitterSettings.minSize, m_EmitterSettings.maxSize);
-	auto randomScale = MathHelper::randF(m_EmitterSettings.minScale, m_EmitterSettings.maxScale);
-
-	p.vertexInfo.Size = randomSize;
-	p.sizeChange = randomScale;
-
-	p.vertexInfo.Rotation = MathHelper::randF(-XM_PI, XM_PI);
-
-	p.vertexInfo.Color = m_EmitterSettings.color;
 }
 
 void ParticleEmitterComponent::PostDraw(const SceneContext& sceneContext)
 {
 	//TODO_W9(L"Implement PostDraw")
 	m_pParticleMaterial->SetVariable_Matrix(L"gWorldViewProj", sceneContext.pCamera->GetViewProjection());
-	m_pParticleMaterial->SetVariable_Matrix(L"gViewInverse ", sceneContext.pCamera->GetViewInverse());
-	m_pParticleMaterial->SetVariable_Texture(L"gParticleTexture ",m_pParticleTexture);
+	m_pParticleMaterial->SetVariable_Matrix(L"gViewInverse", sceneContext.pCamera->GetViewInverse());
+	m_pParticleMaterial->SetVariable_Texture(L"gParticleTexture",m_pParticleTexture);
 
 	auto techContext = m_pParticleMaterial->GetTechniqueContext();
 
@@ -184,6 +197,8 @@ void ParticleEmitterComponent::PostDraw(const SceneContext& sceneContext)
 		techContext.pTechnique->GetPassByIndex(i)->Apply(0, deviceContext);
 		deviceContext->Draw(static_cast<UINT>(m_ActiveParticles), 0);
 	}
+
+	
 }
 
 void ParticleEmitterComponent::DrawImGui()
