@@ -50,35 +50,140 @@ void ParticleEmitterComponent::CreateVertexBuffer(const SceneContext& sceneConte
 	HANDLE_ERROR(sceneContext.d3dContext.pDevice->CreateBuffer(&vertBufferDesc, nullptr, &m_pVertexBuffer))
 }
 
-void ParticleEmitterComponent::Update(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 {
 	//TODO_W9(L"Implement Update")
 
-	/*float particleInterval = ((m_EmitterSettings.maxEnergy + m_EmitterSettings.minEnergy) / 2) / m_ParticleCount;
+	float particleInterval = ((m_EmitterSettings.maxEnergy + m_EmitterSettings.minEnergy) / 2) / m_ParticleCount;
 
-	m_LastParticleSpawn = sceneContext.pGameTime->GetElapsed();
+	m_LastParticleSpawn += sceneContext.pGameTime->GetElapsed();
 
 	m_ActiveParticles = 0;
 
-	D3D11_MAPPED_SUBRESOURCE pData;
-	sceneContext.d3dContext.pDeviceContext->Map(m_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &pData);*/
+	D3D11_MAPPED_SUBRESOURCE subResource;
+	sceneContext.d3dContext.pDeviceContext->Map(m_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 
-	//VertexParticle* pBuffer = pData;
+	VertexParticle* pBuffer = reinterpret_cast<VertexParticle*>(subResource.pData);
+
+	for (UINT i{}; i< m_ParticleCount;i++)
+	{
+		auto& curParticle = m_ParticlesArray[i];
+
+		if(curParticle.isActive)
+		{
+			UpdateParticle(curParticle, sceneContext.pGameTime->GetElapsed());
+		}
+
+		if(!curParticle.isActive && m_LastParticleSpawn >= particleInterval)
+		{
+			SpawnParticle(curParticle);
+		}
+
+		if(curParticle.isActive)
+		{
+			pBuffer[m_ActiveParticles] = curParticle.vertexInfo;
+			m_ActiveParticles++;
+		}
+	}
+
+	sceneContext.d3dContext.pDeviceContext->Unmap(m_pVertexBuffer, 0);
 }
 
-void ParticleEmitterComponent::UpdateParticle(Particle& /*p*/, float /*elapsedTime*/) const
+void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) const
 {
-	TODO_W9(L"Implement UpdateParticle")
+	//TODO_W9(L"Implement UpdateParticle")
+	if(!p.isActive)
+	{
+		return;
+	}
+
+	p.currentEnergy -= elapsedTime;
+	if(p.currentEnergy < 0)
+	{
+		p.isActive = false;
+		return;
+	}
+
+	p.vertexInfo.Position.x += m_EmitterSettings.velocity.x * elapsedTime;
+	p.vertexInfo.Position.y += m_EmitterSettings.velocity.y * elapsedTime;
+	p.vertexInfo.Position.z += m_EmitterSettings.velocity.z * elapsedTime;
+
+	float lifePercent{p.currentEnergy / p.totalEnergy};
+
+	float delayFade{ 2.f};
+	p.vertexInfo.Color.w *= lifePercent * delayFade;
+	
+
+	if(p.sizeChange < 1.f)
+	{
+		p.vertexInfo.Size = p.initialSize + p.sizeChange * (1.f-lifePercent);
+
+	}
+
+	if(p.sizeChange > 1.f)
+	{
+		p.vertexInfo.Size = p.initialSize * p.sizeChange;
+	}
+
 }
 
-void ParticleEmitterComponent::SpawnParticle(Particle& /*p*/)
+void ParticleEmitterComponent::SpawnParticle(Particle& p)
 {
-	TODO_W9(L"Implement SpawnParticle")
+	//TODO_W9(L"Implement SpawnParticle")
+	p.isActive = true;
+
+	p.currentEnergy = MathHelper::randF(m_EmitterSettings.minEnergy, m_EmitterSettings.maxEnergy);
+	p.totalEnergy = MathHelper::randF(m_EmitterSettings.minEnergy, m_EmitterSettings.maxEnergy);
+
+	auto randomDirection = XMFLOAT3{ 1,0,0 };
+	auto rotationMatrix = XMMatrixRotationRollPitchYaw(MathHelper::randF(-XM_PI, XM_PI), MathHelper::randF(-XM_PI, XM_PI), MathHelper::randF(-XM_PI, XM_PI));
+
+	auto rot{ XMVector3TransformNormal(XMLoadFloat3(&randomDirection), rotationMatrix) };
+
+	float randomDistance = MathHelper::randF(m_EmitterSettings.minEmitterRadius, m_EmitterSettings.maxEmitterRadius);
+
+	
+	XMStoreFloat3(&p.vertexInfo.Position, rot * randomDistance);
+
+	auto randomSize = MathHelper::randF(m_EmitterSettings.minSize, m_EmitterSettings.maxSize);
+	auto randomScale = MathHelper::randF(m_EmitterSettings.minScale, m_EmitterSettings.maxScale);
+
+	p.vertexInfo.Size = randomSize;
+	p.sizeChange = randomScale;
+
+	p.vertexInfo.Rotation = MathHelper::randF(-XM_PI, XM_PI);
+
+	p.vertexInfo.Color = m_EmitterSettings.color;
 }
 
-void ParticleEmitterComponent::PostDraw(const SceneContext& /*sceneContext*/)
+void ParticleEmitterComponent::PostDraw(const SceneContext& sceneContext)
 {
-	TODO_W9(L"Implement PostDraw")
+	//TODO_W9(L"Implement PostDraw")
+	m_pParticleMaterial->SetVariable_Matrix(L"gWorldViewProj", sceneContext.pCamera->GetViewProjection());
+	m_pParticleMaterial->SetVariable_Matrix(L"gViewInverse ", sceneContext.pCamera->GetViewInverse());
+	m_pParticleMaterial->SetVariable_Texture(L"gParticleTexture ",m_pParticleTexture);
+
+	auto techContext = m_pParticleMaterial->GetTechniqueContext();
+
+	auto deviceContext = sceneContext.d3dContext.pDeviceContext;
+
+	deviceContext->IASetInputLayout(techContext.pInputLayout);
+
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	const UINT offset = 0;
+	const UINT stride = sizeof(VertexParticle);
+	deviceContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &stride, &offset);
+
+
+
+	D3DX11_TECHNIQUE_DESC desc{};
+	techContext.pTechnique->GetDesc(&desc);
+	for (UINT i = 0; i < desc.Passes; i++)
+	{
+		techContext.pTechnique->GetPassByIndex(i)->Apply(0, deviceContext);
+		deviceContext->Draw(static_cast<UINT>(m_ActiveParticles), 0);
+	}
 }
 
 void ParticleEmitterComponent::DrawImGui()
