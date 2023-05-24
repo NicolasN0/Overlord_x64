@@ -100,6 +100,10 @@ void MainMenuScene::Update()
 			if(pPickedObject->GetTag() == L"Play")
 			{
 				std::cout << "Play";
+
+				SceneManager::Get()->NextScene();
+				
+			
 			}
 
 			if (pPickedObject->GetTag() == L"Exit")
