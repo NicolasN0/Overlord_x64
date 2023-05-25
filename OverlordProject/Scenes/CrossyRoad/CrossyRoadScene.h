@@ -23,7 +23,10 @@ protected:
 	void Update() override;
 	void MakePauseMenu();
 	void DeletePauseMenu();
+	bool CheckPauseButton(XMFLOAT2 pos);
 
+	void PauseScene();
+	void UnPauseScene();
 	enum InputIds
 	{
 		MoveUp,
@@ -52,10 +55,16 @@ private:
 
 	//pauseMenu
 	bool m_isPaused{};
+	//sprites
 	GameObject* m_pSpriteBack;
 	GameObject* m_pSpritePlay;
 	GameObject* m_pSpriteRestart;
 	GameObject* m_pSpriteControls;
 	GameObject* m_pSpriteHome;
+	//colliders
+	GameObject* m_pColliderPlay;
+	GameObject* m_pColliderRestart;
+	GameObject* m_pColliderControls;
+	GameObject* m_pColliderHome;
 };
 
