@@ -61,69 +61,62 @@ VS_OUTPUT VS(VS_INPUT input)
 {
 	VS_OUTPUT output = (VS_OUTPUT)0;
 
-	//TODO: complete Vertex Shader 
-	//Hint: use the previously made shaders PosNormTex3D_Shadow and PosNormTex3D_Skinned as a guide
-    float4 transformedPos = float4(0, 0, 0, 0);
-    float3 transformedNormal = float3(0, 0, 0);
 
-    for (int i = 0; i < 4; ++i)
-    {
-        int index = (int) input.BoneIndices[i];
-        if (index >= 0)
-        {
-            transformedPos += mul(float4(input.pos, 1.0f), gBones[index] * input.BoneWeights[i]);
-            transformedNormal += mul(input.normal, (float3x3) (gBones[index] * input.BoneWeights[i]));
-        }
-    }
-    float4 newPos = transformedPos;
-
-
-    output.pos = mul(newPos, gWorldViewProj);
-    output.normal = normalize(mul(transformedNormal, (float3x3) gWorld));
-    output.texCoord = input.texCoord;
-    output.lPos = mul(newPos, gWorldViewProj_Light);
-    return output;
-    
+    float4 position = float4(0, 0, 0, 0);
+    float3 normal = float3(0, 0, 0);
 	
+    for (int i = 0; i < 4; i++)
+    {
+        float index = input.BoneIndices[i];
+        if (index < 0)
+            continue;
+		
+        float4 newPosition = float4(mul(float4(input.pos, 1.f), gBones[index]).xyz, 1.f);
+        float4 newNormal = float4(mul(input.normal, (float3x3) gBones[index]), 1.f);
+        position += newPosition * input.BoneWeights[i];
+        normal += newNormal * input.BoneWeights[i];
+    }
+    normal = normalize(normal);
+	
+    output.pos = mul(position, gWorldViewProj);
+    output.normal = normalize(mul(normal, (float3x3) gWorld));
+    output.texCoord = input.texCoord;
+    output.lPos = mul(position, gWorldViewProj_Light);
+	
+    return output;
 }
 
 float2 texOffset(int u, int v)
 {
-	//TODO: return offseted value (our shadow map has the following dimensions: 1280 * 720)
-    return float2(u * 1.0f / 1280, v * 1.0f / 720);
-	//return float2(u,v);
+    float x = float(u) / 1280.f;
+    float y = float(v) / 720.f;
+    return float2(x, y);
 }
 
 float EvaluateShadowMap(float4 lpos)
 {
-	////TODO: complete
- 
     lpos.xyz /= lpos.w;
 	
-	//check if we can light up the pos
     if (lpos.x < -1.0f || lpos.x > 1.0f ||
         lpos.y < -1.0f || lpos.y > 1.0f ||
         lpos.z < 0.0f || lpos.z > 1.0f)
         return 1.f;
-	
-	//bring coords from -1:1 to 0:1
+
     lpos.x = lpos.x / 2 + 0.5;
     lpos.y = lpos.y / -2 + 0.5;
     lpos.z -= gShadowMapBias;
 	
-	//if clip space z value greater than shadow map value then pixel is in shadow
-    float shadowFactor = 0;
+    float sum = 0;
     float margin = 1.5f;
     for (float y = -margin; y <= margin; y++)
     {
         for (float x = -margin; x <= margin; x++)
         {
-            shadowFactor += gShadowMap.SampleCmpLevelZero(cmpSampler, lpos.xy + texOffset(x, y), lpos.z);
+            sum += gShadowMap.SampleCmpLevelZero(cmpSampler, lpos.xy + texOffset(x, y), lpos.z);
         }
     }
-
-    return (shadowFactor / 16.0f);
-	//return 1.0f;
+    float pcf = 16.f;
+    return (sum / pcf) * 0.5 + 0.5;
 }
 
 //--------------------------------------------------------------------------------------
@@ -136,8 +129,6 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
 	float4 diffuseColor = gDiffuseMap.Sample( samLinear,input.texCoord );
 	float3 color_rgb= diffuseColor.rgb;
 	float color_a = diffuseColor.a;
-	
-	//HalfLambert Diffuse :)
 	float diffuseStrength = dot(input.normal, -gLightDirection);
 	diffuseStrength = diffuseStrength * 0.5 + 0.5;
 	diffuseStrength = saturate(diffuseStrength);

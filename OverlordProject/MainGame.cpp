@@ -13,10 +13,10 @@
 
 /*MILESTONE Content*/
  //#define MILESTONE_1
-//#define MILESTONE_2
+#define MILESTONE_2
 
 //ExamContent
-#define EXAM
+//#define EXAM
 
 
 #pragma region Lab/Milestone Includes
@@ -94,8 +94,8 @@ void MainGame::OnGamePreparing(GameContext& gameContext)
 	//gameContext.windowWidth=... (default is 1280)
 	//gameContext.windowHeight=... (default is 720)
 
-	gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE07) Neve Nicolas";
-	//gameContext.windowTitle = L"GP2 - Milestone 2 (2023) | (2DAE13) Doe John";
+	//gameContext.windowTitle = L"GP2 - Milestone 1 (2023) | (2DAE07) Neve Nicolas";
+	gameContext.windowTitle = L"GP2 - Milestone 2 (2023) | (2DAE07) Neve Nicolas";
 	//gameContext.windowTitle = L"GP2 - Exam Project (2023) | (2DAE13) Doe John";
 }
 

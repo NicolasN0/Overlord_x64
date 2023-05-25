@@ -19,11 +19,8 @@ RasterizerState rasterizerState
 //--------------------------------------------------------------------------------------
 float4 ShadowMapVS(float3 position:POSITION):SV_POSITION
 {
-	//TODO: return the position of the vertex in correct space (hint: seen from the view of the light)
-	//return float4(1.0f,1.0f,1.0f,1.0f);
-	 
-    float4 pos = mul(float4(position, 1.f), mul(gWorld, gLightViewProj));
-    return pos;
+	//hint: seen from the view of the light
+    return mul(float4(position, 1.f), mul(gWorld, gLightViewProj));
 }
 
 //--------------------------------------------------------------------------------------
@@ -31,18 +28,21 @@ float4 ShadowMapVS(float3 position:POSITION):SV_POSITION
 //--------------------------------------------------------------------------------------
 float4 ShadowMapVS_Skinned(float3 position:POSITION, float4 BoneIndices : BLENDINDICES, float4 BoneWeights : BLENDWEIGHTS) : SV_POSITION
 {
-	//TODO: return the position of the ANIMATED vertex in correct space (hint: seen from the view of the light)
-	//return float4(1.0f,1.0f,1.0f,1.0f);
-    float4 newPos = float4(position, 1.f);
+    float4 pos;
+    float3 normal;
 	
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; ++i)
     {
-        newPos += mul(float4(position, 1.0f), gBones[BoneIndices[i]] * BoneWeights[i]);
+        float index = BoneIndices[i];
+        if (index < 0)
+        {
+            continue;
+        }
+		
+        pos += float4(mul(float4(position, 1.f), gBones[index]).xyz, 1.f) * BoneWeights[i];
     }
-    newPos = mul(newPos, mul(gWorld, gLightViewProj));
-
-    return newPos;
 	
+    return mul(pos, mul(gWorld, gLightViewProj));
 }
  
 //--------------------------------------------------------------------------------------

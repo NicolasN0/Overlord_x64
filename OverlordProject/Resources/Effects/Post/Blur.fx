@@ -62,8 +62,8 @@ float4 PS(PS_INPUT input): SV_Target
     int height;
     gTexture.GetDimensions(width, height);
 	// Step 2: calculate dx and dy (UV space for 1 pixel)	
-    float dx = 1.f / width;
-    float dy = 1.f / height;
+    float dx = 1.f / float(width);
+    float dy = 1.f / float(height);
     
     float3 color;
 	// Step 3: Create a double for loop (5 iterations each)
@@ -71,17 +71,18 @@ float4 PS(PS_INPUT input): SV_Target
     {
         for (int j = 0; j < 5; j++)
         {
-            float offsetX = (dx * 2) + (dx * i);
-            float offsetY = (dy * 2) + (dy * j);
+          
+            float offsetX = (dx * (2 + i));          
+            float offsetY = (dy * (2 + j));
             
           
-            color += gTexture.Sample(samPoint, float2(input.TexCoord.x - offsetX, input.TexCoord.y + offsetY));
+            color += gTexture.Sample(samPoint, float2(input.TexCoord.x + offsetX, input.TexCoord.y + offsetY));
             
         }
 
     }
-	//		   Inside the loop, calculate the offset in each direction. Make sure not to take every pixel but move by 2 pixels each time
-	//			Do a texture lookup using your previously calculated uv coordinates + the offset, and add to the final color
+	//Inside the loop, calculate the offset in each direction. Make sure not to take every pixel but move by 2 pixels each time
+	//Do a texture lookup using your previously calculated uv coordinates + the offset, and add to the final color
 
 	// Step 4: Divide the final color by the number of passes (in this case 5*5)	
     color /= (5 * 5);
