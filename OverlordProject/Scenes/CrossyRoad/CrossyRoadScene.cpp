@@ -30,11 +30,13 @@ void CrossyRoadScene::Initialize()
 
 	//AddChild(new GrassLane());
 	//AddChild(new LaneManager());
-
+	
+	//Inputs
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveDown, InputState::down, VK_S, -1,  XINPUT_GAMEPAD_DPAD_DOWN));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveLeft, InputState::down, VK_A, -1,  XINPUT_GAMEPAD_DPAD_LEFT));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveRight, InputState::down, VK_D, -1, XINPUT_GAMEPAD_DPAD_RIGHT));
+	m_SceneContext.pInput->AddInputAction(InputAction(Pause, InputState::released, VK_ESCAPE, -1, XINPUT_GAMEPAD_START));
 
 	//Font
 	m_pFont = ContentManager::Load<SpriteFont>(L"SpriteFonts/Consolas_32.fnt");
@@ -74,4 +76,108 @@ void CrossyRoadScene::Update()
 		}
 	}
 
+
+	//Pause
+	if (m_SceneContext.pInput->IsActionTriggered(Pause)) 
+	{
+		if(!m_isPaused)
+		{
+			m_isPaused = true;
+			m_SceneContext.pGameTime->Stop();
+			MakePauseMenu();
+
+			
+		} else
+		{
+			m_isPaused = false;
+			m_SceneContext.pGameTime->Start();
+			DeletePauseMenu();
+		}
+		
+	}
+}
+
+void CrossyRoadScene::MakePauseMenu()
+{
+	//const auto pMaterial = PxGetPhysics().createMaterial(.5f, .5f, .5f);
+
+
+	////mainBack
+	m_pSpriteBack = new GameObject();
+	m_pSpriteBack->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/InGameBack.png", { 0.5f,0.5f }));
+	AddChild(m_pSpriteBack);
+	m_pSpriteBack->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .9f);
+	m_pSpriteBack->GetTransform()->Scale(1.f);
+
+
+	//play sprite
+	m_pSpritePlay = new GameObject();
+	m_pSpritePlay->SetTag(L"Play");
+	m_pSpritePlay->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Play.png", { 0.5f,0.5f }));
+	m_pSpritePlay->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
+	AddChild(m_pSpritePlay);
+	////play collider
+	//m_pSpriteButton = new GameObject();
+	//m_pSpriteButton->SetTag(L"Play");
+	//const auto pRigidBody = m_pSpriteButton->AddComponent(new RigidBodyComponent(true));
+	//pRigidBody->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+	//m_pSpriteButton->GetTransform()->Translate(0.3f, 1.4f, 2.f);
+	//m_pSpriteButton->GetTransform()->Scale(1.f);
+	//AddChild(m_pSpriteButton);
+
+
+	////Restart sprite
+	m_pSpriteRestart = new GameObject();
+	m_pSpriteRestart->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Restart.png", { 0.5f,0.5f }));
+	m_pSpriteRestart->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .7f);
+	m_pSpriteRestart->GetTransform()->Scale(1.f);
+	AddChild(m_pSpriteRestart);
+	////Restart collider
+	//m_pSpriteButton = new GameObject();
+	//m_pSpriteButton->SetTag(L"Settings");
+	//const auto pRigidBodyS = m_pSpriteButton->AddComponent(new RigidBodyComponent(true));
+	//pRigidBodyS->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+	//m_pSpriteButton->GetTransform()->Translate(0.3f, -1.f, 2.f);
+	//m_pSpriteButton->GetTransform()->Scale(1.f);
+	//AddChild(m_pSpriteButton);
+
+	////Settings sprite
+	m_pSpriteControls = new GameObject();
+	m_pSpriteControls->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Controls.png", { 0.5f,0.5f }));
+	m_pSpriteControls->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .6f);
+	m_pSpriteControls->GetTransform()->Scale(1.f);
+	AddChild(m_pSpriteControls);
+	////Settings collider
+	//m_pSpriteButton = new GameObject();
+	//m_pSpriteButton->SetTag(L"Settings");
+	//const auto pRigidBodyS = m_pSpriteButton->AddComponent(new RigidBodyComponent(true));
+	//pRigidBodyS->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+	//m_pSpriteButton->GetTransform()->Translate(0.3f, -1.f, 2.f);
+	//m_pSpriteButton->GetTransform()->Scale(1.f);
+	//AddChild(m_pSpriteButton);
+
+
+	////Home sprite
+	m_pSpriteHome = new GameObject();
+	m_pSpriteHome->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Home.png", { 0.5f,0.5f }));
+	m_pSpriteHome->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .5f);
+	m_pSpriteHome->GetTransform()->Scale(1.f);
+	AddChild(m_pSpriteHome);
+	////Home collider
+	//m_pSpriteButton = new GameObject();
+	//m_pSpriteButton->SetTag(L"Exit");
+	//const auto pRigidBodyE = m_pSpriteButton->AddComponent(new RigidBodyComponent(true));
+	//pRigidBodyE->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+	//m_pSpriteButton->GetTransform()->Translate(0.3f, 0.2f, 2.f);
+	//m_pSpriteButton->GetTransform()->Scale(1.f);
+	//AddChild(m_pSpriteButton);
+}
+
+void CrossyRoadScene::DeletePauseMenu()
+{
+	RemoveChild(m_pSpriteBack);
+	RemoveChild(m_pSpritePlay);
+	RemoveChild(m_pSpriteRestart);
+	RemoveChild(m_pSpriteControls);
+	RemoveChild(m_pSpriteHome);
 }

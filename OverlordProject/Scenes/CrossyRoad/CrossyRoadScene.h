@@ -21,13 +21,16 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
+	void MakePauseMenu();
+	void DeletePauseMenu();
 
 	enum InputIds
 	{
 		MoveUp,
 		MoveDown,
 		MoveLeft,
-		MoveRight,		
+		MoveRight,
+		Pause
 	};
 
 private:
@@ -46,5 +49,13 @@ private:
 	PostGrayscale* m_pPostGrayscale{};
 
 	bool m_isBlurActive{};
+
+	//pauseMenu
+	bool m_isPaused{};
+	GameObject* m_pSpriteBack;
+	GameObject* m_pSpritePlay;
+	GameObject* m_pSpriteRestart;
+	GameObject* m_pSpriteControls;
+	GameObject* m_pSpriteHome;
 };
 

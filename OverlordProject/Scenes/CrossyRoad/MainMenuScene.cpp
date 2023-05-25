@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MainMenuScene.h"
 #include <Materials/ColorMaterial.h>
+#include "CrossyRoadScene.h"
 
 void MainMenuScene::Initialize()
 {
@@ -102,8 +103,9 @@ void MainMenuScene::Update()
 				std::cout << "Play";
 
 				SceneManager::Get()->NextScene();
-				
-			
+			/*	SceneManager::Get()->AddGameScene(new CrossyRoadScene());
+				SceneManager::Get()->RemoveGameScene(SceneManager::Get()->GetActiveScene(), false);
+				SceneManager::Get()->NextScene();*/
 			}
 
 			if (pPickedObject->GetTag() == L"Exit")
