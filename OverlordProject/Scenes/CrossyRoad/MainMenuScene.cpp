@@ -96,7 +96,7 @@ void MainMenuScene::Update()
 {
 
 	//m_pTestHeight->GetTransform()->Translate(0.3f,m_Height, 2.f);
-
+	
 	if (InputManager::IsMouseButton(InputState::pressed, VK_LBUTTON))
 	{
 		if (const auto pPickedObject = m_SceneContext.pCamera->Pick())
@@ -105,10 +105,7 @@ void MainMenuScene::Update()
 			{
 				std::cout << "Play";
 
-			//	SceneManager::Get()->NextScene();
-			///*	SceneManager::Get()->AddGameScene(new CrossyRoadScene());
-			//	SceneManager::Get()->RemoveGameScene(SceneManager::Get()->GetActiveScene(), false);
-			//	SceneManager::Get()->NextScene();*/
+			
 
 				auto manager = SceneManager::Get();
 				auto crossyScene = manager->GetSceneByName("CrossyRoad");
@@ -123,6 +120,7 @@ void MainMenuScene::Update()
 			if (pPickedObject->GetTag() == L"Exit")
 			{
 				std::cout << "Exit";
+				
 			}
 
 			if (pPickedObject->GetTag() == L"Settings")

@@ -48,6 +48,7 @@
     <ClCompile Include="Prefabs\Exam\Train.cpp" />
     <ClCompile Include="Prefabs\Exam\Coin.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\MainMenuScene.cpp" />
+    <ClCompile Include="Scenes\CrossyRoad\RestarterScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -96,5 +97,6 @@
     <ClInclude Include="Prefabs\Exam\Train.h" />
     <ClInclude Include="Prefabs\Exam\Coin.h" />
     <ClInclude Include="Scenes\CrossyRoad\MainMenuScene.h" />
+    <ClInclude Include="Scenes\CrossyRoad\RestarterScene.h" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/LaneManager.h"
 #include "Prefabs/Exam/PlayerCamera.h"
-
+#include "RestarterScene.h"
 
 #define VK_W 0x57
 #define VK_S 0x53
@@ -200,6 +200,10 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		if(pos.y > 290 && pos.y < 370)
 		{
 			std::cout << "restart";
+			m_SceneContext.pGameTime->Start();
+			auto manager = SceneManager::Get();			
+			manager->AddGameScene(new RestarterScene());
+			manager->NextScene();
 		}
 
 		//home
