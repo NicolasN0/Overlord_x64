@@ -10,6 +10,9 @@ void MainMenuScene::Initialize()
 
 	m_SceneContext.settings.clearColor = XMFLOAT4(40.f/255.f, 160.f/255.f, 125.f/255.f, 1);
 	
+	//name
+	SetName("CrossyMenu");
+
 	m_pFixedCamera = new GameObject();
 	AddChild(m_pFixedCamera);
 	auto cameraComp = m_pFixedCamera->AddComponent(new CameraComponent());
@@ -102,10 +105,19 @@ void MainMenuScene::Update()
 			{
 				std::cout << "Play";
 
-				SceneManager::Get()->NextScene();
-			/*	SceneManager::Get()->AddGameScene(new CrossyRoadScene());
-				SceneManager::Get()->RemoveGameScene(SceneManager::Get()->GetActiveScene(), false);
-				SceneManager::Get()->NextScene();*/
+			//	SceneManager::Get()->NextScene();
+			///*	SceneManager::Get()->AddGameScene(new CrossyRoadScene());
+			//	SceneManager::Get()->RemoveGameScene(SceneManager::Get()->GetActiveScene(), false);
+			//	SceneManager::Get()->NextScene();*/
+
+				auto manager = SceneManager::Get();
+				auto crossyScene = manager->GetSceneByName("CrossyRoad");
+				if(crossyScene != NULL)
+				{
+					manager->RemoveGameScene(manager->GetSceneByName("CrossyRoad"), true);
+				}
+				manager->AddGameScene(new CrossyRoadScene());
+				manager->NextScene();
 			}
 
 			if (pPickedObject->GetTag() == L"Exit")

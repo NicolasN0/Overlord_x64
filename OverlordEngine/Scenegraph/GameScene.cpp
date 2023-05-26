@@ -431,3 +431,13 @@ void GameScene::SetActiveCamera(CameraComponent* pCameraComponent)
 	m_pActiveCamera->SetActive(true);
 	m_SceneContext.pCamera = m_pActiveCamera; //Change SceneContext
 }
+
+void GameScene::SetName(std::string name)
+{
+	m_Name = name;
+}
+
+std::string GameScene::GetName()
+{
+	return m_Name;
+}

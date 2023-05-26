@@ -16,6 +16,8 @@ public:
 	const SceneContext& GetActiveSceneContext() const { return m_ActiveScene->GetSceneContext(); }
 	SceneSettings& GetActiveSceneSettings() const { return m_ActiveScene->GetSceneSettings(); }
 
+	//Scene by Name
+	GameScene* GetSceneByName(std::string name);
 protected:
 	void Initialize() override;
 

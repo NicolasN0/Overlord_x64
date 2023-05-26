@@ -3,6 +3,19 @@
 #include <algorithm>
 
 
+GameScene* SceneManager::GetSceneByName(std::string name)
+{
+	//GameScene* scene;
+	for (int i{}; i < m_pScenes.size();i++)
+	{
+		if(m_pScenes.at(i)->GetName() == name)
+		{
+			return m_pScenes.at(i);
+		}
+	}
+	return NULL;
+}
+
 void SceneManager::Initialize()
 {
 	for (GameScene* pScene : m_pScenes)

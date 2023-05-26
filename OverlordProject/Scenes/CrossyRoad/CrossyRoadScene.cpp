@@ -15,6 +15,8 @@ void CrossyRoadScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
 	m_SceneContext.settings.drawGrid = false;
+	//name
+	SetName("CrossyRoad");
 
 	const auto pDefaultMaterial = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 	GameSceneExt::CreatePhysXGroundPlane(*this, pDefaultMaterial);

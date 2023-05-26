@@ -37,7 +37,9 @@ public:
 
 	PhysxProxy* GetPhysxProxy() const { return m_pPhysxProxy; }
 	void SetActiveCamera(CameraComponent* pCameraComponent);
-
+	//for getting by name
+	void SetName(std::string name);
+	std::string GetName();
 protected:
 	virtual void Initialize() = 0;
 	virtual void PostInitialize() {};
@@ -63,6 +65,7 @@ private:
 	void RootOnGUI();
 	void RootWindowStateChanged(int state, bool active) const;
 
+
 	std::vector<GameObject*> m_pChildren{};
 	bool m_IsInitialized{};
 	std::wstring m_SceneName{};
@@ -71,4 +74,6 @@ private:
 
 	std::vector<PostProcessingMaterial*> m_PostProcessingMaterials{};
 	OverlordGame* m_pGame{};
+	//for getting by name
+	std::string m_Name{};
 };
