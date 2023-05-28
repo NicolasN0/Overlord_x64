@@ -66,5 +66,8 @@ private:
 	GameObject* m_pColliderRestart;
 	GameObject* m_pColliderControls;
 	GameObject* m_pColliderHome;
+
+	//particle
+	ParticleEmitterComponent* m_pEmitter{};
 };
 

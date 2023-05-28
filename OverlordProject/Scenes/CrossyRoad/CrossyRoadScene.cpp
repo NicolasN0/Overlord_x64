@@ -29,9 +29,7 @@ void CrossyRoadScene::Initialize()
 	const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
 	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
 	m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
-
-	//AddChild(new GrassLane());
-	//AddChild(new LaneManager());
+	
 	
 	//Inputs
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
@@ -52,6 +50,9 @@ void CrossyRoadScene::Initialize()
 	m_pPostGrayscale = MaterialManager::Get()->CreateMaterial<PostGrayscale>();
 	//m_pPostBlur = ...
 	m_pPostBlur = MaterialManager::Get()->CreateMaterial<PostBlur>();
+
+
+	
 	
 }
 
@@ -103,6 +104,31 @@ void CrossyRoadScene::Update()
 			XMFLOAT2 mousePos{ float(mouseCor.x),float(mouseCor.y) };
 			CheckPauseButton(mousePos);
 		}
+	}
+
+	//Splash
+	if(m_pPlayer->isSplashTriggered())
+	{
+		m_pPlayer->SetSplash(false);
+		//Particle System
+		ParticleEmitterSettings settings{};
+		settings.velocity = { 0.f,6.f,0.f };
+		settings.minSize = 0.1f;
+		settings.maxSize = 0.2f;
+		settings.minEnergy = 1.f;
+		settings.maxEnergy = 2.f;
+		settings.minScale = 3.5f;
+		settings.maxScale = 5.5f;
+		settings.minEmitterRadius = .2f;
+		settings.maxEmitterRadius = .5f;
+		settings.minWeight = 0.5f;
+		settings.maxWeight = 1.f;
+		settings.color = { 1.f,1.f,1.f, .6f };
+
+		const auto pObject = AddChild(new GameObject);
+		m_pEmitter = pObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 25));
+
+		pObject->GetTransform()->Translate(m_pPlayer->GetTransform()->GetPosition());
 	}
 	
 }

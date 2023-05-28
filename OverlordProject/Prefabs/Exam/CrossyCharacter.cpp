@@ -28,8 +28,22 @@ bool CrossyCharacter::GetIsDead()
 	return m_isDead;
 }
 
+void CrossyCharacter::SetSplash(bool splashTriggered)
+{
+	m_SplashTriggered = splashTriggered;
+}
+
+bool CrossyCharacter::isSplashTriggered()
+{
+	return m_SplashTriggered;
+}
+
+
+
 void CrossyCharacter::Initialize(const SceneContext&)
 {
+	
+
 	
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{1,0,0,1});
@@ -70,6 +84,12 @@ void CrossyCharacter::Initialize(const SceneContext&)
 					//GetScene()->RemoveChild(other, true);
 					Coin* coin = static_cast<Coin*>(other);
 					coin->PickedUp(true);
+				}
+
+				if (other->GetTag() == L"Lily")
+				{
+					//std::cout << "lily";
+					m_SplashTriggered = true;
 				}
 			}
 			
@@ -113,7 +133,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 				if(m_pLaneManager->GetIsPassable(int(testPos.x),int(testPos.z)))
 				{
 					m_futurePos = testPos;
-					//m_futurePos.z += 1;
 					m_isMoving = true;
 					m_Score++;
 
@@ -124,8 +143,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveDown))
 			{
-				/*m_futurePos.z -= 1;
-				m_isMoving = true;*/
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.z -= 1;
@@ -138,8 +155,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveLeft))
 			{
-				/*m_futurePos.x -= 1;
-				m_isMoving = true;*/
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.x -= 1;
@@ -152,8 +167,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveRight))
 			{
-				/*m_futurePos.x += 1;
-				m_isMoving = true;*/
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.x += 1;
@@ -165,6 +178,15 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 				}
 			
 			}
+
+			/*if(m_pLaneManager->IsOnLily(int(m_prevPos.x),int(m_prevPos.z)))
+			{
+				if(m_SplashTriggeredPos != m_prevPos.z)
+				{
+					std::cout << "splash";
+					m_SplashTriggeredPos = int(m_prevPos.z);
+				}
+			}*/
 		}
 	}
 
@@ -213,7 +235,9 @@ void CrossyCharacter::CheckWater()
 			std::cout << "Sink";
 			m_isSinking = true;
 		}
+
 	}
+
 }
 
 void CrossyCharacter::Dies()

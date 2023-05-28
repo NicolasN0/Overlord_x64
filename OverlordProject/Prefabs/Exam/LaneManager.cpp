@@ -61,6 +61,8 @@ bool LaneManager::IsOnWater(int posX, int posZ)
 	return false;
 }
 
+
+
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
 	//for(int i{}; i < 7; i++)

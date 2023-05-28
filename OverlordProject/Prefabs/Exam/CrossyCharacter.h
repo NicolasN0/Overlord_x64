@@ -21,6 +21,10 @@ public:
 	void SetCoints(int coins);
 	int GetScore();
 	bool GetIsDead();
+	
+	//splash
+	void SetSplash(bool splashTriggered);
+	bool isSplashTriggered();
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
@@ -59,6 +63,10 @@ private:
 	float m_JumpHeight{ 1.5f };
 	int m_Coins{};
 	int m_Score{};
+
+	//splash
+	int m_SplashTriggered{};
+	
 
 };
 

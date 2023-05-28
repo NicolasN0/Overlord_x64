@@ -113,9 +113,19 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 		return;
 	}
 
-	p.vertexInfo.Position.x += m_EmitterSettings.velocity.x * elapsedTime;
+	//weight
+	if(p.initialWeight > 0)
+	{
+		p.particleVelocity.y -= p.initialWeight;
+	}
+
+	p.vertexInfo.Position.x += p.particleVelocity.x * elapsedTime;
+	p.vertexInfo.Position.y += p.particleVelocity.y * elapsedTime;
+	p.vertexInfo.Position.z += p.particleVelocity.z * elapsedTime;
+
+	/*p.vertexInfo.Position.x += m_EmitterSettings.velocity.x * elapsedTime;
 	p.vertexInfo.Position.y += m_EmitterSettings.velocity.y * elapsedTime;
-	p.vertexInfo.Position.z += m_EmitterSettings.velocity.z * elapsedTime;
+	p.vertexInfo.Position.z += m_EmitterSettings.velocity.z * elapsedTime;*/
 
 	float lifePercent{ p.currentEnergy / p.totalEnergy };
 	float delayFade{ 2.f };
@@ -165,7 +175,9 @@ void ParticleEmitterComponent::SpawnParticle(Particle& p)
 	p.vertexInfo.Color = m_EmitterSettings.color;
 
 
-
+	//weight
+	p.particleVelocity = m_EmitterSettings.velocity;
+	p.initialWeight = MathHelper::randF(m_EmitterSettings.minWeight, m_EmitterSettings.maxWeight);
 	
 }
 

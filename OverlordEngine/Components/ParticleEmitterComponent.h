@@ -17,6 +17,10 @@ struct ParticleEmitterSettings
 
 	XMFLOAT3 velocity{}; //The initial speed & (relative) direction of particles along X, Y and Z
 	XMFLOAT4 color{ XMFLOAT4{Colors::White } }; //The color of a particle
+
+	//weight
+	float minWeight{ 0.f };
+	float maxWeight{ 1.f };
 };
 
 struct Particle
@@ -30,6 +34,10 @@ struct Particle
 
 	float initialSize{};
 	float sizeChange{};
+
+	//weight
+	float initialWeight{};
+	XMFLOAT3 particleVelocity{};
 };
 
 class ParticleEmitterComponent : public BaseComponent

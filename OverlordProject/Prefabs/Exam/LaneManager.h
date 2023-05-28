@@ -16,6 +16,7 @@ public:
 	int GetWidth();
 	void IncreasePlayerCount();
 	bool IsOnWater(int posX, int posZ);
+	
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext& sceneContext) override;

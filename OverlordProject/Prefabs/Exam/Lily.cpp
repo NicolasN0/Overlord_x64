@@ -9,6 +9,7 @@ Lily::Lily(int posX, int posZ)
 
 void Lily::Initialize(const SceneContext& /*sceneContext*/)
 {
+	SetTag(L"Lily");
 	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0,1,0,1 });*/
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
@@ -23,6 +24,11 @@ void Lily::Initialize(const SceneContext& /*sceneContext*/)
 	GetTransform()->Translate(float(m_PosX), -0.5, float(m_PosZ));
 
 
+	//Collider
+	auto material = PxGetPhysics().createMaterial(.5f, .5f, .1f);
+	AddComponent(new RigidBodyComponent(false));
+	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 0.3f,0.3f,0.3f }, *material);
+	GetComponent<RigidBodyComponent>()->SetKinematic(true);
 }
 
 void Lily::Update(const SceneContext&)
