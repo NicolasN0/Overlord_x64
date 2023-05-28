@@ -16,6 +16,19 @@ GameScene* SceneManager::GetSceneByName(std::string name)
 	return NULL;
 }
 
+void SceneManager::SetSceneByName(std::string name)
+{
+	for (int i{}; i < m_pScenes.size(); i++)
+	{
+		if (m_pScenes.at(i)->GetName() == name)
+		{
+			m_NewActiveScene = m_pScenes[i];
+			break;
+		}
+	}
+	
+}
+
 void SceneManager::Initialize()
 {
 	for (GameScene* pScene : m_pScenes)

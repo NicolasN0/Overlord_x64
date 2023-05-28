@@ -18,6 +18,7 @@ public:
 
 	//Scene by Name
 	GameScene* GetSceneByName(std::string name);
+	void SetSceneByName(std::string name);
 protected:
 	void Initialize() override;
 

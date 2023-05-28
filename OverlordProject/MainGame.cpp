@@ -83,6 +83,7 @@
 #ifdef EXAM
 #include "Scenes/CrossyRoad/CrossyRoadScene.h"
 #include "Scenes/CrossyRoad/MainMenuScene.h"
+#include "Scenes/CrossyRoad/ControlsScene.h"
 #endif
 
 #pragma endregion
@@ -165,6 +166,8 @@ void MainGame::Initialize()
 #ifdef EXAM
 	SceneManager::Get()->AddGameScene(new MainMenuScene());
 	SceneManager::Get()->AddGameScene(new CrossyRoadScene());
+	SceneManager::Get()->AddGameScene(new ControlsScene());
+
 #endif
 }
 

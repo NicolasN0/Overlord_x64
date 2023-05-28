@@ -17,7 +17,8 @@ void RestarterScene::Update()
 		manager->RemoveGameScene(manager->GetSceneByName("CrossyRoad"), true);
 	}
 	manager->AddGameScene(new CrossyRoadScene());
-	manager->NextScene();
+	/*manager->NextScene();*/
+	manager->SetSceneByName("CrossyRoad");
 }
 
 void RestarterScene::OnGUI()

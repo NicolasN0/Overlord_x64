@@ -191,6 +191,7 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		if (pos.y > 390 && pos.y < 465)
 		{
 			std::cout << "controls";
+			SceneManager::Get()->SetSceneByName("ControlsScene");
 		}
 	}
 
@@ -210,8 +211,9 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		if(pos.y > 390 && pos.y < 465)
 		{
 			std::cout << "home";
-			SceneManager::Get()->PreviousScene();
+			//SceneManager::Get()->PreviousScene();
 			//Resets gameTime so need to make reset logic
+			SceneManager::Get()->SetSceneByName("CrossyMenu");
 			
 		}
 

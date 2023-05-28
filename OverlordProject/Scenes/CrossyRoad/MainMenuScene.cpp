@@ -114,7 +114,8 @@ void MainMenuScene::Update()
 					manager->RemoveGameScene(manager->GetSceneByName("CrossyRoad"), true);
 				}
 				manager->AddGameScene(new CrossyRoadScene());
-				manager->NextScene();
+				/*manager->NextScene();*/
+				manager->SetSceneByName("CrossyRoad");
 			}
 
 			if (pPickedObject->GetTag() == L"Exit")
@@ -125,7 +126,9 @@ void MainMenuScene::Update()
 
 			if (pPickedObject->GetTag() == L"Settings")
 			{
-				std::cout << "Settings";
+				//std::cout << "Settings";
+				auto manager = SceneManager::Get();
+				manager->SetSceneByName("ControlsScene");
 			}
 		}
 	}

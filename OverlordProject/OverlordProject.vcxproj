@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\CrossyRoad\ControlsScene.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\RestarterScene.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\MainMenuScene.cpp" />
     <ClCompile Include="Prefabs\Exam\Coin.cpp" />
@@ -160,6 +161,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\CrossyRoad\ControlsScene.h" />
     <ClInclude Include="Scenes\CrossyRoad\RestarterScene.h" />
     <ClInclude Include="Scenes\CrossyRoad\MainMenuScene.h" />
     <ClInclude Include="Prefabs\Exam\Coin.h" />
