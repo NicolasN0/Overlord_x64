@@ -27,6 +27,8 @@ private:
 	XMFLOAT3 m_PosSetting{};
 	float m_Height{};
 
+	GameObject* m_pSpriteHome;
+
 	//font
 	SpriteFont* m_pFont{};
 	
@@ -36,6 +38,7 @@ private:
 	std::string m_TextS{ "Jump one space back" };
 	std::string m_TextD{ "Jump one to the right" };
 	std::string m_TextEsc{ "Pause game" };
+	std::string m_TextPlay{ "Click on page to start!" };
 	std::string m_TextTest{ "Test" };
 	XMFLOAT2 m_TextPosition{};
 	XMFLOAT2 m_TextPositionW{495.f,120.f};
@@ -43,6 +46,7 @@ private:
 	XMFLOAT2 m_TextPositionS{ 495.f,334.f };
 	XMFLOAT2 m_TextPositionD{ 495.f,440.f };
 	XMFLOAT2 m_TextPositionEsc{ 495.f,545.f };
+	XMFLOAT2 m_TextPositionPlay{ 920.f,627.f };
 	XMFLOAT4 m_TextColor{ 1.f,1.f,1.f,1.f };
 };
 

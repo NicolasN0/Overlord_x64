@@ -32,6 +32,12 @@ void ControlsScene::Initialize()
 	//font
 	m_pFont = ContentManager::Load<SpriteFont>(L"SpriteFonts/CrossyRoad.fnt");
 
+	//home button
+	m_pSpriteHome = new GameObject();
+	m_pSpriteHome->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Home.png", { 0.5f,0.5f }));
+	m_pSpriteHome->GetTransform()->Translate(0,m_SceneContext.windowHeight - 125.f, .5f);
+	m_pSpriteHome->GetTransform()->Scale(1.f);
+	AddChild(m_pSpriteHome);
 }
 
 void ControlsScene::Update()
@@ -48,6 +54,23 @@ void ControlsScene::Update()
 
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(m_TextEsc), m_TextPositionEsc, m_TextColor);
 
+	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(m_TextPlay), m_TextPositionPlay, m_TextColor);
+
+	if (InputManager::IsMouseButton(InputState::pressed, VK_LBUTTON))
+	{
+		auto mouseCor = InputManager::GetMousePosition();
+		XMFLOAT2 mousePos{ float(mouseCor.x),float(mouseCor.y) };
+		//std::cout << mousePos.x << " " << mousePos.y << std::endl;
+
+		if(mousePos.x > 17.f && mousePos.x < 87.f && mousePos.y > 625.f && mousePos.y < 695.f)
+		{
+			SceneManager::Get()->SetSceneByName("CrossyMenu");
+		} else 
+		{
+			//just clicked on page so got to game
+			SceneManager::Get()->SetSceneByName("CrossyRoad");
+		}
+	}
 }
 
 void ControlsScene::OnGUI()
