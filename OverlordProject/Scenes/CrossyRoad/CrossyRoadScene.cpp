@@ -55,24 +55,22 @@ void CrossyRoadScene::Initialize()
 
 	//particle
 	//Particle System
-	ParticleEmitterSettings settings{};
-	//change velocity depending on playerPos to counteract bug (temp solution)
-	settings.velocity = { 0.f,15.f /*+ (0.75f*playerPos.z)*/ ,0.f };
-	settings.minSize = 0.1f;
-	settings.maxSize = 0.2f;
-	settings.minEnergy = 1.f;
-	settings.maxEnergy = 2.f;
-	settings.minScale = 3.5f;
-	settings.maxScale = 5.5f;
-	settings.minEmitterRadius = .2f;
-	settings.maxEmitterRadius = .5f;
-	settings.minWeight = 0.5f;
-	settings.maxWeight = 1.f;
-	settings.color = { 1.f,1.f,1.f, 1.f };
-
-	m_pParticleSystemObject = AddChild(new GameObject);
+	//ParticleEmitterSettings settings{};
 	
-	m_pEmitter = m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 50));
+	m_ParticleSettings.velocity = { 0.f,15.f,0.f };
+	m_ParticleSettings.minSize = 0.1f;
+	m_ParticleSettings.maxSize = 0.2f;
+	m_ParticleSettings.minEnergy = 1.f;
+	m_ParticleSettings.maxEnergy = 2.f;
+	m_ParticleSettings.minScale = 3.5f;
+	m_ParticleSettings.maxScale = 5.5f;
+	m_ParticleSettings.minEmitterRadius = .2f;
+	m_ParticleSettings.maxEmitterRadius = .5f;
+	m_ParticleSettings.minWeight = 0.5f;
+	m_ParticleSettings.maxWeight = 1.f;
+	m_ParticleSettings.color = { 1.f,1.f,1.f, 1.f };
+
+	
 	
 }
 
@@ -128,6 +126,7 @@ void CrossyRoadScene::Update()
 		}
 	}
 
+
 	//Splash
 	if (m_pPlayer->isSplashTriggered())
 	{
@@ -136,62 +135,32 @@ void CrossyRoadScene::Update()
 		m_pPlayer->SetSplash(false);
 		auto playerPos = m_pPlayer->GetTransform()->GetPosition();
 
+	
 
-		m_pEmitter->GetTransform()->Translate(playerPos);
+		if(!m_isParticleRunning)
+		{
 
-		//Particle System
-		//ParticleEmitterSettings settings{};
-		////change velocity depending on playerPos to counteract bug (temp solution)
-		//settings.velocity = { 0.f,15.f /*+ (0.75f*playerPos.z)*/ ,0.f };
-		//settings.minSize = 0.1f;
-		//settings.maxSize = 0.2f;
-		//settings.minEnergy = 1.f;
-		//settings.maxEnergy = 2.f;
-		//settings.minScale = 3.5f;
-		//settings.maxScale = 5.5f;
-		//settings.minEmitterRadius = .2f;
-		//settings.maxEmitterRadius = .5f;
-		//settings.minWeight = 0.5f;
-		//settings.maxWeight = 1.f;
-		//settings.color = { 1.f,1.f,1.f, 1.f };
 
-		/*const auto pObject = AddChild(new GameObject);
-		m_pEmitter = pObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 25));*/
+			m_pParticleSystemObject = AddChild(new GameObject);
 
-		//	if(!m_isParticleRunning)
-		//	{
-		//		m_pParticleSystemObject = AddChild(new GameObject);
-		//		m_pParticleSystemObject->GetTransform()->Translate(playerPos.x, 1, playerPos.z);		
-		//		m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 50));
+			m_pEmitter = m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", m_ParticleSettings, 50));
+			m_pEmitter->GetTransform()->Translate(playerPos);
+			m_isParticleRunning = true;
 
-		//		m_isParticleRunning = true;
+		}
+		
 
-		//		//auto emitter = m_pParticleSystemObject->GetComponent<ParticleEmitterComponent>();
-		//		//std::cout << std::to_string( emitter->GetSettings().velocity.x) << ' ' << std::to_string(emitter->GetSettings().velocity.y) << ' ' << std::to_string(emitter->GetSettings().velocity.z) << std::endl;
-		//		auto particleObject = m_pParticleSystemObject->GetTransform()->GetPosition();
-		//		std::cout << std::to_string(particleObject.x) << ' ' << std::to_string(particleObject.y) << ' ' << std::to_string(particleObject.z) << std::endl;
+	}
 
-		//		
-
-		//		/*GameObject* particleObject = AddChild(new GameObject);
-		//		particleObject->GetTransform()->Translate(playerPos.x, 1, playerPos.z);
-		//		particleObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 250));
-
-		//		m_isParticleRunning = true;*/
-
-		//	}
-		//}
-
-		//if(m_isParticleRunning)
-		//{
-		//	m_ParticleTimer += m_SceneContext.pGameTime->GetElapsed();
-		//	if(m_ParticleTimer > m_MaxParticleLifetime)
-		//	{
-		//		m_ParticleTimer = 0.f;
-		//		m_isParticleRunning = false;
-		//		RemoveChild(m_pParticleSystemObject, true);
-		//	}
-		//}
+	if(m_isParticleRunning)
+	{
+		m_ParticleTimer += m_SceneContext.pGameTime->GetElapsed();
+		if(m_ParticleTimer > m_MaxParticleLifetime)
+		{
+			m_ParticleTimer = 0.f;
+			m_isParticleRunning = false;
+			RemoveChild(m_pParticleSystemObject, true);
+		}
 	}
 }
 

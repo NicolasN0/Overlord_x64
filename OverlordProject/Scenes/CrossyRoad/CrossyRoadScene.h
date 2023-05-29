@@ -76,7 +76,7 @@ private:
 	float m_MaxParticleLifetime{ 1.f };
 	bool m_isParticleRunning{};
 	ParticleEmitterComponent* m_pEmitter{};
-
+	ParticleEmitterSettings m_ParticleSettings{};
 
 	bool m_canMove{};
 };
