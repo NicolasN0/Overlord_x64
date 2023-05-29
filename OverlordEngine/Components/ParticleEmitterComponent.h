@@ -76,6 +76,8 @@ private:
 	float m_LastParticleSpawn{}; //Total seconds since the last created particle
 	std::wstring m_AssetFile{};
 
+	VertexParticle* m_pParticleBuffer{};
+
 	bool m_DrawImGui{ false };
 };
 

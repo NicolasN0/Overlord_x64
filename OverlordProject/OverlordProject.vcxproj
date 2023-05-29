@@ -154,6 +154,7 @@
     <ClCompile Include="Prefabs\Exam\WaterLane.cpp" />
     <ClCompile Include="Prefabs\Exam\TrainLane.cpp" />
     <ClCompile Include="Prefabs\Exam\Train.cpp" />
+    <ClCompile Include="Materials\Post\PostVignette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverlordEngine\OverlordEngine.vcxproj">
@@ -209,6 +210,7 @@
     <ClInclude Include="Prefabs\Exam\WaterLane.h" />
     <ClInclude Include="Prefabs\Exam\TrainLane.h" />
     <ClInclude Include="Prefabs\Exam\Train.h" />
+    <ClInclude Include="Materials\Post\PostVignette.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

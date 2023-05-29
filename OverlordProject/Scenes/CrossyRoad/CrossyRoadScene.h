@@ -3,6 +3,7 @@
 #include "Scenegraph/GameScene.h"
 #include <Materials/Post/PostBlur.h>
 #include <Materials/Post/PostGrayscale.h>
+#include <Materials/Post/PostVignette.h>
 
 class LaneManager;
 class CrossyCharacter;
@@ -21,6 +22,7 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
+	void OnGUI() override;
 	void MakePauseMenu();
 	void DeletePauseMenu();
 	bool CheckPauseButton(XMFLOAT2 pos);
@@ -50,6 +52,7 @@ private:
 
 	PostBlur* m_pPostBlur{};
 	PostGrayscale* m_pPostGrayscale{};
+	PostVignette* m_pPostVignette{};
 
 	bool m_isBlurActive{};
 
@@ -68,6 +71,13 @@ private:
 	GameObject* m_pColliderHome;
 
 	//particle
+	GameObject* m_pParticleSystemObject;
+	float m_ParticleTimer{};
+	float m_MaxParticleLifetime{ 1.f };
+	bool m_isParticleRunning{};
 	ParticleEmitterComponent* m_pEmitter{};
+
+
+	bool m_canMove{};
 };
 

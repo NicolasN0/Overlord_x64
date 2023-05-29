@@ -50,6 +50,7 @@
     <ClCompile Include="Scenes\CrossyRoad\MainMenuScene.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\RestarterScene.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\ControlsScene.cpp" />
+    <ClCompile Include="Materials\Post\PostVignette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -100,5 +101,6 @@
     <ClInclude Include="Scenes\CrossyRoad\MainMenuScene.h" />
     <ClInclude Include="Scenes\CrossyRoad\RestarterScene.h" />
     <ClInclude Include="Scenes\CrossyRoad\ControlsScene.h" />
+    <ClInclude Include="Materials\Post\PostVignette.h" />
   </ItemGroup>
 </Project>

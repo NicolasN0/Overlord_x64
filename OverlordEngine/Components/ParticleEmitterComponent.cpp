@@ -12,6 +12,9 @@ ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile
 	m_EmitterSettings(emitterSettings)
 {
 	m_enablePostDraw = true; //This enables the PostDraw function for the component
+
+	//test
+	m_pParticleBuffer = new VertexParticle[particleCount];
 }
 
 ParticleEmitterComponent::~ParticleEmitterComponent()
@@ -60,6 +63,8 @@ void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 {
 	//TODO_W9(L"Implement Update")
 
+
+
 	float particleInterval = ((m_EmitterSettings.maxEnergy + m_EmitterSettings.minEnergy) / 2) / m_ParticleCount;
 
 	m_LastParticleSpawn += sceneContext.pGameTime->GetElapsed();
@@ -69,7 +74,9 @@ void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 	D3D11_MAPPED_SUBRESOURCE subResource;
 	sceneContext.d3dContext.pDeviceContext->Map(m_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 
-	VertexParticle* pBuffer = reinterpret_cast<VertexParticle*>(subResource.pData);
+	//VertexParticle* pBuffer = reinterpret_cast<VertexParticle*>(subResource.pData);
+
+	
 
 	for (UINT i{}; i< m_ParticleCount;i++)
 	{
@@ -85,13 +92,18 @@ void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 			SpawnParticle(curParticle);
 		}
 
+		m_pParticleBuffer[m_ActiveParticles] = curParticle.vertexInfo;
+
 		if(curParticle.isActive)
 		{
-			pBuffer[m_ActiveParticles] = curParticle.vertexInfo;
+			//pBuffer[m_ActiveParticles] = curParticle.vertexInfo;
+			//m_pParticleBuffer[m_ActiveParticles] = curParticle.vertexInfo;
 			m_ActiveParticles++;
 		}
-	}
 
+
+	}
+	memcpy(subResource.pData, m_pParticleBuffer,sizeof(VertexParticle) * m_ActiveParticles);
 	sceneContext.d3dContext.pDeviceContext->Unmap(m_pVertexBuffer, 0);
 
 
@@ -116,7 +128,7 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 	//weight
 	if(p.initialWeight > 0)
 	{
-		p.particleVelocity.y -= p.initialWeight;
+		p.particleVelocity.y -= p.initialWeight /** elapsedTime*/;
 	}
 
 	p.vertexInfo.Position.x += p.particleVelocity.x * elapsedTime;
@@ -132,19 +144,7 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 
 	p.vertexInfo.Color = m_EmitterSettings.color;
 	p.vertexInfo.Color.w *= lifePercent * delayFade;
-
-	//if (p.sizeChange < 1.f)
-	//{
-	//	p.vertexInfo.Size = p.initialSize + p.sizeChange * (1.f - lifePercent);
-
-	//}
-
-	//if (p.sizeChange > 1.f)
-	//{
-	//	p.vertexInfo.Size = p.initialSize * p.sizeChange;
-	//}
 	
-
 	p.vertexInfo.Size = p.initialSize + p.initialSize * (p.sizeChange - 1.f) * (1.f - lifePercent);
 
 

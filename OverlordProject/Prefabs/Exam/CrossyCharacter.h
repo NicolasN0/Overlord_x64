@@ -22,6 +22,7 @@ public:
 	int GetScore();
 	bool GetIsDead();
 	
+	void SetMove(bool canMove);
 	//splash
 	void SetSplash(bool splashTriggered);
 	bool isSplashTriggered();
@@ -66,6 +67,9 @@ private:
 
 	//splash
 	int m_SplashTriggered{};
+
+	//debug
+	bool m_CanMove{};
 	
 
 };

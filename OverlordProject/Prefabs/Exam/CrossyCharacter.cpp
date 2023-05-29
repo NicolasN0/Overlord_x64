@@ -28,6 +28,11 @@ bool CrossyCharacter::GetIsDead()
 	return m_isDead;
 }
 
+void CrossyCharacter::SetMove(bool canMove)
+{
+	m_CanMove = canMove;
+}
+
 void CrossyCharacter::SetSplash(bool splashTriggered)
 {
 	m_SplashTriggered = splashTriggered;
@@ -88,7 +93,7 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 				if (other->GetTag() == L"Lily")
 				{
-					//std::cout << "lily";
+					
 					m_SplashTriggered = true;
 				}
 			}
@@ -99,6 +104,12 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
+	//debug
+	/*if(!m_CanMove)
+	{
+		return;
+	}*/
+
 	//control startup delay for dead
 	CheckStartup(sceneContext);
 
@@ -179,14 +190,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			
 			}
 
-			/*if(m_pLaneManager->IsOnLily(int(m_prevPos.x),int(m_prevPos.z)))
-			{
-				if(m_SplashTriggeredPos != m_prevPos.z)
-				{
-					std::cout << "splash";
-					m_SplashTriggeredPos = int(m_prevPos.z);
-				}
-			}*/
 		}
 	}
 

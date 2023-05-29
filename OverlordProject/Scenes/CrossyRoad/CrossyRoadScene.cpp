@@ -51,8 +51,28 @@ void CrossyRoadScene::Initialize()
 	//m_pPostBlur = ...
 	m_pPostBlur = MaterialManager::Get()->CreateMaterial<PostBlur>();
 
+	m_pPostVignette = MaterialManager::Get()->CreateMaterial<PostVignette>();
 
+	//particle
+	//Particle System
+	ParticleEmitterSettings settings{};
+	//change velocity depending on playerPos to counteract bug (temp solution)
+	settings.velocity = { 0.f,15.f /*+ (0.75f*playerPos.z)*/ ,0.f };
+	settings.minSize = 0.1f;
+	settings.maxSize = 0.2f;
+	settings.minEnergy = 1.f;
+	settings.maxEnergy = 2.f;
+	settings.minScale = 3.5f;
+	settings.maxScale = 5.5f;
+	settings.minEmitterRadius = .2f;
+	settings.maxEmitterRadius = .5f;
+	settings.minWeight = 0.5f;
+	settings.maxWeight = 1.f;
+	settings.color = { 1.f,1.f,1.f, 1.f };
+
+	m_pParticleSystemObject = AddChild(new GameObject);
 	
+	m_pEmitter = m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 50));
 	
 }
 
@@ -65,16 +85,21 @@ void CrossyRoadScene::Update()
 	{
 		if(!m_isBlurActive)
 		{
-			AddPostProcessingEffect(m_pPostBlur);
-			AddPostProcessingEffect(m_pPostGrayscale);
+			//AddPostProcessingEffect(m_pPostBlur);
+			//AddPostProcessingEffect(m_pPostGrayscale);
+			AddPostProcessingEffect(m_pPostVignette);
 			m_isBlurActive = true;
+
+			Sleep(DWORD(100.f));
+			PauseScene();
 		}
 	} else 
 	{
 		if(m_isBlurActive)
 		{
-			RemovePostProcessingEffect(m_pPostBlur);
-			RemovePostProcessingEffect(m_pPostGrayscale);
+			//RemovePostProcessingEffect(m_pPostBlur);
+			//RemovePostProcessingEffect(m_pPostGrayscale);
+			RemovePostProcessingEffect(m_pPostVignette);
 			m_isBlurActive = false;
 		}
 	}
@@ -86,13 +111,10 @@ void CrossyRoadScene::Update()
 		if(!m_isPaused)
 		{
 			PauseScene();
-
-			
 		} else
 		{
 			UnPauseScene();
 		}
-		
 	}
 
 	//check button clicks
@@ -107,30 +129,78 @@ void CrossyRoadScene::Update()
 	}
 
 	//Splash
-	if(m_pPlayer->isSplashTriggered())
+	if (m_pPlayer->isSplashTriggered())
 	{
+		std::cout << "lily";
+
 		m_pPlayer->SetSplash(false);
+		auto playerPos = m_pPlayer->GetTransform()->GetPosition();
+
+
+		m_pEmitter->GetTransform()->Translate(playerPos);
+
 		//Particle System
-		ParticleEmitterSettings settings{};
-		settings.velocity = { 0.f,6.f,0.f };
-		settings.minSize = 0.1f;
-		settings.maxSize = 0.2f;
-		settings.minEnergy = 1.f;
-		settings.maxEnergy = 2.f;
-		settings.minScale = 3.5f;
-		settings.maxScale = 5.5f;
-		settings.minEmitterRadius = .2f;
-		settings.maxEmitterRadius = .5f;
-		settings.minWeight = 0.5f;
-		settings.maxWeight = 1.f;
-		settings.color = { 1.f,1.f,1.f, .6f };
+		//ParticleEmitterSettings settings{};
+		////change velocity depending on playerPos to counteract bug (temp solution)
+		//settings.velocity = { 0.f,15.f /*+ (0.75f*playerPos.z)*/ ,0.f };
+		//settings.minSize = 0.1f;
+		//settings.maxSize = 0.2f;
+		//settings.minEnergy = 1.f;
+		//settings.maxEnergy = 2.f;
+		//settings.minScale = 3.5f;
+		//settings.maxScale = 5.5f;
+		//settings.minEmitterRadius = .2f;
+		//settings.maxEmitterRadius = .5f;
+		//settings.minWeight = 0.5f;
+		//settings.maxWeight = 1.f;
+		//settings.color = { 1.f,1.f,1.f, 1.f };
 
-		const auto pObject = AddChild(new GameObject);
-		m_pEmitter = pObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 25));
+		/*const auto pObject = AddChild(new GameObject);
+		m_pEmitter = pObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 25));*/
 
-		pObject->GetTransform()->Translate(m_pPlayer->GetTransform()->GetPosition());
+		//	if(!m_isParticleRunning)
+		//	{
+		//		m_pParticleSystemObject = AddChild(new GameObject);
+		//		m_pParticleSystemObject->GetTransform()->Translate(playerPos.x, 1, playerPos.z);		
+		//		m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 50));
+
+		//		m_isParticleRunning = true;
+
+		//		//auto emitter = m_pParticleSystemObject->GetComponent<ParticleEmitterComponent>();
+		//		//std::cout << std::to_string( emitter->GetSettings().velocity.x) << ' ' << std::to_string(emitter->GetSettings().velocity.y) << ' ' << std::to_string(emitter->GetSettings().velocity.z) << std::endl;
+		//		auto particleObject = m_pParticleSystemObject->GetTransform()->GetPosition();
+		//		std::cout << std::to_string(particleObject.x) << ' ' << std::to_string(particleObject.y) << ' ' << std::to_string(particleObject.z) << std::endl;
+
+		//		
+
+		//		/*GameObject* particleObject = AddChild(new GameObject);
+		//		particleObject->GetTransform()->Translate(playerPos.x, 1, playerPos.z);
+		//		particleObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/Drop.png", settings, 250));
+
+		//		m_isParticleRunning = true;*/
+
+		//	}
+		//}
+
+		//if(m_isParticleRunning)
+		//{
+		//	m_ParticleTimer += m_SceneContext.pGameTime->GetElapsed();
+		//	if(m_ParticleTimer > m_MaxParticleLifetime)
+		//	{
+		//		m_ParticleTimer = 0.f;
+		//		m_isParticleRunning = false;
+		//		RemoveChild(m_pParticleSystemObject, true);
+		//	}
+		//}
 	}
-	
+}
+
+void CrossyRoadScene::OnGUI()
+{
+	if(ImGui::Checkbox("canMove",&m_canMove))
+	{
+		m_pPlayer->SetMove(m_canMove);
+	}
 }
 
 void CrossyRoadScene::MakePauseMenu()
