@@ -4,7 +4,7 @@
 class Train : public GameObject
 {
 public:
-	Train(int posX, int posZ);
+	Train(int posX, int posZ,int trainDelay);
 	~Train() override = default;
 
 	Train(const Train& other) = delete;
@@ -23,8 +23,8 @@ private:
 	int m_PosZ{};
 	int m_CarSpeed{80};
 
-	int m_TrainMaxDelay{5};
-	int m_TrainMinDelay{3};
+	/*int m_TrainMaxDelay{5};
+	int m_TrainMinDelay{3};*/
 	int m_TrainDelay{};
 	float m_TrainDelayCounter{};
 };

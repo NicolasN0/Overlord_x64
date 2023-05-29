@@ -78,6 +78,6 @@ private:
 	ParticleEmitterComponent* m_pEmitter{};
 	ParticleEmitterSettings m_ParticleSettings{};
 
-	bool m_canMove{};
+	bool m_canMove{true};
 };
 

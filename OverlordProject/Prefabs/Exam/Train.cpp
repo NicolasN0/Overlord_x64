@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "Train.h"
 
-Train::Train(int posX, int posZ)
+Train::Train(int posX, int posZ, int trainDelay)
 {
 	m_Width = posX;
 	m_PosZ = posZ;
 	m_CurX = 0;
+
+	m_TrainDelay = trainDelay;
 }
 
 void Train::Initialize(const SceneContext& /*sceneContext*/)
@@ -38,7 +40,7 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 	GetTransform()->Translate(0, 0, float(m_PosZ));
 
 	//Set Train Spawn Delay
-	m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;
+	/*m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;*/
 	
 }
 
