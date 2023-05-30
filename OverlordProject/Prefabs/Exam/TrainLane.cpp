@@ -86,6 +86,11 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	model3->GetTransform()->Translate(XMFLOAT3(posModel.x, posModel.y /*+ 0.5f*/, posModel.z /*- 0.5f*/));
 
 
+	//sound
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/TrainWhistle.wav", FMOD_DEFAULT, nullptr, &m_pSound);
+	m_pSound->setLoopCount(1);
+	m_pSoundChannel->setVolume(0.05f);
+	
 	
 	
 }
@@ -104,6 +109,10 @@ void TrainLane::Update(const SceneContext& sceneContext)
 			m_pEmitter = m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/redlight2.png", m_ParticleSettings, 1));
 			m_pEmitter->GetTransform()->Translate(m_ParticlePos.x, m_ParticlePos.y + 2.2f, m_ParticlePos.z - 0.3f);
 			m_ParticleRunning = true;
+
+			//sound
+			SoundManager::Get()->GetSystem()->playSound(m_pSound, nullptr, false, &m_pSoundChannel);
+		
 		}
 
 		if(m_TrainDelayCounter > m_TrainDelay + 1 && m_ParticleRunning)

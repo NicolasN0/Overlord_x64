@@ -43,5 +43,9 @@ private:
 	ParticleEmitterSettings m_ParticleSettings{};
 	GameObject* m_pParticleSystemObject;
 	bool m_ParticleRunning{};
+
+	//sound
+	FMOD::Sound* m_pSound{};
+	FMOD::Channel* m_pSoundChannel{};
 };
 
