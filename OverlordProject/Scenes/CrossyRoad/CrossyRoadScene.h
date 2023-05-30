@@ -4,6 +4,7 @@
 #include <Materials/Post/PostBlur.h>
 #include <Materials/Post/PostGrayscale.h>
 #include <Materials/Post/PostVignette.h>
+#include "Prefabs/Exam/PlayerCamera.h"
 
 class LaneManager;
 class CrossyCharacter;
@@ -79,7 +80,10 @@ private:
 	bool m_isParticleRunning{};
 	ParticleEmitterComponent* m_pEmitter{};
 	ParticleEmitterSettings m_ParticleSettings{};
-
+	//camera
+	PlayerCamera* m_pPlayerCamera;
+	XMFLOAT3 m_CameraOffset{ 2.75f,9.65f,-6.2f };
+	XMFLOAT2 m_CameraRot{ 61.8f,-13.125f };
 	
 
 	//debug

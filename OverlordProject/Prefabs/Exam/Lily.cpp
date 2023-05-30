@@ -22,6 +22,7 @@ void Lily::Initialize(const SceneContext& /*sceneContext*/)
 
 	
 	GetTransform()->Translate(float(m_PosX), -0.5, float(m_PosZ));
+	//GetTransform()->Translate(float(m_PosX),-1.5f, float(m_PosZ));
 
 
 	//Collider

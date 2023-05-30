@@ -67,7 +67,8 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	body->AddCollider(PxSphereGeometry(0.3f), *mat, true);
 
 	//set start
-	m_StartPos = XMFLOAT3(float(m_pLaneManager->GetWidth()/2),0,0);
+	/*m_StartPos = XMFLOAT3(float(m_pLaneManager->GetWidth()/2),0,0);*/
+	m_StartPos = XMFLOAT3(float(m_pLaneManager->GetWidth() / 2),0, 0);
 	GetTransform()->Translate(m_StartPos);
 	m_prevPos = m_StartPos;
 	m_futurePos = m_StartPos;
@@ -247,8 +248,9 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			 posY = std::lerp(0, static_cast<float>(m_JumpHeight), m_MoveTime);
 		}
 
-		//GetTransform()->Translate(posX, 0, posZ);
 		GetTransform()->Translate(posX, posY, posZ);
+		//-1 to give right height and not hover over
+		//GetTransform()->Translate(posX, posY-1.f, posZ);
 	}
 
 }

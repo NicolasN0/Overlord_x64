@@ -3,7 +3,7 @@
 #include "Prefabs/Exam/CrossyCharacter.h"
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/LaneManager.h"
-#include "Prefabs/Exam/PlayerCamera.h"
+
 #include "RestarterScene.h"
 
 #define VK_W 0x57
@@ -31,8 +31,15 @@ void CrossyRoadScene::Initialize()
 	//player
 	m_pPlayer = AddChild(new CrossyCharacter(m_pLaneManager));
 	//Camera
-	const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
-	m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
+	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
+	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer, m_CameraOffset));
+
+	//m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
+	//m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
+
+	m_pPlayerCamera = AddChild(new PlayerCamera(m_pPlayer, m_CameraOffset));
+
+	m_pCameraComponent = m_pPlayerCamera->GetComponent<CameraComponent>();
 	m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
 	
 	
@@ -81,6 +88,10 @@ void CrossyRoadScene::Initialize()
 
 void CrossyRoadScene::Update()
 {
+	//camera
+	m_pPlayerCamera->SetOffset(m_CameraOffset.x, m_CameraOffset.y, m_CameraOffset.z);
+	m_pPlayerCamera->SetRotation(m_CameraRot.x, m_CameraRot.y);
+
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetScore())), m_TextPosition, m_TextColor);
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetCoins())), m_TextPositionCoins, m_TextColorCoins);
 
@@ -178,6 +189,9 @@ void CrossyRoadScene::OnGUI()
 
 	ImGui::Checkbox("Draw ShadowMap", &m_DrawShadowMap);
 	ImGui::SliderFloat("ShadowMap Scale", &m_ShadowMapScale, 0.f, 1.f);
+
+	ImGui::SliderFloat2("RotCamera", ConvertUtil::ToImFloatPtr(m_CameraRot), -90, 90);
+	ImGui::SliderFloat3("OffsetCamera", ConvertUtil::ToImFloatPtr(m_CameraOffset), -20, 20);
 }
 
 void CrossyRoadScene::PostDraw()

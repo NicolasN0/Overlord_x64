@@ -34,7 +34,8 @@ void WaterLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
+	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
+	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
 
 	
 

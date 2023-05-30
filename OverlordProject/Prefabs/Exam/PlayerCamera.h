@@ -12,7 +12,7 @@ public:
 	PlayerCamera& operator=(PlayerCamera&& other) noexcept = delete;
 
 	void SetRotation(float pitch, float yaw);
-
+	void SetOffset(float x, float y,float z);
 protected:
 
 	void Initialize(const SceneContext & sceneContext) override;

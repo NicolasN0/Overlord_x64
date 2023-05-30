@@ -50,8 +50,8 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
-
+	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
+	GetTransform()->Translate(float(m_Width / 2), -1.f, float(1 * m_Count));
 	//train
 	//trainDelay
 	m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;
