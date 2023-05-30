@@ -1,6 +1,7 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
+#include <Materials\Shadow\DiffuseMaterial_Shadow.h>
 class RoadLane :
     public GameObject
 {
@@ -23,6 +24,7 @@ protected:
 private:
 	XMFLOAT4 m_Color{};
 	ColorMaterial* m_pMaterial{};
+	//DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
 	std::vector<GameObject*> m_pCoins{};

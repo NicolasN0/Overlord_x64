@@ -2,6 +2,7 @@
 //#include "C:\DAE\JAAR2P2\GP2\OverlordEngine_x64_Start\OverlordEngine\Scenegraph\GameObject.h"
 #include "Scenegraph/GameObject.h"
 #include <Materials/DiffuseMaterial.h>
+#include <Materials\Shadow\DiffuseMaterial_Shadow.h>
 class Car :
     public GameObject
 {
@@ -19,7 +20,9 @@ protected:
 	void Update(const SceneContext& sceneContext) override;
 
 private:
-	DiffuseMaterial* m_pMaterial{};
+	//DiffuseMaterial* m_pMaterial{};
+	DiffuseMaterial_Shadow* m_pMaterial{};
+
 	int m_Width{};
 	float m_CurX{};
 	int m_PosZ{};

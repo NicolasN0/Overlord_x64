@@ -25,6 +25,10 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });
 
+	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
+
+	m_pMaterial->SetDiffuseTexture(L"Textures/GroundBrick.jpg");*/
+
 	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);

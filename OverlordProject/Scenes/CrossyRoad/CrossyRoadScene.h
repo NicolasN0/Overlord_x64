@@ -23,6 +23,7 @@ protected:
 	void Initialize() override;
 	void Update() override;
 	void OnGUI() override;
+	void PostDraw() override;
 	void MakePauseMenu();
 	void DeletePauseMenu();
 	bool CheckPauseButton(XMFLOAT2 pos);
@@ -82,6 +83,8 @@ private:
 	
 
 	//debug
+	float m_ShadowMapScale{ 0.3f };
+	bool m_DrawShadowMap{};
 	bool m_canMove{true};
 };
 
