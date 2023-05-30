@@ -70,7 +70,15 @@ private:
 
 	//debug
 	bool m_CanMove{};
-	
 
+	//sound
+	FMOD::Sound* m_pSoundBounce{};
+	FMOD::Sound* m_pSoundChicken{};
+	FMOD::Sound* m_pSoundSplash{};
+	FMOD::Sound* m_pSoundCoin{};
+	FMOD::Channel* m_pSoundChannel{};
+	
+	//chicken soundDelay
+	
 };
 

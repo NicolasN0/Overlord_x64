@@ -89,17 +89,36 @@ void CrossyCharacter::Initialize(const SceneContext&)
 					//GetScene()->RemoveChild(other, true);
 					Coin* coin = static_cast<Coin*>(other);
 					coin->PickedUp(true);
+
+
+					//sound
+					SoundManager::Get()->GetSystem()->playSound(m_pSoundCoin, nullptr, false, &m_pSoundChannel);
+					m_pSoundChannel->setVolume(0.05f);
 				}
 
 				if (other->GetTag() == L"Lily")
 				{
 					
 					m_SplashTriggered = true;
+
+					
+					//sound
+					SoundManager::Get()->GetSystem()->playSound(m_pSoundSplash, nullptr, false, &m_pSoundChannel);
+					m_pSoundChannel->setVolume(0.05f);
 				}
 			}
 			
 		});
 	
+	//sound
+	
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/bounceEdited.wav", FMOD_DEFAULT, nullptr, &m_pSoundBounce);
+	m_pSoundBounce->setLoopCount(1);
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/chickenEdited.wav", FMOD_DEFAULT, nullptr, &m_pSoundChicken);
+	m_pSoundChicken->setLoopCount(1);
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/watersplashEdited.wav", FMOD_DEFAULT, nullptr, &m_pSoundSplash);
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/coinEdited.wav", FMOD_DEFAULT, nullptr, &m_pSoundCoin);
+	//m_pSoundChannel->setVolume(5.f);
 }
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
@@ -203,6 +222,11 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			m_MoveTime = 0.f;
 
 			m_prevPos = m_futurePos;
+
+			//landed so play sounds
+			//sound
+			SoundManager::Get()->GetSystem()->playSound(m_pSoundBounce, nullptr, false, &m_pSoundChannel);
+			m_pSoundChannel->setVolume(0.01f);
 		}
 
 

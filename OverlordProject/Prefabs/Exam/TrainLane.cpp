@@ -89,7 +89,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	//sound
 	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/TrainWhistle.wav", FMOD_DEFAULT, nullptr, &m_pSound);
 	m_pSound->setLoopCount(1);
-	m_pSoundChannel->setVolume(0.05f);
+	//m_pSoundChannel->setVolume(0.05f);
 	
 	
 	
@@ -111,8 +111,11 @@ void TrainLane::Update(const SceneContext& sceneContext)
 			m_ParticleRunning = true;
 
 			//sound
+			//FMOD::Channel* temp{};
 			SoundManager::Get()->GetSystem()->playSound(m_pSound, nullptr, false, &m_pSoundChannel);
-		
+			//SoundManager::Get()->GetSystem()->playSound(m_pSound, nullptr, false, &temp);
+			//temp->setVolume(0.01f);
+			m_pSoundChannel->setVolume(0.01f);
 		}
 
 		if(m_TrainDelayCounter > m_TrainDelay + 1 && m_ParticleRunning)
