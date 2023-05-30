@@ -15,6 +15,10 @@ void CrossyRoadScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
 	m_SceneContext.settings.drawGrid = false;
+
+	
+
+
 	//name
 	SetName("CrossyRoad");
 
@@ -285,6 +289,8 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 	}
 	return false;
 }
+
+
 
 void CrossyRoadScene::PauseScene()
 {

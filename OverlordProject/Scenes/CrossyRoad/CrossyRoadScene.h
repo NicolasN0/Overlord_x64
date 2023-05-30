@@ -26,6 +26,7 @@ protected:
 	void MakePauseMenu();
 	void DeletePauseMenu();
 	bool CheckPauseButton(XMFLOAT2 pos);
+	
 
 	void PauseScene();
 	void UnPauseScene();
@@ -78,6 +79,9 @@ private:
 	ParticleEmitterComponent* m_pEmitter{};
 	ParticleEmitterSettings m_ParticleSettings{};
 
+	
+
+	//debug
 	bool m_canMove{true};
 };
 

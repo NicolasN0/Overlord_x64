@@ -9,7 +9,16 @@ void MainMenuScene::Initialize()
 	m_SceneContext.settings.drawGrid = false;
 
 	m_SceneContext.settings.clearColor = XMFLOAT4(40.f/255.f, 160.f/255.f, 125.f/255.f, 1);
-	
+	//sound
+	//sound
+	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/BackgroundMusic1.wav", FMOD_DEFAULT, nullptr, &m_pMusic);
+	m_pMusic->setLoopCount(-1);
+	FMOD::Channel* musicChannel{};
+	SoundManager::Get()->GetSystem()->playSound(m_pMusic, nullptr, false, &musicChannel);
+	musicChannel->setVolume(0.075f);
+
+
+
 	//name
 	SetName("CrossyMenu");
 

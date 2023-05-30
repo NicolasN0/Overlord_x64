@@ -104,11 +104,11 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
-	//debug
-	if(!m_CanMove)
-	{
-		return;
-	}
+	//debug uncomment for testing
+	//if(!m_CanMove)
+	//{
+	//	return;
+	//}
 
 	//control startup delay for dead
 	CheckStartup(sceneContext);

@@ -30,5 +30,8 @@ private:
 	
 	XMFLOAT3 m_PosSetting{};
 	float m_Height{};
+
+	//sound
+	FMOD::Sound* m_pMusic{};
 };
 
