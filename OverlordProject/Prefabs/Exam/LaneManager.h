@@ -27,6 +27,8 @@ protected:
 	void MakeRandomLane();
 	void UpdateLanes();
 
+	void MakeStarterTreeLanes();
+
 private:
 	std::vector<GameObject*> m_pLanes;
 	int m_LaneCounter{};

@@ -4,6 +4,7 @@
 #include "Prefabs/Exam/RoadLane.h"
 #include "Prefabs/Exam/WaterLane.h"
 #include "Prefabs/Exam/TrainLane.h"
+#include "Prefabs/Exam/TreeLane.h"
 
 LaneManager::LaneManager()
 {
@@ -72,6 +73,9 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	//	//MakeWaterLane();
 	//	MakeTrainLane();
 	//}
+
+	MakeStarterTreeLanes();
+
 
 	for (int i{}; i < 2; i++)
 	{
@@ -168,4 +172,13 @@ void LaneManager::UpdateLanes()
 
 		MakeGrassLane();
 	}*/
+}
+
+void LaneManager::MakeStarterTreeLanes()
+{
+	for (int i{1}; i < 8;i++)
+	{
+		GetScene()->AddChild(new TreeLane(-1*i, m_Width));		
+		
+	}
 }
