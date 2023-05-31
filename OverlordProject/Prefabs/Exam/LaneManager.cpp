@@ -13,6 +13,11 @@ LaneManager::LaneManager()
 
 bool LaneManager::GetIsPassable(int posX, int posZ)
 {
+	//no out of bounds check
+	if(posZ < 0 || posZ > m_pLanes.size() || posX > m_Width || posX < 0)
+	{
+		return false;
+	}
 
 	if(m_pLanes.at(posZ)->GetTag() == L"GrassLane")
 	{

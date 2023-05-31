@@ -51,7 +51,7 @@ void PlayerCamera::Update(const SceneContext& sceneContext)
 	{
 		m_CurPos.z += m_CameraSpeed * sceneContext.pGameTime->GetElapsed();
 	}
-
+		
 	if(int(playerPosOffset.x) > int(m_CurPos.x))
 	{
 		m_CurPos.x += m_HorCameraSpeed * sceneContext.pGameTime->GetElapsed();
