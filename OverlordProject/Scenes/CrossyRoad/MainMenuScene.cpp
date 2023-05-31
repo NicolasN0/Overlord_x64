@@ -130,6 +130,7 @@ void MainMenuScene::Update()
 			if (pPickedObject->GetTag() == L"Exit")
 			{
 				std::cout << "Exit";
+				PostQuitMessage(0);
 				
 			}
 

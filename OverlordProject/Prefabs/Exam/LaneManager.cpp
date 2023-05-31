@@ -194,12 +194,6 @@ void LaneManager::MakeStarterTreeLanes()
 
 void LaneManager::CheckDeleteLanes()
 {
-	/*if (m_PlayerCount > 5 && !m_Deleted)
-	{
-		GetScene()->RemoveChild(m_pLanes.at(m_DeleteCount), true);
-		m_DeleteCount++;
-		m_Deleted = true;
-	}*/
 
 	//check if playercount - range between is same as deletecount
 	//if not delete lane and up deletecount till its the same
