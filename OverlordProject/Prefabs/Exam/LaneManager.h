@@ -28,7 +28,7 @@ protected:
 	void UpdateLanes();
 
 	void MakeStarterTreeLanes();
-
+	void CheckDeleteLanes();
 private:
 	std::vector<GameObject*> m_pLanes;
 	int m_LaneCounter{};
@@ -36,5 +36,10 @@ private:
 	int m_PlayerCount{};
 
 	float m_TestTimer{};
+
+	//deleting
+	int m_DeleteCount{};
+	int m_DeleteStepsRange{3};
+	bool m_Deleted{};
 };
 

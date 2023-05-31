@@ -81,8 +81,8 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 
 	MakeStarterTreeLanes();
 
-
-	for (int i{}; i < 3; i++)
+	//4 for fully build screen
+	for (int i{}; i < 4; i++)
 	{
 		MakeGrassLane();
 		MakeRoadLane();
@@ -95,11 +95,13 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 void LaneManager::Update(const SceneContext& /*sceneContext*/)
 {
 	//-2 is seeing one lane infront
-	if(m_PlayerCount > m_pLanes.size() - 9)
+	if(m_PlayerCount > m_pLanes.size() - 15)
 	{
 		//UpdateLanes();
 		MakeRandomLane();
 	}
+
+	CheckDeleteLanes();
 
 	//m_TestTimer += sceneContext.pGameTime->GetElapsed();
 	//if(m_TestTimer > 1.f)
@@ -187,5 +189,23 @@ void LaneManager::MakeStarterTreeLanes()
 	{
 		GetScene()->AddChild(new TreeLane(-1*i, m_Width));		
 		
+	}
+}
+
+void LaneManager::CheckDeleteLanes()
+{
+	/*if (m_PlayerCount > 5 && !m_Deleted)
+	{
+		GetScene()->RemoveChild(m_pLanes.at(m_DeleteCount), true);
+		m_DeleteCount++;
+		m_Deleted = true;
+	}*/
+
+	//check if playercount - range between is same as deletecount
+	//if not delete lane and up deletecount till its the same
+	if(m_PlayerCount - m_DeleteStepsRange > m_DeleteCount)
+	{
+		GetScene()->RemoveChild(m_pLanes.at(m_DeleteCount), true);
+		m_DeleteCount++;
 	}
 }
