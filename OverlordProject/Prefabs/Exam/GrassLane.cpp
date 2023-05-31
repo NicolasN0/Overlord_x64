@@ -55,11 +55,15 @@ void GrassLane::PlaceObstacles()
 			m_hasObstacle.at(i) = true;
 		} else
 		{
-			int randNumb = rand() % 10;
-
-			if(randNumb == 0)
+			if(m_Count != 0 && i != m_Width/2)
 			{
-				m_hasObstacle.at(i) = true;
+				int randNumb = rand() % 10;
+
+				if(randNumb == 0)
+				{
+					m_hasObstacle.at(i) = true;
+				}
+
 			}
 
 		}

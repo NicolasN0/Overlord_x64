@@ -1,6 +1,7 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
+#include <Materials/DiffuseMaterial_Skinned.h>
 
 class LaneManager;
 
@@ -55,6 +56,7 @@ private:
 	XMFLOAT3 m_futurePos{};
 	XMFLOAT3 m_StartPos{};
 	ColorMaterial* m_pMaterial;
+	//DiffuseMaterial_Skinned* m_pMaterial;
 
 	bool m_isMoving{};
 	bool m_isSinking{};
