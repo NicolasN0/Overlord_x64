@@ -77,7 +77,7 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	MakeStarterTreeLanes();
 
 
-	for (int i{}; i < 2; i++)
+	for (int i{}; i < 3; i++)
 	{
 		MakeGrassLane();
 		MakeRoadLane();
@@ -87,20 +87,22 @@ void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 	
 }
 
-void LaneManager::Update(const SceneContext& sceneContext)
+void LaneManager::Update(const SceneContext& /*sceneContext*/)
 {
-	/*if(m_PlayerCount > m_pLanes.size() - 2)
+	//-2 is seeing one lane infront
+	if(m_PlayerCount > m_pLanes.size() - 9)
 	{
-		UpdateLanes();
-	}*/
-
-	m_TestTimer += sceneContext.pGameTime->GetElapsed();
-	if(m_TestTimer > 2)
-	{
-		//MakeGrassLane();
+		//UpdateLanes();
 		MakeRandomLane();
-		m_TestTimer = 0;
 	}
+
+	//m_TestTimer += sceneContext.pGameTime->GetElapsed();
+	//if(m_TestTimer > 1.f)
+	//{
+	//	//MakeGrassLane();
+	//	MakeRandomLane();
+	//	m_TestTimer = 0;
+	//}
 	
 }
 
