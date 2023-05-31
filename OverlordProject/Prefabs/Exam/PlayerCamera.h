@@ -25,5 +25,10 @@ private:
 	CameraComponent* m_pCamera{};
 	GameObject* m_pPlayer{};
 	XMFLOAT3 m_Offset{};
+	XMFLOAT3 m_CurPos{};
+	XMFLOAT3 m_FuturePos{};
+	float m_CameraSpeed{1.f};
+	float m_HorCameraSpeed{ 2.f };
+	float m_CameraLerpTimer{};
 };
 

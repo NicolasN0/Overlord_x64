@@ -36,6 +36,8 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
 
+	GetTransform()->Scale(2, 1, 1);
+
 	/*GameObject* car =*/ GetScene()->AddChild(new Car(m_Width, m_Count));
 
 	//initalizeObstacles

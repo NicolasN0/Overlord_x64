@@ -37,7 +37,7 @@ void WaterLane::Initialize(const SceneContext& /*sceneContext*/)
 	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
 
-	
+	GetTransform()->Scale(2, 1, 1);
 
 	//initalizeObstacles
 	for (int i{}; i < m_Width; i++)

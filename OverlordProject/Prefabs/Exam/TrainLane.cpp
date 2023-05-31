@@ -49,7 +49,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
-
+	
 	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1.f, float(1 * m_Count));
 	//train
