@@ -30,5 +30,6 @@ private:
 	float m_CameraSpeed{1.f};
 	float m_HorCameraSpeed{ 2.f };
 	float m_CameraLerpTimer{};
+
 };
 

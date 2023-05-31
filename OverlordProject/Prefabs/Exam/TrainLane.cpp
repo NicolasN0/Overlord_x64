@@ -46,7 +46,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });
 
 	//comp1
-	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
+	AddComponent(new ModelComponent(L"Meshes/TrainLane.ovm", false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 	
@@ -68,7 +68,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterialRail = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
 	m_pMaterialRail->SetDiffuseTexture(L"Textures/Exam/RailTexture.png");
 
-	auto model2 = AddComponent(new ModelComponent(L"Meshes/Rail.ovm", false));
+	auto model2 = AddComponent(new ModelComponent(L"Meshes/RailLong.ovm", false));
 
 	model2->SetMaterial(m_pMaterialRail);
 	auto posModel = model2->GetTransform()->GetPosition();
