@@ -28,7 +28,7 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 	//Collider
 	auto material = PxGetPhysics().createMaterial(.5f, .5f, .1f);
 	AddComponent(new RigidBodyComponent(false));
-	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 20.f,1.0f,0.5f }, *material);
+	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 15.f,1.0f,0.5f }, *material);
 	GetComponent<RigidBodyComponent>()->SetKinematic(true);
 
 

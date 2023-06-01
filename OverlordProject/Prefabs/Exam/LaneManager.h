@@ -39,7 +39,7 @@ private:
 
 	//deleting
 	int m_DeleteCount{};
-	int m_DeleteStepsRange{3};
+	int m_DeleteStepsRange{8};
 	bool m_Deleted{};
 };
 
