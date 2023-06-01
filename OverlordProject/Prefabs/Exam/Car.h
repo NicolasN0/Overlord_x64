@@ -20,10 +20,10 @@ protected:
 	void Update(const SceneContext& sceneContext) override;
 
 private:
-	//DiffuseMaterial* m_pMaterial{};
+	DiffuseMaterial* m_pMaterial{};
 	void SetRandomColor();
 	void SetMovingDirection();
-	DiffuseMaterial_Shadow* m_pMaterial{};
+	//DiffuseMaterial_Shadow* m_pMaterial{};
 
 	int m_Width{};
 	float m_CurX{};

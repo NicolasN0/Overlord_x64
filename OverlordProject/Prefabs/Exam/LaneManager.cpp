@@ -154,7 +154,8 @@ void LaneManager::MakeTrainLane()
 
 void LaneManager::MakeRandomLane()
 {
-	int randLane = rand() % 4;
+	//equally random
+	/*int randLane = rand() % 4;
 	switch(randLane)
 	{
 
@@ -170,7 +171,27 @@ void LaneManager::MakeRandomLane()
 		case 3:
 			MakeTrainLane();
 			break;
+	}*/
+
+
+	int randLane = rand() % 10;
+	if(randLane < 4)
+	{
+		MakeRoadLane();
+
+	} else if(randLane < 6)
+	{
+		MakeGrassLane();
 	}
+	else if (randLane < 8)
+	{
+		MakeWaterLane();
+	}
+	else if(randLane < 10)
+	{
+		MakeTrainLane();
+	}
+	
 
 }
 

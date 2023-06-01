@@ -17,8 +17,8 @@ void CrossyRoadScene::Initialize()
 	m_SceneContext.settings.drawGrid = false;
 
 	
-	m_SceneContext.pLights->SetDirectionalLight({ -95.6139526f,66.1346436f,-41.1850471f }, { 0.740129888f, -0.597205281f, 0.309117377f });
-
+	//m_SceneContext.pLights->SetDirectionalLight({ -95.6139526f,66.1346436f,-41.1850471f }, { 0.740129888f, -0.597205281f, 0.309117377f });
+	m_SceneContext.pLights->SetDirectionalLight({ 0,10,0 }, { 0.740129888f, -0.597205281f, 0.309117377f });
 
 	//name
 	SetName("CrossyRoad");
@@ -30,6 +30,8 @@ void CrossyRoadScene::Initialize()
 	m_pLaneManager = AddChild(new LaneManager());
 	//player
 	m_pPlayer = AddChild(new CrossyCharacter(m_pLaneManager));
+
+
 	//Camera
 	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
 	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer, m_CameraOffset));
@@ -78,8 +80,8 @@ void CrossyRoadScene::Initialize()
 	m_ParticleSettings.maxScale = 5.5f;
 	m_ParticleSettings.minEmitterRadius = .2f;
 	m_ParticleSettings.maxEmitterRadius = .5f;
-	m_ParticleSettings.minWeight = 0.5f;
-	m_ParticleSettings.maxWeight = 1.f;
+	m_ParticleSettings.minWeight = 50.5f;
+	m_ParticleSettings.maxWeight = 70.f;
 	m_ParticleSettings.color = { 1.f,1.f,1.f, 1.f };
 
 	
@@ -88,9 +90,14 @@ void CrossyRoadScene::Initialize()
 
 void CrossyRoadScene::Update()
 {
+
+
+
 	//camera
 	m_pPlayerCamera->SetOffset(m_CameraOffset.x, m_CameraOffset.y, m_CameraOffset.z);
 	m_pPlayerCamera->SetRotation(m_CameraRot.x, m_CameraRot.y);
+
+	m_SceneContext.pLights->SetDirectionalLight({ m_pPlayerCamera->GetTransform()->GetPosition()}, { 0.740129888f, -0.597205281f, 0.309117377f });
 
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetScore())), m_TextPosition, m_TextColor);
 	TextRenderer::Get()->DrawText(m_pFont, StringUtil::utf8_decode(std::to_string(m_pPlayer->GetCoins())), m_TextPositionCoins, m_TextColorCoins);
@@ -105,6 +112,7 @@ void CrossyRoadScene::Update()
 			m_isBlurActive = true;
 
 			Sleep(DWORD(100.f));
+			
 			PauseScene();
 		}
 	} else 
@@ -264,11 +272,11 @@ void CrossyRoadScene::MakePauseMenu()
 
 void CrossyRoadScene::DeletePauseMenu()
 {
-	RemoveChild(m_pSpriteBack);
-	RemoveChild(m_pSpritePlay);
-	RemoveChild(m_pSpriteRestart);
-	RemoveChild(m_pSpriteControls);
-	RemoveChild(m_pSpriteHome);
+	RemoveChild(m_pSpriteBack,true);
+	RemoveChild(m_pSpritePlay,true);
+	RemoveChild(m_pSpriteRestart, true);
+	RemoveChild(m_pSpriteControls, true);
+	RemoveChild(m_pSpriteHome, true);
 }
 
 bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
@@ -320,6 +328,7 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 
 void CrossyRoadScene::PauseScene()
 {
+	
 	m_isPaused = true;
 	m_SceneContext.pGameTime->Stop();
 	MakePauseMenu();
@@ -327,7 +336,7 @@ void CrossyRoadScene::PauseScene()
 
 void CrossyRoadScene::UnPauseScene()
 {
+	DeletePauseMenu();
 	m_isPaused = false;
 	m_SceneContext.pGameTime->Start();
-	DeletePauseMenu();
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
+#include <Materials/DiffuseMaterial.h>
+#include <Materials/Shadow/DiffuseMaterial_Shadow.h>
 class TreeLane :
     public GameObject
 {
@@ -23,6 +25,7 @@ protected:
 private:
 	XMFLOAT4 m_Color{ 0.486f,0.871f,0.231f,1 };
 	ColorMaterial* m_pMaterial{};
+	//DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
 	std::vector<bool> m_hasObstacle{};

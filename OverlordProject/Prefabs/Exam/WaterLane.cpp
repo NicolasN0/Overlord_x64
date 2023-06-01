@@ -30,7 +30,7 @@ void WaterLane::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(m_Color);
 
-	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
+	AddComponent(new ModelComponent(L"Meshes/Lane.ovm",false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 

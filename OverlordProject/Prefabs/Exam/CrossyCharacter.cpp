@@ -54,8 +54,8 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	//m_pMaterial->SetColor(XMFLOAT4{1,0,0,1});
 
 	////mouseDiff
-	//m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Skinned>();
-	//m_pMaterial->SetDiffuseTexture(L"Textures/Exam/CharacterDiff.png");
+	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Skinned>();
+	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/CharacterDiff.png");*/
 	
 	//chicken2Diff
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
@@ -63,10 +63,15 @@ void CrossyCharacter::Initialize(const SceneContext&)
 
 	//model
 	//AddComponent(new ModelComponent(L"Meshes/Chicken.ovm"));
-	AddComponent(new ModelComponent(L"Meshes/Chicken2.ovm"));
-	//AddComponent(new ModelComponent(L"Meshes/Character.ovm"));
+	AddComponent(new ModelComponent(L"Meshes/Chicken2.ovm", false));
+	//auto pModel = AddComponent(new ModelComponent(L"Meshes/Mouse.ovm"));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
+
+	/*auto pAnimator = pModel->GetAnimator();
+	pAnimator->SetAnimation(0);
+	pAnimator->SetAnimationSpeed(1.f);
+	pAnimator->Play();*/
 
 	PxMaterial* mat = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
 

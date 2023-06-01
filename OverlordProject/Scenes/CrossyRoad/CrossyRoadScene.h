@@ -90,5 +90,7 @@ private:
 	float m_ShadowMapScale{ 0.3f };
 	bool m_DrawShadowMap{};
 	bool m_canMove{true};
+
+	
 };
 

@@ -16,12 +16,12 @@ void Car::Initialize(const SceneContext& /*sceneContext*/)
 	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 1,0,1,1 });*/
 
-	//m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
-	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
+	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	//m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	SetRandomColor();
 	//m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car.png");
 
-	AddComponent(new ModelComponent(L"Meshes/Car.ovm", false));
+	AddComponent(new ModelComponent(L"Meshes/Car.ovm"));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 

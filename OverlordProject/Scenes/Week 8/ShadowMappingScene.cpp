@@ -3,6 +3,7 @@
 
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow_Skinned.h"
+#include <Materials\ColorMaterial.h>
 
 
 void ShadowMappingScene::Initialize()
@@ -44,6 +45,18 @@ void ShadowMappingScene::Initialize()
 		pAnimator->SetAnimation(2);
 		pAnimator->Play();
 	}
+
+
+	//cube
+	const auto pGroundCube = new GameObject();
+	const auto pGroundModel2 = pGroundCube->AddComponent(new ModelComponent(L"Meshes/Sphere.ovm"));
+
+	const auto pGroundMaterial2 = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
+	pGroundMaterial2->SetColor(XMFLOAT4( 1.f, 0.f, 0.f, 1.f));
+
+	pGroundModel2->SetMaterial(pGroundMaterial2);
+	pGroundCube->GetTransform()->Scale(10.0f, 10.0f, 10.0f);
+	AddChild(pGroundCube);
 
 	//Input
 	//*****

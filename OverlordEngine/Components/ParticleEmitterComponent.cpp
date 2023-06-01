@@ -21,6 +21,7 @@ ParticleEmitterComponent::~ParticleEmitterComponent()
 {
 	//TODO_W9(L"Implement Destructor")
 	delete[] m_ParticlesArray;
+	delete[] m_pParticleBuffer;
 	m_pVertexBuffer->Release();
 }
 
@@ -128,7 +129,7 @@ void ParticleEmitterComponent::UpdateParticle(Particle& p, float elapsedTime) co
 	//weight
 	if(p.initialWeight > 0)
 	{
-		p.particleVelocity.y -= p.initialWeight /** elapsedTime*/;
+		p.particleVelocity.y -= p.initialWeight * elapsedTime;
 	}
 
 	p.vertexInfo.Position.x += p.particleVelocity.x * elapsedTime;

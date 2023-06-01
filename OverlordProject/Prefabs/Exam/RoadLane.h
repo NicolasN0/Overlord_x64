@@ -24,8 +24,8 @@ protected:
 
 private:
 	XMFLOAT4 m_Color{};
-	ColorMaterial* m_pMaterial{};
-	//DiffuseMaterial_Shadow* m_pMaterial{};
+	//ColorMaterial* m_pMaterial{};
+	DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
 	std::vector<GameObject*> m_pCoins{};
