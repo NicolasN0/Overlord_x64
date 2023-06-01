@@ -53,7 +53,22 @@ void TreeLane::Initialize(const SceneContext& /*sceneContext*/)
 		PlaceObstacles();
 	} else
 	{
-		GetScene()->AddChild(new Fox(m_Width, m_Count));
+		m_pFox = GetScene()->AddChild(new Fox(m_Width, m_Count));
+	}
+}
+
+
+void TreeLane::OnSceneDetach(GameScene* pScene)
+{
+	//cleanUp made gameobjects
+	for (int i{}; i < m_pObstacles.size(); i++)
+	{
+		pScene->RemoveChild(m_pObstacles.at(i), true);
+	}
+
+	if(m_hasFox)
+	{
+		pScene->RemoveChild(m_pFox, true);
 	}
 }
 

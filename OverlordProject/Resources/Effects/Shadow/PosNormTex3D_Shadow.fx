@@ -111,7 +111,9 @@ float EvaluateShadowMap(float4 lpos)
         }
     }
 
+    //1 for crossyRoad
     float pcf = 16.f;
+    //float pcf = 1.f;
     return (sum / pcf) * 0.5 + 0.5;
 }
 

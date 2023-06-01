@@ -20,6 +20,7 @@ public:
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;
+	void OnSceneDetach(GameScene*) override;
 	void PlaceObstacles();
 
 private:
@@ -28,6 +29,7 @@ private:
 	//DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
+	GameObject* m_pFox{};
 	std::vector<bool> m_hasObstacle{};
 	int m_Width{};
 

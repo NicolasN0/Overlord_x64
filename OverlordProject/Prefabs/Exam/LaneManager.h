@@ -31,6 +31,7 @@ protected:
 	void CheckDeleteLanes();
 private:
 	std::vector<GameObject*> m_pLanes;
+	std::vector<GameObject*> m_pStarterLanes;
 	int m_LaneCounter{};
 	int m_Width{25};
 	int m_PlayerCount{};
@@ -39,7 +40,9 @@ private:
 
 	//deleting
 	int m_DeleteCount{};
+	//8 way to go
 	int m_DeleteStepsRange{8};
 	bool m_Deleted{};
+	bool m_StarterLanesDeleted{};
 };
 

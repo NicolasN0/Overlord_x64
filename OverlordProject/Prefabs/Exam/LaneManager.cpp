@@ -209,8 +209,8 @@ void LaneManager::MakeStarterTreeLanes()
 	//for (int i{ 1 }; i < 2; i++)
 	for (int i{1}; i < 8;i++)
 	{
-		GetScene()->AddChild(new TreeLane(-1*i, m_Width));		
-		
+		auto treeLane = GetScene()->AddChild(new TreeLane(-1*i, m_Width));		
+		m_pStarterLanes.push_back(treeLane);
 	}
 }
 
@@ -221,6 +221,15 @@ void LaneManager::CheckDeleteLanes()
 	//if not delete lane and up deletecount till its the same
 	if(m_PlayerCount - m_DeleteStepsRange > m_DeleteCount)
 	{
+		if(!m_StarterLanesDeleted)
+		{
+			for(int i{}; i < m_pStarterLanes.size();i++)
+			{
+				GetScene()->RemoveChild(m_pStarterLanes.at(i), true);
+				m_StarterLanesDeleted = true;
+			}
+		}
+
 		GetScene()->RemoveChild(m_pLanes.at(m_DeleteCount), true);
 		m_DeleteCount++;
 	}
