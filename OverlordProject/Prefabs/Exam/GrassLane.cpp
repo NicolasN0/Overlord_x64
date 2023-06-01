@@ -46,6 +46,15 @@ void GrassLane::Update(const SceneContext& /*sceneContext*/)
 
 }
 
+void GrassLane::OnSceneDetach(GameScene* pScene)
+{
+	//cleanUp made gameobjects
+	for (int i{}; i < m_pObstacles.size(); i++)
+	{
+		pScene->RemoveChild(m_pObstacles.at(i), true);
+	}
+}
+
 void GrassLane::PlaceObstacles()
 {
 	for (int i{}; i < m_Width;i++)

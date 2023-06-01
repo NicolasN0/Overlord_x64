@@ -18,8 +18,8 @@ void Car::Initialize(const SceneContext& /*sceneContext*/)
 
 	//m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
-
-	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car.png");
+	SetRandomColor();
+	//m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car.png");
 
 	AddComponent(new ModelComponent(L"Meshes/Car.ovm", false));
 
@@ -31,17 +31,79 @@ void Car::Initialize(const SceneContext& /*sceneContext*/)
 	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 1.0f,1.0f,0.5f }, *material);
 	GetComponent<RigidBodyComponent>()->SetKinematic(true);
 
-	GetTransform()->Translate(0, 0, float(m_PosZ));
+
+	SetMovingDirection();
+
+	if (m_isMovingLeft) 
+	{
+		GetTransform()->Scale(-1, 1, 1);
+		GetTransform()->Translate(float(m_Width), 0, float(m_PosZ));
+
+	} else
+	{
+
+		GetTransform()->Translate(0, 0, float(m_PosZ));
+	}
 
 	GetTransform()->Rotate(0, 90, 0);
 }
 
 void Car::Update(const SceneContext& sceneContext)
 {
-	m_CurX += m_CarSpeed * sceneContext.pGameTime->GetElapsed();
-	GetTransform()->Translate(m_CurX, 0, float(m_PosZ));
-	if(m_CurX > m_Width)
+	if(m_isMovingLeft)
 	{
-		m_CurX = 0;
+		//going left code
+		m_CurX -= m_CarSpeed * sceneContext.pGameTime->GetElapsed();
+		GetTransform()->Translate(m_CurX, 0, float(m_PosZ));
+		if (m_CurX < 0)
+		{
+			m_CurX = float(m_Width);
+		}
+
+	} else
+	{
+		//going right code
+		m_CurX += m_CarSpeed * sceneContext.pGameTime->GetElapsed();
+		GetTransform()->Translate(m_CurX, 0, float(m_PosZ));
+		if(m_CurX > m_Width)
+		{
+			m_CurX = 0;
+		}
 	}
+}
+
+void Car::SetRandomColor()
+{
+	int randomColor = rand() % 3;
+	switch(randomColor)
+	{
+	case 0:
+		m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car.png");
+
+		break;
+	case 1:
+		m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car2.png");
+
+		break;
+	case 2:
+		m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car3.png");
+
+		break;
+	default:
+		m_pMaterial->SetDiffuseTexture(L"Textures/Exam/car.png");
+
+	}
+}
+
+void Car::SetMovingDirection()
+{
+	int randDir = rand() % 2;
+	if(randDir == 0)
+	{
+		m_isMovingLeft = false;
+	} else
+	{
+		m_isMovingLeft = true;
+	}
+
 }

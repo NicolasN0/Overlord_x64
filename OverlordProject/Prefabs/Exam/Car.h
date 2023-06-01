@@ -21,11 +21,15 @@ protected:
 
 private:
 	//DiffuseMaterial* m_pMaterial{};
+	void SetRandomColor();
+	void SetMovingDirection();
 	DiffuseMaterial_Shadow* m_pMaterial{};
 
 	int m_Width{};
 	float m_CurX{};
 	int m_PosZ{};
 	int m_CarSpeed{};
+
+	bool m_isMovingLeft{};
 };
 

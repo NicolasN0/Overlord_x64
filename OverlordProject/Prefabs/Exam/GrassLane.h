@@ -18,6 +18,7 @@ public:
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext& sceneContext) override;
+	void OnSceneDetach(GameScene* /*pScene*/) override;
 	void PlaceObstacles();
 
 private:
