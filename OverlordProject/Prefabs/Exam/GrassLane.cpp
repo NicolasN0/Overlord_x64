@@ -22,7 +22,7 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	//mesh
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
-	m_pMaterial->SetColor(XMFLOAT4{ 0,1,0,1 });
+	m_pMaterial->SetColor(m_Color);
 
 	AddComponent(new ModelComponent(L"Meshes/Lane.ovm", false));
 

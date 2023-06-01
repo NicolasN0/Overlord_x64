@@ -2,7 +2,7 @@
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
 #include <Materials/DiffuseMaterial_Skinned.h>
-
+#include <Materials/DiffuseMaterial.h>
 class LaneManager;
 
 class CrossyCharacter :
@@ -55,7 +55,8 @@ private:
 	XMFLOAT3 m_prevPos{};
 	XMFLOAT3 m_futurePos{};
 	XMFLOAT3 m_StartPos{};
-	ColorMaterial* m_pMaterial;
+	//ColorMaterial* m_pMaterial;
+	DiffuseMaterial* m_pMaterial;
 	//DiffuseMaterial_Skinned* m_pMaterial;
 
 	bool m_isMoving{};

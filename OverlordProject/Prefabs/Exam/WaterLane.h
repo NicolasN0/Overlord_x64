@@ -21,7 +21,7 @@ protected:
 	void PlaceLilys();
 
 private:
-	XMFLOAT4 m_Color{};
+	XMFLOAT4 m_Color{ 0,0.714f,1,1 };
 	ColorMaterial* m_pMaterial{};
 	int m_Count{};
 	std::vector<bool> m_hasObstacle{};

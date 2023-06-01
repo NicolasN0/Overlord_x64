@@ -21,7 +21,7 @@ protected:
 	void PlaceObstacles();
 
 private:
-	XMFLOAT4 m_Color{};
+	XMFLOAT4 m_Color{ 0.486f,0.871f,0.231f,1 };
 	ColorMaterial* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
