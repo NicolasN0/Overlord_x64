@@ -32,5 +32,8 @@ private:
 	int m_Width{};
 
 
+	bool m_hasFox{};
+
+
 };
 

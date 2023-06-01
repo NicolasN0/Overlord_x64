@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TreeLane.h"
 #include "Prefabs/Exam/Tree.h"
-
+#include "Prefabs/Exam/Fox.h"
 TreeLane::TreeLane(int count, int width)
 {
 	m_Count = count;
@@ -42,7 +42,19 @@ void TreeLane::Initialize(const SceneContext& /*sceneContext*/)
 		m_hasObstacle.push_back(false);
 	}
 
-	PlaceObstacles();
+	if(m_Count == -2)
+	{
+		m_hasFox = true;
+	}
+
+	if(!m_hasFox)
+	{
+
+		PlaceObstacles();
+	} else
+	{
+		GetScene()->AddChild(new Fox(m_Width, m_Count));
+	}
 }
 
 void TreeLane::Update(const SceneContext& /*sceneContext*/)

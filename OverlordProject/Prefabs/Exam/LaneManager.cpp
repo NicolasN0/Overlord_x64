@@ -206,6 +206,7 @@ void LaneManager::UpdateLanes()
 
 void LaneManager::MakeStarterTreeLanes()
 {
+	//for (int i{ 1 }; i < 2; i++)
 	for (int i{1}; i < 8;i++)
 	{
 		GetScene()->AddChild(new TreeLane(-1*i, m_Width));		
