@@ -169,6 +169,10 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 			if (sceneContext.pInput->IsActionTriggered(MoveUp))
 			{
+				//set right rotation
+				GetTransform()->Rotate(0, 90, 0);
+
+
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.z += 1;
 				if(m_pLaneManager->GetIsPassable(int(testPos.x),int(testPos.z)))
@@ -184,6 +188,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveDown))
 			{
+				//set right rotation
+				GetTransform()->Rotate(0, -90, 0);
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.z -= 1;
@@ -196,6 +202,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveLeft))
 			{
+				//set right rotation
+				GetTransform()->Rotate(0, 0, 0);
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.x -= 1;
@@ -208,6 +216,7 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveRight))
 			{
+				GetTransform()->Rotate(0, 180, 0);
 
 				XMFLOAT3 testPos = m_futurePos;
 				testPos.x += 1;
