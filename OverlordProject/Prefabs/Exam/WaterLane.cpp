@@ -55,6 +55,15 @@ void WaterLane::Update(const SceneContext& /*sceneContext*/)
 
 }
 
+void WaterLane::OnSceneDetach(GameScene* pScene)
+{
+	//cleanUp made gameobjects
+	for (int i{}; i < m_pLilys.size(); i++)
+	{
+		pScene->RemoveChild(m_pLilys.at(i), true);
+	}
+}
+
 void WaterLane::PlaceLilys()
 {
 	for (int i{}; i < m_Width; i++)

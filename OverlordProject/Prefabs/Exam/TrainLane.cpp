@@ -52,11 +52,14 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 	
 	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1.f, float(1 * m_Count));
+
+
+
 	//train
 	//trainDelay
 	m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;
 
-	GetScene()->AddChild(new Train(m_Width, m_Count, m_TrainDelay));
+	m_pTrain = GetScene()->AddChild(new Train(m_Width, m_Count, m_TrainDelay));
 
 	//initalizeObstacles
 	for (int i{}; i < m_Width; i++)
@@ -127,4 +130,9 @@ void TrainLane::Update(const SceneContext& sceneContext)
 	} 
 
 
+}
+
+void TrainLane::OnSceneDetach(GameScene* pScene)
+{
+	pScene->RemoveChild(m_pTrain, true);
 }

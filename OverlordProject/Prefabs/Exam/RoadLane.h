@@ -19,6 +19,7 @@ public:
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;
+	void OnSceneDetach(GameScene* /*pScene*/) override;
 	void PlaceCoins();
 
 private:
@@ -28,6 +29,7 @@ private:
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};
 	std::vector<GameObject*> m_pCoins{};
+	GameObject* m_pCar{};
 	std::vector<bool> m_hasObstacle{};
 	std::vector<bool> m_hasCoin{};
 	int m_Width{};

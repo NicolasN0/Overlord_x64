@@ -38,7 +38,9 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetTransform()->Scale(2, 1, 1);
 
-	/*GameObject* car =*/ GetScene()->AddChild(new Car(m_Width, m_Count));
+	//Car
+	/*GameObject* car =*/ 
+	m_pCar = GetScene()->AddChild(new Car(m_Width, m_Count));
 
 	//initalizeObstacles
 	for (int i{}; i < m_Width; i++)
@@ -53,6 +55,17 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 void RoadLane::Update(const SceneContext& /*sceneContext*/)
 {
 
+}
+
+void RoadLane::OnSceneDetach(GameScene* pScene)
+{
+	//cleanUp made gameobjects
+	for (int i{}; i < m_pCoins.size();i++)
+	{
+		pScene->RemoveChild(m_pCoins.at(i), true);
+	}
+
+	pScene->RemoveChild(m_pCar, true);
 }
 
 void RoadLane::PlaceCoins()

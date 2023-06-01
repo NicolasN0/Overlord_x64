@@ -19,7 +19,7 @@ public:
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;
-
+	void OnSceneDetach(GameScene* /*pScene*/) override;
 
 private:
 	XMFLOAT4 m_Color{};
@@ -31,7 +31,9 @@ private:
 	std::vector<bool> m_hasObstacle{};
 	int m_Width{};
 
+
 	//train
+	GameObject* m_pTrain{};
 	int m_TrainMaxDelay{5};
 	int m_TrainMinDelay{3};
 	int m_TrainDelay{};
