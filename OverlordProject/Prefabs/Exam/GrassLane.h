@@ -29,6 +29,7 @@ private:
 	std::vector<bool> m_hasObstacle{};
 	int m_Width{};
 
+	bool m_hasPerson{};
 	
 };
 

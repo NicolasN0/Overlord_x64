@@ -27,7 +27,7 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 
-	m_pMaterial->SetDiffuseTexture(L"Textures/GroundBrick.jpg");
+	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/RoadLaneDiff.png");
 
 	AddComponent(new ModelComponent(L"Meshes/Lane.ovm"));
 

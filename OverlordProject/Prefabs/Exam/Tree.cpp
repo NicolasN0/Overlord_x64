@@ -15,8 +15,9 @@ void Tree::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
 	//m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/tree.png");
-
+	//m_pMaterial->SetDiffuseTexture(L"Textures/Exam/TreeBoxDiff.png");
 	AddComponent(new ModelComponent(L"Meshes/Tree.ovm", false));
+	//AddComponent(new ModelComponent(L"Meshes/Tree2.ovm", false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 

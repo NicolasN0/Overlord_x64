@@ -35,17 +35,18 @@ void TreeLane::Initialize(const SceneContext& /*sceneContext*/)
 	//GetTransform()->Translate(0, -2, float(1 * m_Count));
 	//GetTransform()->Translate(float(m_Width/2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
-
+	GetTransform()->Scale(2, 1, 1);
 	//initalizeObstacles
 	for (int i{}; i < m_Width; i++)
 	{
 		m_hasObstacle.push_back(false);
 	}
 
-	if(m_Count == -2)
-	{
-		m_hasFox = true;
-	}
+	//comment for no fox
+	//if(m_Count == -2)
+	//{
+	//	m_hasFox = true;
+	//}
 
 	if(!m_hasFox)
 	{

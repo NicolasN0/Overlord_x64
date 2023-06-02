@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\Exam\Person.cpp" />
     <ClCompile Include="Prefabs\Exam\Fox.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\ControlsScene.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\RestarterScene.cpp" />
@@ -164,6 +165,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\Exam\Person.h" />
     <ClInclude Include="Prefabs\Exam\Fox.h" />
     <ClInclude Include="Scenes\CrossyRoad\ControlsScene.h" />
     <ClInclude Include="Scenes\CrossyRoad\RestarterScene.h" />

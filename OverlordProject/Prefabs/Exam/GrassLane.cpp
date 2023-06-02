@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GrassLane.h"
 #include "Prefabs/Exam/Tree.h"
+#include "Prefabs/Exam/Person.h"
 
 GrassLane::GrassLane(int count,int width)
 {
@@ -30,7 +31,7 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	//GetTransform()->Translate(0, -2, float(1 * m_Count));
 	//GetTransform()->Translate(float(m_Width/2), -2, float(1 * m_Count));
-	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
+	GetTransform()->Translate(float(m_Width / 2),-1.f, float(1 * m_Count));
 	GetTransform()->Scale(2, 1, 1);
 	//initalizeObstacles
 	for(int i{};i < m_Width;i++)
@@ -38,6 +39,7 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 		m_hasObstacle.push_back(false);
 	}
 
+	//set trees or person
 	PlaceObstacles();
 }
 
@@ -79,9 +81,20 @@ void GrassLane::PlaceObstacles()
 
 		if(m_hasObstacle.at(i) == true)
 		{
-			GameObject* tree = GetScene()->AddChild(new Tree(i,m_Count));
+			// 1/10 chance to spawn person instead of tree but not on sides
+			int randChance = rand() % 10;
+			if(i != 0 && i != m_Width && randChance == 0)
+			{
+				GameObject* person = GetScene()->AddChild(new Person(i,m_Count));
+				//can add person?
+				m_pObstacles.push_back(person);
+			} else 
+			{
 
-			m_pObstacles.push_back(tree);
+				GameObject* tree = GetScene()->AddChild(new Tree(i,m_Count));
+				m_pObstacles.push_back(tree);
+			}
+
 		}
 
 	}
