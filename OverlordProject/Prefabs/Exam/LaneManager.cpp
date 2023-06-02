@@ -49,9 +49,10 @@ int LaneManager::GetWidth()
 	return m_Width;
 }
 
-void LaneManager::IncreasePlayerCount()
+void LaneManager::IncreasePlayerCount(int score)
 {
-	m_PlayerCount += 1;
+	//m_PlayerCount += 1;
+	m_PlayerCount = score;
 }
 
 bool LaneManager::IsOnWater(int posX, int posZ)
@@ -221,6 +222,7 @@ void LaneManager::CheckDeleteLanes()
 	//if not delete lane and up deletecount till its the same
 	if(m_PlayerCount - m_DeleteStepsRange > m_DeleteCount)
 	{
+		std::cout << m_PlayerCount << std::endl;;
 		if(!m_StarterLanesDeleted)
 		{
 			for(int i{}; i < m_pStarterLanes.size();i++)

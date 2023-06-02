@@ -14,7 +14,7 @@ public:
 
 	bool GetIsPassable(int posX, int posZ);
 	int GetWidth();
-	void IncreasePlayerCount();
+	void IncreasePlayerCount(int score);
 	bool IsOnWater(int posX, int posZ);
 	
 protected:

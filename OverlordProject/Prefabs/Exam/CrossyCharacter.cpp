@@ -184,11 +184,15 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 				{
 					m_futurePos = testPos;
 					m_isMoving = true;
-					m_Score++;
+					if(testPos.z > m_Score)
+					{
+						m_Score = int(testPos.z);
+						m_pLaneManager->IncreasePlayerCount(m_Score);
+					}
+					//m_Score++;
 
 				}
 
-				m_pLaneManager->IncreasePlayerCount();
 
 			}
 			else if (sceneContext.pInput->IsActionTriggered(MoveDown))
