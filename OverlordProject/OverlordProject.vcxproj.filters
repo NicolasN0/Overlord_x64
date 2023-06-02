@@ -54,6 +54,7 @@
     <ClCompile Include="Prefabs\Exam\TreeLane.cpp" />
     <ClCompile Include="Prefabs\Exam\Fox.cpp" />
     <ClCompile Include="Prefabs\Exam\Person.cpp" />
+    <ClCompile Include="Materials\Post\PostExam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -108,5 +109,6 @@
     <ClInclude Include="Prefabs\Exam\TreeLane.h" />
     <ClInclude Include="Prefabs\Exam\Fox.h" />
     <ClInclude Include="Prefabs\Exam\Person.h" />
+    <ClInclude Include="Materials\Post\PostExam.h" />
   </ItemGroup>
 </Project>

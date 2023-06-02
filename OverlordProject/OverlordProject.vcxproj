@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Materials\Post\PostExam.cpp" />
     <ClCompile Include="Prefabs\Exam\Person.cpp" />
     <ClCompile Include="Prefabs\Exam\Fox.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\ControlsScene.cpp" />
@@ -165,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Materials\Post\PostExam.h" />
     <ClInclude Include="Prefabs\Exam\Person.h" />
     <ClInclude Include="Prefabs\Exam\Fox.h" />
     <ClInclude Include="Scenes\CrossyRoad\ControlsScene.h" />

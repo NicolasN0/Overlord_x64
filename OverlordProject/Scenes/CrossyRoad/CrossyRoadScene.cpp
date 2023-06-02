@@ -4,6 +4,8 @@
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/LaneManager.h"
 
+#include <Materials/Post/PostExam.h>
+
 #include "RestarterScene.h"
 
 #define VK_W 0x57
@@ -67,6 +69,9 @@ void CrossyRoadScene::Initialize()
 
 	m_pPostVignette = MaterialManager::Get()->CreateMaterial<PostVignette>();
 
+	auto pPostExam = MaterialManager::Get()->CreateMaterial<PostExam>();
+
+	AddPostProcessingEffect(pPostExam);
 	//particle
 	//Particle System
 	//ParticleEmitterSettings settings{};
