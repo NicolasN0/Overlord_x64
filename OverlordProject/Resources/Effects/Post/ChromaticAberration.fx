@@ -71,13 +71,13 @@ float4 PS(PS_INPUT input): SV_Target
  //   return float4(mean, mean, mean, 1.f);
     //return float4( 0.0f, 0.0f, 0.0f, 1.0f );
     
-    float rOffset = 0.009;
-    float gOffset = 0.006;
-    float bOffset = -0.006;
+    //float rOffset = 0.009;
+    //float gOffset = 0.006;
+    //float bOffset = -0.006;
     
-    //float rOffset = 0.004;
-    //float gOffset = 0.002;
-    //float bOffset = 0.002;
+    float rOffset = 0.004;
+    float gOffset = 0.002;
+    float bOffset = 0.002;
     
     int width;
     int height;

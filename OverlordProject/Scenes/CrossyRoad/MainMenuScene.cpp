@@ -12,9 +12,9 @@ void MainMenuScene::Initialize()
 	//sound
 	//sound
 	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/BackgroundMusic1.wav", FMOD_DEFAULT, nullptr, &m_pMusic);
-	m_pMusic->setLoopCount(-1);
 	FMOD::Channel* musicChannel{};
 	SoundManager::Get()->GetSystem()->playSound(m_pMusic, nullptr, false, &musicChannel);
+	
 	musicChannel->setVolume(0.075f);
 
 
