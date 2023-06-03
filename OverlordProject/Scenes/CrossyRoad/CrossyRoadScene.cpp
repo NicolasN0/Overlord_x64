@@ -104,7 +104,7 @@ void CrossyRoadScene::Initialize()
 
 	
 	
-	AddPostProcessingEffect(m_pPostExam);
+	
 }
 
 void CrossyRoadScene::Update()
@@ -167,6 +167,7 @@ void CrossyRoadScene::Update()
 			auto mouseCor = InputManager::GetMousePosition();
 			XMFLOAT2 mousePos{ float(mouseCor.x),float(mouseCor.y) };
 			CheckPauseButton(mousePos);
+			std::cout << mousePos.x << ' ' << mousePos.y << std::endl;
 		}
 	}
 
@@ -237,7 +238,9 @@ void CrossyRoadScene::MakePauseMenu()
 
 	////mainBack
 	m_pSpriteBack = new GameObject();
-	m_pSpriteBack->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/InGameBack.png", { 0.5f,0.5f }));
+	//m_pSpriteBack->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/InGameBack.png", { 0.5f,0.5f }));
+	m_pSpriteBack->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/InGameBackLong.png", { 0.5f,0.5f }));
+
 	AddChild(m_pSpriteBack);
 	m_pSpriteBack->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .9f);
 	m_pSpriteBack->GetTransform()->Scale(1.f);
@@ -253,20 +256,6 @@ void CrossyRoadScene::MakePauseMenu()
 		m_pSpritePlay->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
 		AddChild(m_pSpritePlay);
 	}
-
-	//////play collider
-	//m_pColliderPlay = new GameObject();
-	//m_pColliderPlay->SetTag(L"Play");
-	//const auto pRigidBody = m_pColliderPlay->AddComponent(new RigidBodyComponent(true));
-	//pRigidBody->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
-
-	//XMFLOAT3 screenS = { m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f };
-	//XMFLOAT4X4 inv =  m_SceneContext.pCamera->GetViewProjectionInverse();
-
-
-	//m_pColliderPlay->GetTransform()->Translate(0.3f, 1.4f, 2.f);
-	//m_pColliderPlay->GetTransform()->Scale(1.f);
-	//AddChild(m_pColliderPlay);
 
 
 	////Restart sprite
@@ -292,6 +281,23 @@ void CrossyRoadScene::MakePauseMenu()
 	m_pSpriteHome->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .5f);
 	m_pSpriteHome->GetTransform()->Scale(1.f);
 	AddChild(m_pSpriteHome);
+
+	////ChromeBox sprite
+	m_pSpriteChromBox = new GameObject();
+	m_pSpriteChromBox->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/ChromaticBox.png", { 0.5f,0.5f }));
+	m_pSpriteChromBox->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .4f);
+	m_pSpriteChromBox->GetTransform()->Scale(1.f);
+	AddChild(m_pSpriteChromBox);
+
+	////ChromCheck sprite
+	if(m_isChromActive)
+	{
+		m_pSpriteChromCheck = new GameObject();
+		m_pSpriteChromCheck->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/ChromaticCheck.png", { 0.5f,0.5f }));
+		m_pSpriteChromCheck->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .3f);
+		m_pSpriteChromCheck->GetTransform()->Scale(1.f);
+		AddChild(m_pSpriteChromCheck);
+	}
 	
 }
 
@@ -302,6 +308,12 @@ void CrossyRoadScene::DeletePauseMenu()
 	RemoveChild(m_pSpriteRestart, true);
 	RemoveChild(m_pSpriteControls, true);
 	RemoveChild(m_pSpriteHome, true);
+
+	RemoveChild(m_pSpriteChromBox, true);
+	if(m_isChromActive)
+	{
+		RemoveChild(m_pSpriteChromCheck, true);
+	}
 }
 
 bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
@@ -350,6 +362,32 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 			
 		}
 
+	}
+
+	//chrom
+	if(pos.x > 552 && pos.x < 594 && pos.y > 496 && pos.y < 542)
+	{
+		if(m_isChromActive)
+		{
+			m_isChromActive = false;
+			RemoveChild(m_pSpriteChromCheck, true);
+
+			RemovePostProcessingEffect(m_pPostExam);
+		} else 
+		{
+			m_isChromActive = true;
+
+
+			m_pSpriteChromCheck = new GameObject();
+			m_pSpriteChromCheck->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/ChromaticCheck.png", { 0.5f,0.5f }));
+			m_pSpriteChromCheck->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .3f);
+			m_pSpriteChromCheck->GetTransform()->Scale(1.f);
+			AddChild(m_pSpriteChromCheck);
+
+
+			AddPostProcessingEffect(m_pPostExam);
+		}
+		std::cout << m_isChromActive << std::endl;
 	}
 	return false;
 }

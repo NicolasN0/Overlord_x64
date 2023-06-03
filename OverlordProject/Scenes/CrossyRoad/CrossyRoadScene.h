@@ -54,12 +54,15 @@ private:
 	XMFLOAT2 m_TextPositionCoins{};
 	XMFLOAT4 m_TextColorCoins{ 1.f,1.f,0.f,1.f };
 
+	//post
 	PostBlur* m_pPostBlur{};
 	PostGrayscale* m_pPostGrayscale{};
 	PostVignette* m_pPostVignette{};
 	PostExam* m_pPostExam{};
 
 	bool m_isBlurActive{};
+
+	bool m_isChromActive{};
 
 	//pauseMenu
 	bool m_isPaused{};
@@ -69,6 +72,8 @@ private:
 	GameObject* m_pSpriteRestart;
 	GameObject* m_pSpriteControls;
 	GameObject* m_pSpriteHome;
+	GameObject* m_pSpriteChromBox;
+	GameObject* m_pSpriteChromCheck;
 	//colliders
 	GameObject* m_pColliderPlay;
 	GameObject* m_pColliderRestart;
