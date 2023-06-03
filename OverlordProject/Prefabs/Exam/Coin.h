@@ -29,5 +29,8 @@ private:
 	bool m_PickedUp{};
 
 	RoadLane* m_pLane{};
+
+	FMOD::Sound* m_pSoundCoin{};
+	FMOD::Channel* m_pSoundChannel{};
 };
 

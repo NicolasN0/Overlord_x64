@@ -31,7 +31,19 @@ void CrossyRoadScene::Initialize()
 	//manager
 	m_pLaneManager = AddChild(new LaneManager());
 	//player
-	m_pPlayer = AddChild(new CrossyCharacter(m_pLaneManager));
+	m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
+	m_SceneContext.pInput->AddInputAction(InputAction(MoveDown, InputState::down, VK_S, -1, XINPUT_GAMEPAD_DPAD_DOWN));
+	m_SceneContext.pInput->AddInputAction(InputAction(MoveLeft, InputState::down, VK_A, -1, XINPUT_GAMEPAD_DPAD_LEFT));
+	m_SceneContext.pInput->AddInputAction(InputAction(MoveRight, InputState::down, VK_D, -1, XINPUT_GAMEPAD_DPAD_RIGHT));
+	m_SceneContext.pInput->AddInputAction(InputAction(Pause, InputState::released, VK_ESCAPE, -1, XINPUT_GAMEPAD_START));
+	
+	CrossyCharacterDesc characterDesc{ pDefaultMaterial };
+	characterDesc.actionId_MoveForward = MoveUp;
+	characterDesc.actionId_MoveBackward = MoveDown;
+	characterDesc.actionId_MoveLeft = MoveLeft;
+	characterDesc.actionId_MoveRight = MoveRight;
+	
+	m_pPlayer = AddChild(new CrossyCharacter(m_pLaneManager,characterDesc));
 
 
 	//Camera
@@ -48,11 +60,11 @@ void CrossyRoadScene::Initialize()
 	
 	
 	//Inputs
-	m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
+	/*m_SceneContext.pInput->AddInputAction(InputAction(MoveUp, InputState::down, VK_W, -1, XINPUT_GAMEPAD_DPAD_UP));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveDown, InputState::down, VK_S, -1,  XINPUT_GAMEPAD_DPAD_DOWN));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveLeft, InputState::down, VK_A, -1,  XINPUT_GAMEPAD_DPAD_LEFT));
 	m_SceneContext.pInput->AddInputAction(InputAction(MoveRight, InputState::down, VK_D, -1, XINPUT_GAMEPAD_DPAD_RIGHT));
-	m_SceneContext.pInput->AddInputAction(InputAction(Pause, InputState::released, VK_ESCAPE, -1, XINPUT_GAMEPAD_START));
+	m_SceneContext.pInput->AddInputAction(InputAction(Pause, InputState::released, VK_ESCAPE, -1, XINPUT_GAMEPAD_START));*/
 
 	//Font
 	m_pFont = ContentManager::Load<SpriteFont>(L"SpriteFonts/Consolas_32.fnt");

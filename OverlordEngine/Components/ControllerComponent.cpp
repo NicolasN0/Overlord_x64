@@ -72,6 +72,7 @@ void ControllerComponent::ApplyFilterData() const
 #pragma warning (pop)
 			shape->setSimulationFilterData(m_CollisionGroups);
 			shape->setQueryFilterData(m_CollisionGroups);
+
 		}
 		delete[] shapes;
 	}

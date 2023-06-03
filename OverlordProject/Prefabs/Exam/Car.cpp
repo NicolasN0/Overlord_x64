@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Car.h"
+#include <Prefabs\Exam\CrossyCharacter.h>
 
 Car::Car(int width, int posZ)
 {
@@ -28,9 +29,24 @@ void Car::Initialize(const SceneContext& /*sceneContext*/)
 	//Collider
 	auto material = PxGetPhysics().createMaterial(.5f, .5f, .1f);
 	AddComponent(new RigidBodyComponent(false));
-	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 1.0f,1.0f,0.5f }, *material);
+	GetComponent<RigidBodyComponent>()->AddCollider(PxBoxGeometry{ 1.0f,1.0f,0.5f }, *material,true);
 	GetComponent<RigidBodyComponent>()->SetKinematic(true);
 
+	SetOnTriggerCallBack([=](GameObject*, GameObject* other, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER)
+			{
+				if (other->GetTag() == L"Player")
+				{
+					CrossyCharacter* character = static_cast<CrossyCharacter*>(other);
+
+					character->Dies();
+				}
+
+				
+			}
+
+		});
 
 	SetMovingDirection();
 

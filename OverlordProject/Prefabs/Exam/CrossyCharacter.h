@@ -5,11 +5,45 @@
 #include <Materials/DiffuseMaterial.h>
 class LaneManager;
 
+struct CrossyCharacterDesc
+{
+	CrossyCharacterDesc() {};
+	CrossyCharacterDesc(
+		PxMaterial* pMaterial,
+		float radius = .2f,
+		float height = 2.f)
+	{
+		controller.setToDefault();
+		controller.radius = radius;
+		controller.height = height;
+		controller.material = pMaterial;
+	}
+
+	float maxMoveSpeed{ 15.f };
+	float maxFallSpeed{ 15.f };
+
+	float JumpSpeed{ 15.f };
+
+	float moveAccelerationTime{ .3f };
+	float fallAccelerationTime{ .3f };
+
+	PxCapsuleControllerDesc controller{};
+
+	float rotationSpeed{ 60.f };
+
+	int actionId_MoveLeft{ -1 };
+	int actionId_MoveRight{ -1 };
+	int actionId_MoveForward{ -1 };
+	int actionId_MoveBackward{ -1 };
+	
+};
+
+
 class CrossyCharacter :
     public GameObject
 {
 public:
-	CrossyCharacter(LaneManager* manager);
+	CrossyCharacter(LaneManager* manager, const CrossyCharacterDesc& characterDesc);
 	~CrossyCharacter() override = default;
 
 	CrossyCharacter(const CrossyCharacter& other) = delete;
@@ -23,7 +57,8 @@ public:
 	int GetScore();
 	bool GetIsDead();
 	void Dies();
-	
+	void IncreaseCoins();
+
 	void SetMove(bool canMove);
 	//splash
 	void SetSplash(bool splashTriggered);
@@ -35,6 +70,10 @@ private:
 	//CameraComponent* m_pCameraComponent{};
 	//ControllerComponent* m_pControllerComponent{};
 	void CheckWater();
+	void MoveCheckLogic(const SceneContext&);
+	void MoveTimer(const SceneContext&);
+	void MoveChar(const SceneContext&);
+
 
 	//startUp check
 	bool m_isStartupDone{};
@@ -56,7 +95,7 @@ private:
 	XMFLOAT3 m_futurePos{};
 	XMFLOAT3 m_StartPos{};
 	//ColorMaterial* m_pMaterial;
-	DiffuseMaterial* m_pMaterial;
+	DiffuseMaterial* m_pMaterial{};
 	//DiffuseMaterial_Skinned* m_pMaterial;
 
 	bool m_isMoving{};
@@ -78,10 +117,15 @@ private:
 	FMOD::Sound* m_pSoundBounce{};
 	FMOD::Sound* m_pSoundChicken{};
 	FMOD::Sound* m_pSoundSplash{};
-	FMOD::Sound* m_pSoundCoin{};
+	//FMOD::Sound* m_pSoundCoin{};
 	FMOD::Channel* m_pSoundChannel{};
 	
 	//chicken soundDelay
+
+	//character
+	ControllerComponent* m_pControllerComponent{};
+
+	CrossyCharacterDesc m_CharacterDesc;
 	
 };
 

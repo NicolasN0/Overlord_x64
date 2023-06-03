@@ -23,5 +23,9 @@ private:
 	DiffuseMaterial* m_pMaterial{};
 	int m_PosX{};
 	int m_PosZ{};
+
+
+	FMOD::Sound* m_pSoundSplash{};
+	FMOD::Channel* m_pSoundChannel{};
 };
 
