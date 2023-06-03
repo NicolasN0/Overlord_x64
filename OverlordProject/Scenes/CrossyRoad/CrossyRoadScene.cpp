@@ -4,7 +4,7 @@
 #include "Prefabs/Exam/GrassLane.h"
 #include "Prefabs/Exam/LaneManager.h"
 
-#include <Materials/Post/PostExam.h>
+
 
 #include "RestarterScene.h"
 
@@ -69,14 +69,14 @@ void CrossyRoadScene::Initialize()
 
 	m_pPostVignette = MaterialManager::Get()->CreateMaterial<PostVignette>();
 
-	auto pPostExam = MaterialManager::Get()->CreateMaterial<PostExam>();
+	m_pPostExam = MaterialManager::Get()->CreateMaterial<PostExam>();
 
-	AddPostProcessingEffect(pPostExam);
+	
 	//particle
 	//Particle System
 	//ParticleEmitterSettings settings{};
 	
-	m_ParticleSettings.velocity = { 0.f,15.f,0.f };
+	/*m_ParticleSettings.velocity = { 0.f,15.f,0.f };
 	m_ParticleSettings.minSize = 0.1f;
 	m_ParticleSettings.maxSize = 0.2f;
 	m_ParticleSettings.minEnergy = 1.f;
@@ -87,10 +87,24 @@ void CrossyRoadScene::Initialize()
 	m_ParticleSettings.maxEmitterRadius = .5f;
 	m_ParticleSettings.minWeight = 50.5f;
 	m_ParticleSettings.maxWeight = 70.f;
+	m_ParticleSettings.color = { 1.f,1.f,1.f, 1.f };*/
+
+	m_ParticleSettings.velocity = { 0.f,5.f,0.f };
+	m_ParticleSettings.minSize = 0.1f;
+	m_ParticleSettings.maxSize = 0.15f;
+	m_ParticleSettings.minEnergy = 1.f;
+	m_ParticleSettings.maxEnergy = 2.f;
+	m_ParticleSettings.minScale = 3.5f;
+	m_ParticleSettings.maxScale = 5.5f;
+	m_ParticleSettings.minEmitterRadius = .2f;
+	m_ParticleSettings.maxEmitterRadius = .5f;
+	m_ParticleSettings.minWeight = 15.f;
+	m_ParticleSettings.maxWeight = 30.f;
 	m_ParticleSettings.color = { 1.f,1.f,1.f, 1.f };
 
 	
 	
+	AddPostProcessingEffect(m_pPostExam);
 }
 
 void CrossyRoadScene::Update()
@@ -126,6 +140,7 @@ void CrossyRoadScene::Update()
 		{
 			//RemovePostProcessingEffect(m_pPostBlur);
 			//RemovePostProcessingEffect(m_pPostGrayscale);
+			//RemovePostProcessingEffect(m_pPostExam);
 			RemovePostProcessingEffect(m_pPostVignette);
 			m_isBlurActive = false;
 		}
@@ -217,7 +232,7 @@ void CrossyRoadScene::PostDraw()
 
 void CrossyRoadScene::MakePauseMenu()
 {
-	const auto pMaterial = PxGetPhysics().createMaterial(.5f, .5f, .5f);
+	//const auto pMaterial = PxGetPhysics().createMaterial(.5f, .5f, .5f);
 
 
 	////mainBack
@@ -228,25 +243,30 @@ void CrossyRoadScene::MakePauseMenu()
 	m_pSpriteBack->GetTransform()->Scale(1.f);
 
 
-	//play sprite
-	m_pSpritePlay = new GameObject();
-	m_pSpritePlay->SetTag(L"Play");
-	m_pSpritePlay->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Play.png", { 0.5f,0.5f }));
-	m_pSpritePlay->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
-	AddChild(m_pSpritePlay);
-	////play collider
-	m_pColliderPlay = new GameObject();
-	m_pColliderPlay->SetTag(L"Play");
-	const auto pRigidBody = m_pColliderPlay->AddComponent(new RigidBodyComponent(true));
-	pRigidBody->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+	//only when isnt dead
+	if (!m_pPlayer->GetIsDead())
+	{
+		//play sprite
+		m_pSpritePlay = new GameObject();
+		m_pSpritePlay->SetTag(L"Play");
+		m_pSpritePlay->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/Play.png", { 0.5f,0.5f }));
+		m_pSpritePlay->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
+		AddChild(m_pSpritePlay);
+	}
 
-	XMFLOAT3 screenS = { m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f };
-	XMFLOAT4X4 inv =  m_SceneContext.pCamera->GetViewProjectionInverse();
+	//////play collider
+	//m_pColliderPlay = new GameObject();
+	//m_pColliderPlay->SetTag(L"Play");
+	//const auto pRigidBody = m_pColliderPlay->AddComponent(new RigidBodyComponent(true));
+	//pRigidBody->AddCollider(PxBoxGeometry{ 1.7f,0.45f,0.1f }, *pMaterial);
+
+	//XMFLOAT3 screenS = { m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f };
+	//XMFLOAT4X4 inv =  m_SceneContext.pCamera->GetViewProjectionInverse();
 
 
-	m_pColliderPlay->GetTransform()->Translate(0.3f, 1.4f, 2.f);
-	m_pColliderPlay->GetTransform()->Scale(1.f);
-	AddChild(m_pColliderPlay);
+	//m_pColliderPlay->GetTransform()->Translate(0.3f, 1.4f, 2.f);
+	//m_pColliderPlay->GetTransform()->Scale(1.f);
+	//AddChild(m_pColliderPlay);
 
 
 	////Restart sprite
@@ -288,11 +308,16 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 {
 	if(pos.x > 550 && pos.x < 620)
 	{
-		//play
-		if (pos.y > 290 && pos.y < 370)
+		//only when isnt dead
+		if (!m_pPlayer->GetIsDead())
 		{
-			std::cout << "play";
-			UnPauseScene();
+			//play
+			if (pos.y > 290 && pos.y < 370)
+			{
+				std::cout << "play";
+				UnPauseScene();
+			}
+
 		}
 
 		//controls

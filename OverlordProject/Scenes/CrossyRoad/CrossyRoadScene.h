@@ -4,6 +4,7 @@
 #include <Materials/Post/PostBlur.h>
 #include <Materials/Post/PostGrayscale.h>
 #include <Materials/Post/PostVignette.h>
+#include <Materials/Post/PostExam.h>
 #include "Prefabs/Exam/PlayerCamera.h"
 
 class LaneManager;
@@ -56,6 +57,7 @@ private:
 	PostBlur* m_pPostBlur{};
 	PostGrayscale* m_pPostGrayscale{};
 	PostVignette* m_pPostVignette{};
+	PostExam* m_pPostExam{};
 
 	bool m_isBlurActive{};
 

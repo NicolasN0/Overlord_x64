@@ -22,6 +22,13 @@ RasterizerState rasterState
     CullMode = BACK;
 };
 
+BlendState EnableBlending
+{
+    BlendEnable[0] = TRUE;
+    SrcBlend = SRC_ALPHA;
+    DestBlend = INV_SRC_ALPHA;
+};
+
 //IN/OUT STRUCTS
 //--------------
 struct VS_INPUT
@@ -64,9 +71,13 @@ float4 PS(PS_INPUT input): SV_Target
  //   return float4(mean, mean, mean, 1.f);
     //return float4( 0.0f, 0.0f, 0.0f, 1.0f );
     
-    float rOffset = 0.009;
-    float gOffset = 0.006;
-    float bOffset = 0.006;
+    //float rOffset = 0.009;
+    //float gOffset = 0.006;
+    //float bOffset = 0.006;
+    
+    float rOffset = 0.004;
+    float gOffset = 0.002;
+    float bOffset = 0.002;
     
     int width;
     int height;
@@ -99,6 +110,7 @@ technique11 ChromaticAberration
     {          
         // Set states...
         SetRasterizerState(rasterState);
+        SetBlendState(EnableBlending, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
         SetDepthStencilState(depthState, 0);
 		SetVertexShader( CompileShader( vs_4_0, VS() ) );
         SetGeometryShader( NULL );

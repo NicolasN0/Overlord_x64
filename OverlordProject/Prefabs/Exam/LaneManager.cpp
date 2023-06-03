@@ -120,7 +120,7 @@ void LaneManager::MakeGrassLane()
 	GameObject* lane = GetScene()->AddChild(new GrassLane(m_LaneCounter, m_Width));
 	//AddChild(lane);
 	//GameObject* lane = AddChild(new GrassLane(m_LaneCounter, m_Width));
-	AddChild(lane);
+	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -129,7 +129,7 @@ void LaneManager::MakeGrassLane()
 void LaneManager::MakeRoadLane()
 {
 	GameObject* lane = GetScene()->AddChild(new RoadLane(m_LaneCounter,m_Width));
-	AddChild(lane);
+	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -138,7 +138,7 @@ void LaneManager::MakeRoadLane()
 void LaneManager::MakeWaterLane()
 {
 	GameObject* lane = GetScene()->AddChild(new WaterLane(m_LaneCounter, m_Width));
-	AddChild(lane);
+	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -147,7 +147,7 @@ void LaneManager::MakeWaterLane()
 void LaneManager::MakeTrainLane()
 {
 	GameObject* lane = GetScene()->AddChild(new TrainLane(m_LaneCounter, m_Width));
-	AddChild(lane);
+	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PlayerCamera.h"
+#include <Prefabs\Exam\CrossyCharacter.h>
 
 void PlayerCamera::Initialize(const SceneContext& /*sceneContext*/)
 {
@@ -67,6 +68,26 @@ void PlayerCamera::Update(const SceneContext& sceneContext)
 	
 
 	GetTransform()->Rotate(m_TotalPitch, m_TotalYaw, 0);
+
+	if(!m_Died)
+	{
+
+		CheckPlayerKill();
+	}
 	
 
+}
+
+void PlayerCamera::CheckPlayerKill()
+{
+	XMFLOAT3 playerPos = m_pPlayer->GetTransform()->GetPosition();
+
+	auto playerPosOffset = XMFLOAT3(playerPos.x + m_Offset.x, playerPos.y + m_Offset.y, playerPos.z + m_Offset.z);
+	if (playerPosOffset.z < m_CurPos.z - m_KillRange)
+	{
+		
+		/*CrossyCharacter* chara =*/ dynamic_cast<CrossyCharacter*>(m_pPlayer)->Dies();
+		/*chara->Dies();*/
+		m_Died = true;
+	}
 }

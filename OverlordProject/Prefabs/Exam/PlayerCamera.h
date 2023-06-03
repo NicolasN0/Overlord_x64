@@ -19,6 +19,7 @@ protected:
 	void Update(const SceneContext & sceneContext) override;
 
 private:
+	void CheckPlayerKill();
 
 	float m_TotalPitch{}, m_TotalYaw{};
 	float m_MoveSpeed{ 10.f }, m_RotationSpeed{ 10.f }, m_SpeedMultiplier{ 10.f };
@@ -31,5 +32,8 @@ private:
 	float m_HorCameraSpeed{ 2.f };
 	float m_CameraLerpTimer{};
 
+	//kill
+	float m_KillRange{ 8.f };
+	bool m_Died{};
 };
 

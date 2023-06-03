@@ -22,6 +22,13 @@ RasterizerState rasterState
     CullMode = BACK;
 };
 
+BlendState EnableBlending
+{
+    BlendEnable[0] = TRUE;
+    SrcBlend = SRC_ALPHA;
+    DestBlend = INV_SRC_ALPHA;
+};
+
 //IN/OUT STRUCTS
 //--------------
 struct VS_INPUT
@@ -86,6 +93,7 @@ technique11 Grayscale
     {          
         // Set states...
         SetRasterizerState(rasterState);
+        SetBlendState(EnableBlending, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
         SetDepthStencilState(depthState, 0);
 		SetVertexShader( CompileShader( vs_4_0, VS() ) );
         SetGeometryShader( NULL );

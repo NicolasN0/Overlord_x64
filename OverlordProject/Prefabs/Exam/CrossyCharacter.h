@@ -22,6 +22,7 @@ public:
 	void SetCoints(int coins);
 	int GetScore();
 	bool GetIsDead();
+	void Dies();
 	
 	void SetMove(bool canMove);
 	//splash
@@ -34,7 +35,6 @@ private:
 	//CameraComponent* m_pCameraComponent{};
 	//ControllerComponent* m_pControllerComponent{};
 	void CheckWater();
-	void Dies();
 
 	//startUp check
 	bool m_isStartupDone{};
