@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "Coin.h"
 
-Coin::Coin(int posX, int posZ)
+Coin::Coin(int posX, int posZ,RoadLane* lane)
 {
 	m_PosX = posX;
 	m_PosZ = posZ;
+
+	m_pLane = lane;
 }
 
 void Coin::PickedUp(bool picked)
@@ -39,6 +41,7 @@ void Coin::Update(const SceneContext& /*sceneContext*/)
 {
 	if(m_PickedUp)
 	{
+		m_pLane->RemoveCoin(this);
 		GetScene()->RemoveChild(this, true);
 	}
 }

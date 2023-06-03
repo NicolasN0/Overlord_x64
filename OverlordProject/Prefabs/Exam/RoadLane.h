@@ -2,6 +2,9 @@
 #include "Scenegraph/GameObject.h"
 #include <Materials/ColorMaterial.h>
 #include <Materials\Shadow\DiffuseMaterial_Shadow.h>
+
+class Coin;
+
 class RoadLane :
     public GameObject
 {
@@ -15,7 +18,7 @@ public:
 	RoadLane& operator=(RoadLane&& other) noexcept = delete;
 
 	std::vector<bool> GetObstacles();
-
+	void RemoveCoin(Coin* coin);
 protected:
 	void Initialize(const SceneContext & sceneContext) override;
 	void Update(const SceneContext & sceneContext) override;

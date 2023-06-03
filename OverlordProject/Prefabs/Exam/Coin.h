@@ -1,11 +1,12 @@
 #pragma once
 #include "Scenegraph/GameObject.h"
 #include <Materials/DiffuseMaterial.h>
+#include <Prefabs\Exam\RoadLane.h>
 class Coin :
     public GameObject
 {
 public:
-	Coin(int posX, int posZ);
+	Coin(int posX, int posZ,RoadLane* lane );
 	~Coin() override = default;
 
 	Coin(const Coin& other) = delete;
@@ -26,5 +27,7 @@ private:
 	int m_CarSpeed{};
 
 	bool m_PickedUp{};
+
+	RoadLane* m_pLane{};
 };
 

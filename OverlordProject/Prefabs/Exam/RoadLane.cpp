@@ -16,6 +16,12 @@ std::vector<bool> RoadLane::GetObstacles()
 	return m_hasObstacle;
 }
 
+void RoadLane::RemoveCoin(Coin* coin)
+{
+	m_pCoins.erase(std::remove(m_pCoins.begin(), m_pCoins.end(), coin));
+	
+}
+
 void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 {
 	//tag
@@ -84,7 +90,7 @@ void RoadLane::PlaceCoins()
 
 		if (m_hasCoin.at(i) == true)
 		{
-			GameObject* coin = GetScene()->AddChild(new Coin(i, m_Count));
+			GameObject* coin = GetScene()->AddChild(new Coin(i, m_Count,this));
 
 			m_pCoins.push_back(coin);
 		}
