@@ -36,11 +36,6 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	m_ParticlePos = GetTransform()->GetPosition();
 
-	/*m_pParticleSystemObject = AddChild(new GameObject);
-
-	m_pEmitter = m_pParticleSystemObject->AddComponent(new ParticleEmitterComponent(L"Textures/Exam/Particle/redlight2.png", m_ParticleSettings, 1));
-	m_pEmitter->GetTransform()->Translate(m_ParticlePos.x, m_ParticlePos.y+2.2f, m_ParticlePos.z-0.3f);*/
-
 	//mesh
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });
@@ -50,7 +45,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 	
-	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
+
 	GetTransform()->Translate(float(m_Width / 2), -1.f, float(1 * m_Count));
 
 
@@ -75,7 +70,7 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	model2->SetMaterial(m_pMaterialRail);
 	auto posModel = model2->GetTransform()->GetPosition();
-	model2->GetTransform()->Translate(XMFLOAT3(posModel.x, posModel.y/* + 0.5f*/, posModel.z));
+	model2->GetTransform()->Translate(XMFLOAT3(posModel.x, posModel.y, posModel.z));
 
 	//comp3
 
@@ -86,13 +81,13 @@ void TrainLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	model3->SetMaterial(m_pMaterialLight);
 	auto posModel2 = model3->GetTransform()->GetPosition();
-	model3->GetTransform()->Translate(XMFLOAT3(posModel.x, posModel.y /*+ 0.5f*/, posModel.z /*- 0.5f*/));
+	model3->GetTransform()->Translate(XMFLOAT3(posModel.x, posModel.y , posModel.z ));
 
 
 	//sound
 	SoundManager::Get()->GetSystem()->createStream("Resources/Sounds/TrainWhistle.wav", FMOD_DEFAULT, nullptr, &m_pSound);
 	m_pSound->setLoopCount(1);
-	//m_pSoundChannel->setVolume(0.05f);
+
 	
 	
 	
@@ -114,10 +109,9 @@ void TrainLane::Update(const SceneContext& sceneContext)
 			m_ParticleRunning = true;
 
 			//sound
-			//FMOD::Channel* temp{};
+			
 			SoundManager::Get()->GetSystem()->playSound(m_pSound, nullptr, false, &m_pSoundChannel);
-			//SoundManager::Get()->GetSystem()->playSound(m_pSound, nullptr, false, &temp);
-			//temp->setVolume(0.01f);
+
 			m_pSoundChannel->setVolume(0.01f);
 		}
 

@@ -22,7 +22,6 @@ protected:
 
 private:
 	DiffuseMaterial* m_pMaterial{};
-	//DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_PosX{};
 	int m_PosZ{};
 };

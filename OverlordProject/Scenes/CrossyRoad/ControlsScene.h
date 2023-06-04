@@ -20,15 +20,16 @@ private:
 	CameraComponent* m_pCameraComponent;
 
 	
+	GameObject* m_pSpriteHome;
 	GameObject* m_pSpriteButton;
 
 	GameObject* m_pTestHeight;
-
 	XMFLOAT3 m_PosSetting{};
 	float m_Height{};
 
-	GameObject* m_pSpriteHome;
-
+	//iinGame
+	bool m_isInPaused{};
+	bool m_isPlayDead{};
 	//font
 	SpriteFont* m_pFont{};
 	

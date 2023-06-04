@@ -29,8 +29,7 @@ void GrassLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	//GetTransform()->Translate(0, -2, float(1 * m_Count));
-	//GetTransform()->Translate(float(m_Width/2), -2, float(1 * m_Count));
+
 	GetTransform()->Translate(float(m_Width / 2),-1.f, float(1 * m_Count));
 	GetTransform()->Scale(2, 1, 1);
 	//initalizeObstacles
@@ -85,8 +84,7 @@ void GrassLane::PlaceObstacles()
 			int randChance = rand() % 10;
 			if(i != 0 && i != m_Width && randChance == 0)
 			{
-				GameObject* person = GetScene()->AddChild(new Person(i,m_Count));
-				//can add person?
+				GameObject* person = GetScene()->AddChild(new Person(i,m_Count));				
 				m_pObstacles.push_back(person);
 			} else 
 			{

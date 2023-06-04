@@ -6,7 +6,6 @@ void PlayerCamera::Initialize(const SceneContext& /*sceneContext*/)
 {
 	m_pCamera = new CameraComponent();
 	AddComponent(m_pCamera);
-	//SetRotation(90, 0);
 	SetRotation(70, -30);
 	//setCurPos
 	XMFLOAT3 playerPos = m_pPlayer->GetTransform()->GetPosition();
@@ -37,10 +36,6 @@ void PlayerCamera::SetOffset(float x, float y, float z)
 void PlayerCamera::Update(const SceneContext& sceneContext)
 {
 	XMFLOAT3 playerPos = m_pPlayer->GetTransform()->GetPosition();
-
-	//GetTransform()->Translate(XMFLOAT3{playerPos.x + m_Offset.x,playerPos.y + m_Offset.y,playerPos.z + m_Offset.z});
-	//time bised
-	//m_CameraLerpTimer += m_CameraSpeed * sceneContext.pGameTime->GetElapsed();
 
 	//double speed when player is going faster as camera
 	auto playerPosOffset = XMFLOAT3(playerPos.x + m_Offset.x, playerPos.y + m_Offset.y, playerPos.z + m_Offset.z);
@@ -86,8 +81,7 @@ void PlayerCamera::CheckPlayerKill()
 	if (playerPosOffset.z < m_CurPos.z - m_KillRange)
 	{
 		
-		/*CrossyCharacter* chara =*/ dynamic_cast<CrossyCharacter*>(m_pPlayer)->Dies();
-		/*chara->Dies();*/
+		dynamic_cast<CrossyCharacter*>(m_pPlayer)->Dies();		
 		m_Died = true;
 	}
 }

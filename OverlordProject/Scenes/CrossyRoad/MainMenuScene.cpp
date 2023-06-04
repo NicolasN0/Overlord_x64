@@ -41,11 +41,18 @@ void MainMenuScene::Initialize()
 	AddChild(m_pTestHeight);*/
 
 
+	////mainBackgroundTemplate
+	m_pSpriteButton = new GameObject();
+	m_pSpriteButton->AddComponent(new SpriteComponent(L"Textures/Exam/MainMenu/GP2_Exam2023_MainMenu_Template.png", { 0.5f,0.5f }));
+	AddChild(m_pSpriteButton);
+	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .9f);
+	m_pSpriteButton->GetTransform()->Scale(1.f);
+
 	////mainBack
 	m_pSpriteButton = new GameObject();
 	m_pSpriteButton->AddComponent(new SpriteComponent(L"Textures/Exam/MainMenu/MainMenuBack.png", { 0.5f,0.5f }));
 	AddChild(m_pSpriteButton);
-	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .9f);
+	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
 	m_pSpriteButton->GetTransform()->Scale(1.f);
 	 
 	
@@ -53,7 +60,7 @@ void MainMenuScene::Initialize()
 	m_pSpriteButton = new GameObject();
 	m_pSpriteButton->SetTag(L"Play");
 	m_pSpriteButton->AddComponent(new SpriteComponent(L"Textures/Exam/MainMenu/Play.png", { 0.5f,0.5f }));
-	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .8f);
+	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .7f);
 	AddChild(m_pSpriteButton);
 	//play collider
 	m_pSpriteButton = new GameObject();
@@ -68,7 +75,7 @@ void MainMenuScene::Initialize()
 	////Settings sprite
 	m_pSpriteButton = new GameObject();
 	m_pSpriteButton->AddComponent(new SpriteComponent(L"Textures/Exam/MainMenu/Settings.png", { 0.5f,0.5f }));
-	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .7f);
+	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .6f);
 	m_pSpriteButton->GetTransform()->Scale(1.f);
 	AddChild(m_pSpriteButton);
 	//Settings collider
@@ -84,7 +91,7 @@ void MainMenuScene::Initialize()
 	////Exit sprite
 	m_pSpriteButton = new GameObject();
 	m_pSpriteButton->AddComponent(new SpriteComponent(L"Textures/Exam/MainMenu/Exit.png", { 0.5f,0.5f }));
-	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .6f);
+	m_pSpriteButton->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .5f);
 	m_pSpriteButton->GetTransform()->Scale(1.f);
 	AddChild(m_pSpriteButton);
 	//exit collider
@@ -103,8 +110,6 @@ void MainMenuScene::Initialize()
 
 void MainMenuScene::Update()
 {
-
-	//m_pTestHeight->GetTransform()->Translate(0.3f,m_Height, 2.f);
 	
 	if (InputManager::IsMouseButton(InputState::pressed, VK_LBUTTON))
 	{
@@ -112,31 +117,26 @@ void MainMenuScene::Update()
 		{
 			if(pPickedObject->GetTag() == L"Play")
 			{
-				std::cout << "Play";
-
-			
-
 				auto manager = SceneManager::Get();
 				auto crossyScene = manager->GetSceneByName("CrossyRoad");
 				if(crossyScene != NULL)
 				{
 					manager->RemoveGameScene(manager->GetSceneByName("CrossyRoad"), true);
 				}
-				manager->AddGameScene(new CrossyRoadScene());
-				/*manager->NextScene();*/
+				manager->AddGameScene(new CrossyRoadScene());		
 				manager->SetSceneByName("CrossyRoad");
 			}
 
 			if (pPickedObject->GetTag() == L"Exit")
 			{
-				std::cout << "Exit";
+				
 				PostQuitMessage(0);
 				
 			}
 
 			if (pPickedObject->GetTag() == L"Settings")
 			{
-				//std::cout << "Settings";
+				
 				auto manager = SceneManager::Get();
 				manager->SetSceneByName("ControlsScene");
 			}

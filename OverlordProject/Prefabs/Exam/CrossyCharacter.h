@@ -31,6 +31,10 @@ struct CrossyCharacterDesc
 
 	float rotationSpeed{ 60.f };
 
+	//crossy
+	float jumpHeight{ 1.5f };
+	float charSpeed{ 2.5f };
+
 	int actionId_MoveLeft{ -1 };
 	int actionId_MoveRight{ -1 };
 	int actionId_MoveForward{ -1 };
@@ -67,8 +71,7 @@ protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
 private:
-	//CameraComponent* m_pCameraComponent{};
-	//ControllerComponent* m_pControllerComponent{};
+
 	void CheckWater();
 	void MoveCheckLogic(const SceneContext&);
 	void MoveTimer(const SceneContext&);
@@ -94,16 +97,14 @@ private:
 	XMFLOAT3 m_prevPos{};
 	XMFLOAT3 m_futurePos{};
 	XMFLOAT3 m_StartPos{};
-	//ColorMaterial* m_pMaterial;
 	DiffuseMaterial* m_pMaterial{};
-	//DiffuseMaterial_Skinned* m_pMaterial;
 
 	bool m_isMoving{};
 	bool m_isSinking{};
 	bool m_isDead{false};
 	float m_MaxMoveTime{1.f};
-	float m_CharSpeed{ 2.5f };
-	float m_JumpHeight{ 1.5f };
+	//float m_CharSpeed{ 2.5f };
+	//float m_JumpHeight{ 1.5f };
 	int m_Coins{};
 	int m_Score{};
 
@@ -117,7 +118,6 @@ private:
 	FMOD::Sound* m_pSoundBounce{};
 	FMOD::Sound* m_pSoundChicken{};
 	FMOD::Sound* m_pSoundSplash{};
-	//FMOD::Sound* m_pSoundCoin{};
 	FMOD::Channel* m_pSoundChannel{};
 	
 	//chicken soundDelay

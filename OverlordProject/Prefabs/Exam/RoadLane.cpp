@@ -28,8 +28,6 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 	SetTag(L"RoadLane");
 
 	//mesh
-	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
-	m_pMaterial->SetColor(XMFLOAT4{ 0.5,0.5,0.5,1 });*/
 
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 
@@ -39,13 +37,11 @@ void RoadLane::Initialize(const SceneContext& /*sceneContext*/)
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	//GetTransform()->Translate(float(m_Width / 2), -2, float(1 * m_Count));
 	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
 
 	GetTransform()->Scale(2, 1, 1);
 
 	//Car
-	/*GameObject* car =*/ 
 	m_pCar = GetScene()->AddChild(new Car(m_Width, m_Count));
 
 	//initalizeObstacles

@@ -26,6 +26,7 @@ protected:
 	void Update() override;
 	void OnGUI() override;
 	void PostDraw() override;
+	void OnSceneActivated() override;
 	void MakePauseMenu();
 	void DeletePauseMenu();
 	bool CheckPauseButton(XMFLOAT2 pos);
@@ -74,11 +75,7 @@ private:
 	GameObject* m_pSpriteHome;
 	GameObject* m_pSpriteChromBox;
 	GameObject* m_pSpriteChromCheck;
-	//colliders
-	GameObject* m_pColliderPlay;
-	GameObject* m_pColliderRestart;
-	GameObject* m_pColliderControls;
-	GameObject* m_pColliderHome;
+	
 
 	//particle
 	GameObject* m_pParticleSystemObject;

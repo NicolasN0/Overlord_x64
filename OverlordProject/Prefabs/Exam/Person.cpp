@@ -5,10 +5,10 @@
 
 Person::Person(int posX, int posZ)
 {
-	//m_Width = width;
+	
 	m_PosZ = posZ;
 	m_PosX = posX;
-	//m_CurX = float(width) / 2;
+
 }
 
 void Person::Initialize(const SceneContext& /*sceneContext*/)
@@ -27,8 +27,8 @@ void Person::Initialize(const SceneContext& /*sceneContext*/)
 	pAnimator->Play();
 
 	GetTransform()->Translate(float(m_PosX), -0.5f, float(m_PosZ));
-	//90 for lloking left
-	//GetTransform()->Rotate(0, -90, 0);
+
+	
 	GetTransform()->Scale(0.3f);
 }
 

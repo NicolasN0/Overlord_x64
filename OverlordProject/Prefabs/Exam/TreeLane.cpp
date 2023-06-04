@@ -24,16 +24,11 @@ void TreeLane::Initialize(const SceneContext& /*sceneContext*/)
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
 	m_pMaterial->SetColor(m_Color);
 
-	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
-	m_pMaterial->SetDiffuseTexture(L"Textures/GroundBrick.jpg");*/
-
-
 	AddComponent(new ModelComponent(L"Meshes/Lane.ovm",false));
 
 	GetComponent<ModelComponent>()->SetMaterial(m_pMaterial);
 
-	//GetTransform()->Translate(0, -2, float(1 * m_Count));
-	//GetTransform()->Translate(float(m_Width/2), -2, float(1 * m_Count));
+
 	GetTransform()->Translate(float(m_Width / 2), -1, float(1 * m_Count));
 	GetTransform()->Scale(2, 1, 1);
 	//initalizeObstacles

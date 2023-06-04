@@ -51,7 +51,7 @@ int LaneManager::GetWidth()
 
 void LaneManager::IncreasePlayerCount(int score)
 {
-	//m_PlayerCount += 1;
+
 	m_PlayerCount = score;
 }
 
@@ -72,14 +72,7 @@ bool LaneManager::IsOnWater(int posX, int posZ)
 
 void LaneManager::Initialize(const SceneContext& /*sceneContext*/)
 {
-	//for(int i{}; i < 7; i++)
-	//{
-	//	//MakeGrassLane();
-	//	//MakeRoadLane();
-	//	//MakeWaterLane();
-	//	MakeTrainLane();
-	//}
-
+	
 	MakeStarterTreeLanes();
 
 	//4 for fully build screen
@@ -98,29 +91,18 @@ void LaneManager::Update(const SceneContext& /*sceneContext*/)
 	//-2 is seeing one lane infront
 	if(m_PlayerCount > m_pLanes.size() - 15)
 	{
-		//UpdateLanes();
+	
 		MakeRandomLane();
 	}
 
 	CheckDeleteLanes();
-
-	//m_TestTimer += sceneContext.pGameTime->GetElapsed();
-	//if(m_TestTimer > 1.f)
-	//{
-	//	//MakeGrassLane();
-	//	MakeRandomLane();
-	//	m_TestTimer = 0;
-	//}
-	
+		
 }
 
 void LaneManager::MakeGrassLane()
 {
 	
 	GameObject* lane = GetScene()->AddChild(new GrassLane(m_LaneCounter, m_Width));
-	//AddChild(lane);
-	//GameObject* lane = AddChild(new GrassLane(m_LaneCounter, m_Width));
-	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -129,7 +111,6 @@ void LaneManager::MakeGrassLane()
 void LaneManager::MakeRoadLane()
 {
 	GameObject* lane = GetScene()->AddChild(new RoadLane(m_LaneCounter,m_Width));
-	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -138,7 +119,6 @@ void LaneManager::MakeRoadLane()
 void LaneManager::MakeWaterLane()
 {
 	GameObject* lane = GetScene()->AddChild(new WaterLane(m_LaneCounter, m_Width));
-	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -147,7 +127,6 @@ void LaneManager::MakeWaterLane()
 void LaneManager::MakeTrainLane()
 {
 	GameObject* lane = GetScene()->AddChild(new TrainLane(m_LaneCounter, m_Width));
-	//AddChild(lane);
 	m_pLanes.push_back(lane);
 	//dont use size when making new one so i can still clean up m_pLanes
 	m_LaneCounter++;
@@ -198,16 +177,11 @@ void LaneManager::MakeRandomLane()
 
 void LaneManager::UpdateLanes()
 {
-	/*for (int i{};i < 2;i++)
-	{
-
-		MakeGrassLane();
-	}*/
+	
 }
 
 void LaneManager::MakeStarterTreeLanes()
 {
-	//for (int i{ 1 }; i < 2; i++)
 	for (int i{1}; i < 8;i++)
 	{
 		auto treeLane = GetScene()->AddChild(new TreeLane(-1*i, m_Width));		

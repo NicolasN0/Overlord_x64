@@ -26,8 +26,7 @@ protected:
 	void PlaceCoins();
 
 private:
-	XMFLOAT4 m_Color{};
-	//ColorMaterial* m_pMaterial{};
+	XMFLOAT4 m_Color{};	
 	DiffuseMaterial_Shadow* m_pMaterial{};
 	int m_Count{};
 	std::vector<GameObject*> m_pObstacles{};

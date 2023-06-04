@@ -16,9 +16,7 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 	//Set Tag
 	SetTag(L"Enemy");
 
-	//Material and Model
-	/*m_pMaterial = MaterialManager::Get()->CreateMaterial<ColorMaterial>();
-	m_pMaterial->SetColor(XMFLOAT4{ 1,0,1,1 });*/
+	//Material and Model	
 	m_pMaterial = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
 	m_pMaterial->SetDiffuseTexture(L"Textures/Exam/train.png");
 
@@ -50,15 +48,8 @@ void Train::Initialize(const SceneContext& /*sceneContext*/)
 		});
 
 
-	/*auto colliderInfo = GetComponent<RigidBodyComponent>()->GetCollider(0);
-	GetTransform()->Rotate(0, 90, 0);
-	colliderInfo.SetTrigger(true);*/
-
-
 	GetTransform()->Translate(0, 0, float(m_PosZ));
 
-	//Set Train Spawn Delay
-	/*m_TrainDelay = rand() % m_TrainMaxDelay + m_TrainMinDelay;*/
 	
 }
 
@@ -67,8 +58,7 @@ void Train::Update(const SceneContext& sceneContext)
 	m_CurX += m_CarSpeed * sceneContext.pGameTime->GetElapsed();
 	GetTransform()->Translate(m_CurX, 0, float(m_PosZ));
 	if (m_CurX > m_Width * 2)
-	{
-		//m_CurX = 0;
+	{		
 		m_TrainDelayCounter += sceneContext.pGameTime->GetElapsed();
 		if(m_TrainDelayCounter > m_TrainDelay)
 		{

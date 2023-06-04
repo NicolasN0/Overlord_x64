@@ -19,7 +19,6 @@ void CrossyRoadScene::Initialize()
 	m_SceneContext.settings.drawGrid = false;
 
 	
-	//m_SceneContext.pLights->SetDirectionalLight({ -95.6139526f,66.1346436f,-41.1850471f }, { 0.740129888f, -0.597205281f, 0.309117377f });
 	m_SceneContext.pLights->SetDirectionalLight({ 0,10,0 }, { 0.740129888f, -0.597205281f, 0.309117377f });
 
 	//name
@@ -47,12 +46,6 @@ void CrossyRoadScene::Initialize()
 
 
 	//Camera
-	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer,XMFLOAT3{3,20,-3}));
-	//const auto pCamera = AddChild(new PlayerCamera(m_pPlayer, m_CameraOffset));
-
-	//m_pCameraComponent = pCamera->GetComponent<CameraComponent>();
-	//m_pCameraComponent->SetActive(true); //Uncomment to make this camera the active camera
-
 	m_pPlayerCamera = AddChild(new PlayerCamera(m_pPlayer, m_CameraOffset));
 
 	m_pCameraComponent = m_pPlayerCamera->GetComponent<CameraComponent>();
@@ -137,8 +130,6 @@ void CrossyRoadScene::Update()
 	{
 		if(!m_isBlurActive)
 		{
-			//AddPostProcessingEffect(m_pPostBlur);
-			//AddPostProcessingEffect(m_pPostGrayscale);
 			AddPostProcessingEffect(m_pPostVignette);
 			m_isBlurActive = true;
 
@@ -150,9 +141,6 @@ void CrossyRoadScene::Update()
 	{
 		if(m_isBlurActive)
 		{
-			//RemovePostProcessingEffect(m_pPostBlur);
-			//RemovePostProcessingEffect(m_pPostGrayscale);
-			//RemovePostProcessingEffect(m_pPostExam);
 			RemovePostProcessingEffect(m_pPostVignette);
 			m_isBlurActive = false;
 		}
@@ -179,7 +167,6 @@ void CrossyRoadScene::Update()
 			auto mouseCor = InputManager::GetMousePosition();
 			XMFLOAT2 mousePos{ float(mouseCor.x),float(mouseCor.y) };
 			CheckPauseButton(mousePos);
-			std::cout << mousePos.x << ' ' << mousePos.y << std::endl;
 		}
 	}
 
@@ -187,8 +174,6 @@ void CrossyRoadScene::Update()
 	//Splash
 	if (m_pPlayer->isSplashTriggered())
 	{
-		std::cout << "lily";
-
 		m_pPlayer->SetSplash(false);
 		auto playerPos = m_pPlayer->GetTransform()->GetPosition();
 
@@ -241,11 +226,20 @@ void CrossyRoadScene::PostDraw()
 
 		ShadowMapRenderer::Get()->Debug_DrawDepthSRV({ m_SceneContext.windowWidth - 10.f, 10.f }, { m_ShadowMapScale, m_ShadowMapScale }, { 1.f,0.f });
 	}
+
+}
+
+void CrossyRoadScene::OnSceneActivated()
+{
+	if(m_pPlayer->GetIsDead() || m_isPaused)
+	{
+		m_SceneContext.pGameTime->Stop();
+	}
 }
 
 void CrossyRoadScene::MakePauseMenu()
 {
-	//const auto pMaterial = PxGetPhysics().createMaterial(.5f, .5f, .5f);
+
 
 
 	////mainBack
@@ -337,8 +331,7 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		{
 			//play
 			if (pos.y > 290 && pos.y < 370)
-			{
-				std::cout << "play";
+			{				
 				UnPauseScene();
 			}
 
@@ -347,7 +340,6 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		//controls
 		if (pos.y > 390 && pos.y < 465)
 		{
-			std::cout << "controls";
 			SceneManager::Get()->SetSceneByName("ControlsScene");
 		}
 	}
@@ -357,7 +349,6 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		//restart
 		if(pos.y > 290 && pos.y < 370)
 		{
-			std::cout << "restart";
 			m_SceneContext.pGameTime->Start();
 			auto manager = SceneManager::Get();			
 			manager->AddGameScene(new RestarterScene());
@@ -367,9 +358,7 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 		//home
 		if(pos.y > 390 && pos.y < 465)
 		{
-			std::cout << "home";
-			//SceneManager::Get()->PreviousScene();
-			//Resets gameTime so need to make reset logic
+
 			SceneManager::Get()->SetSceneByName("CrossyMenu");
 			
 		}
@@ -387,19 +376,23 @@ bool CrossyRoadScene::CheckPauseButton(XMFLOAT2 pos)
 			RemovePostProcessingEffect(m_pPostExam);
 		} else 
 		{
-			m_isChromActive = true;
+			//Only work when alive
+			if(!m_pPlayer->GetIsDead())
+			{
+				m_isChromActive = true;
 
 
-			m_pSpriteChromCheck = new GameObject();
-			m_pSpriteChromCheck->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/ChromaticCheck.png", { 0.5f,0.5f }));
-			m_pSpriteChromCheck->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .3f);
-			m_pSpriteChromCheck->GetTransform()->Scale(1.f);
-			AddChild(m_pSpriteChromCheck);
+				m_pSpriteChromCheck = new GameObject();
+				m_pSpriteChromCheck->AddComponent(new SpriteComponent(L"Textures/Exam/InGameMenu/ChromaticCheck.png", { 0.5f,0.5f }));
+				m_pSpriteChromCheck->GetTransform()->Translate(m_SceneContext.windowWidth / 2.f, m_SceneContext.windowHeight / 2.f, .3f);
+				m_pSpriteChromCheck->GetTransform()->Scale(1.f);
+				AddChild(m_pSpriteChromCheck);
 
 
-			AddPostProcessingEffect(m_pPostExam);
+				AddPostProcessingEffect(m_pPostExam);
+			}
+
 		}
-		std::cout << m_isChromActive << std::endl;
 	}
 	return false;
 }

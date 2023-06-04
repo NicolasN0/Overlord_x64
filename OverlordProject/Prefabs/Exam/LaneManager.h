@@ -40,8 +40,8 @@ private:
 
 	//deleting
 	int m_DeleteCount{};
-	//8 way to go
-	int m_DeleteStepsRange{8};
+	//9 way to go
+	int m_DeleteStepsRange{9};
 	bool m_Deleted{};
 	bool m_StarterLanesDeleted{};
 };

@@ -22,7 +22,7 @@ private:
 
 
 	int m_Width{};
-	//float m_CurX{};
+	
 
 	int m_PosX{};
 	int m_PosZ{};
